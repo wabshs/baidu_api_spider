@@ -61,10 +61,7 @@ def get_html(url: str):
                zip(['param_name', 'is_requirment', 'type', 'optional_range', 'description'], tr.find_all('td'))} for tr
               in tr_list]
 
-    # 化成json
-    result_json = json.dumps(result, ensure_ascii=False)
-
-    request_parameters = result_json
+    request_parameters = result
 
     print(request_parameters)
 
@@ -79,9 +76,7 @@ def get_html(url: str):
                 zip(['param_name', 'is_requirment', 'type', 'description'], tr.find_all('td'))} for tr
                in tr_list1]
 
-    result_json1 = json.dumps(result1, ensure_ascii=False)
-
-    response_parameters = result_json1
+    response_parameters = result1
     print(response_parameters)
 
     # 返回实例 首先找到这个类
@@ -92,6 +87,18 @@ def get_html(url: str):
 
     return_example = json_str
     print(return_example)
+
+    # 组装
+    api_list = []
+
+    api_one = {"api_name": api_name, "api_description": api_description, "method": method, "base_url": base_url,
+               "header": header, "url_param": url_param, "request_parameters": request_parameters,
+               "response_parameters": response_parameters, "return_example": return_example}
+
+    api_one_json = json.dumps(api_one, ensure_ascii=False)
+
+    # 打印格式化的JSON字符串
+    print(api_one_json)
 
 
 if __name__ == '__main__':

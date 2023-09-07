@@ -32,8 +32,8 @@ def get_html(url: str):
     print(base_url)
 
     # 先寻找第一个table 然后下下个兄弟节点是我需要的
-    table = html_soup.find(
-        'table')
+    table = html_soup.find_all(
+        'table')[1]
     # print(table)
 
     # url参数
@@ -48,7 +48,7 @@ def get_html(url: str):
 
     # 开始构建参数列表
     request_parameters = []  # 里面由几个json构成
-    params_table = table.find_next_sibling().find_next_sibling().find_next_sibling().find_next_sibling().find_next_sibling()
+    params_table = html_soup.find_all('table')[3]
     # print(params_table)
 
     # 里面的tbody
@@ -68,7 +68,7 @@ def get_html(url: str):
     print(request_parameters)
 
     # 找到返回说明
-    return_h2 = html_soup.find('h3', {"id": "返回说明"})
+    return_h2 = html_soup.find('h2', {"id": "返回说明"})
     return_table = return_h2.find_next_sibling().find_next_sibling()
     return_body = return_table.find('tbody')
     # 选tr节点
@@ -101,8 +101,6 @@ def get_html(url: str):
 
     pattern = r'[\n ]'
 
-
-
     api_one_json = json.dumps(api_one, ensure_ascii=False)
 
     # 打印格式化的JSON字符串
@@ -111,4 +109,4 @@ def get_html(url: str):
 
 
 if __name__ == '__main__':
-    get_html('https://ai.baidu.com/ai-doc/OCR/Elf3sp7cz')
+    get_html('https://ai.baidu.com/ai-doc/OCR/rk3h7xzck')

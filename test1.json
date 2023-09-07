@@ -1,88 +1,186 @@
 {
-  "api_name": "图文转换器（接口版）",
-  "api_description": "图文转换器对应的接口版产品，可识别图片/PDF文档版面布局，提取文字内容，并转换为保留原文档版式的Word、Excel文档，方便二次编辑和复制，可支持含表格、印章、水印、手写等内容的文档。满足文档格式转换、企业档案电子化等信息管理需求。如需直接使用在线工具，可到控制台-图文转换器使用。",
+  "api_name": "身份证识别",
+  "api_description": "支持对二代居民身份证正反面所有8个字段进行结构化识别，包括姓名、性别、民族、出生日期、住址、身份证号、签发机关、有效期限，识别准确率超过99%；同时支持身份证正面头像检测，并返回头像切片的base64编码及位置信息。",
   "method": "POST",
-  "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/doc_convert/request",
+  "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/idcard",
   "header": "Content-Type:application/x-www-form-urlencoded",
   "url_param": "access_token",
   "request_parameters": [
     {
       "param_name": "image",
-      "is_requirment": "和 url/pdf_file 三选一",
+      "is_requirment": "和url二选一",
       "type": "string",
-      "optional_range": "图像数据，base64编码后进行urlencode，需去掉编码头（data:image/jpeg;base64, ）要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式优先级： image > url > pdf_file，当image字段存在时，url、pdf_file字段失效"
+      "optional_range": "-",
+      "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式"
     },
     {
       "param_name": "url",
-      "is_requirment": "和 image/pdf_file 三选一",
+      "is_requirment": "和image二选一",
       "type": "string",
-      "optional_range": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式优先级： image > url > pdf_file，当image字段存在时url字段失效请注意关闭URL防盗链"
+      "optional_range": "-",
+      "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
     },
     {
-      "param_name": "pdf_file",
-      "is_requirment": "和 image/url 三选一",
+      "param_name": "id_card_side",
+      "is_requirment": "是",
       "type": "string",
-      "optional_range": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不不超过10M优先级： image > url > pdf_file，当image、url字段存在时，pdf_file字段失效"
+      "optional_range": "front/back",
+      "description": "-front：身份证含照片的一面-back：身份证带国徽的一面自动检测身份证正反面，如果传参指定方向与图片相反，支持正常识别，返回参数image_status字段为\"reversed_side\""
     },
     {
-      "param_name": "pdf_file_num",
+      "param_name": "detect_risk",
       "is_requirment": "否",
       "type": "string",
-      "optional_range": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容；若不传入，默认识别文件所有页，页码从1开始"
+      "optional_range": "true/false",
+      "description": "是否开启身份证风险类型(身份证复印件、临时身份证、身份证翻拍、修改过的身份证)检测功能，默认不开启，即：false。- true：开启，请查看返回参数risk_type；- false：不开启"
+    },
+    {
+      "param_name": "detect_quality",
+      "is_requirment": "否",
+      "type": "string",
+      "optional_range": "true/false",
+      "description": "是否开启身份证质量类型(边框/四角不完整、头像或关键字段被遮挡/马赛克)检测功能，默认不开启，即：false。- true：开启，请查看返回参数card_quality；- false：不开启"
+    },
+    {
+      "param_name": "detect_photo",
+      "is_requirment": "否",
+      "type": "string",
+      "optional_range": "true/false",
+      "description": "是否检测头像内容，默认不检测。可选值：true-检测头像并返回头像的 base64 编码及位置信息"
+    },
+    {
+      "param_name": "detect_card",
+      "is_requirment": "否",
+      "type": "string",
+      "optional_range": "true/false",
+      "description": "是否检测身份证进行裁剪，默认不检测。可选值：true-检测身份证并返回证照的 base64 编码及位置信息"
+    },
+    {
+      "param_name": "detect_direction",
+      "is_requirment": "否",
+      "type": "string",
+      "optional_range": "true/false",
+      "description": "是否检测上传的身份证图片方向，默认不检测。可选值：-true：检测 - false：不检测"
     }
   ],
   "response_parameters": [
     {
-      "param_name": "success",
-      "is_requirment": "bool",
-      "type": "当前请求状态； true 表示请求成功，false表示请求异常"
-    },
-    {
       "param_name": "log_id",
-      "is_requirment": "uint64",
-      "type": "唯一的log id，用于问题定位"
+      "is_requirment": "是",
+      "type": "uint64",
+      "description": "唯一的log id，用于问题定位"
     },
     {
-      "param_name": "result",
-      "is_requirment": "dict",
-      "type": "返回的结果列表"
+      "param_name": "words_result",
+      "is_requirment": "是",
+      "type": "array[]",
+      "description": "定位和识别结果数组"
     },
     {
-      "param_name": "+ task_id",
-      "is_requirment": "string",
-      "type": "该请求生成的task_id，后续使用该task_id获取识别结果"
+      "param_name": "words_result_num",
+      "is_requirment": "是",
+      "type": "uint32",
+      "description": "识别结果数，表示words_result的元素个数"
     },
     {
-      "param_name": "code",
-      "is_requirment": "int",
-      "type": "成功状态码"
+      "param_name": "direction",
+      "is_requirment": "否",
+      "type": "int32",
+      "description": "图像方向，输入参数 detect_direction= true 时返回。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
     },
     {
-      "param_name": "message",
-      "is_requirment": "string",
-      "type": "详情"
+      "param_name": "image_status",
+      "is_requirment": "是",
+      "type": "string",
+      "description": "normal-识别正常reversed_side-身份证正反面颠倒non_idcard-上传的图片中不包含身份证blurred-身份证模糊other_type_card-其他类型证照over_exposure-身份证关键字段反光或过曝over_dark-身份证欠曝（亮度过低）unknown-未知状态"
+    },
+    {
+      "param_name": "risk_type",
+      "is_requirment": "否",
+      "type": "string",
+      "description": "输入参数 detect_risk = true 时，则返回该字段识别身份证风险类型: normal-正常身份证；copy-复印件；temporary-临时身份证；screen-翻拍；unknown-其他未知情况"
+    },
+    {
+      "param_name": "edit_tool",
+      "is_requirment": "否",
+      "type": "string",
+      "description": "如果参数 detect_risk = true 时，则返回此字段。如果检测身份证被编辑过，该字段指定编辑软件名称，如:Adobe Photoshop CC 2014 (Macintosh),如果没有被编辑过则返回值无此参数"
+    },
+    {
+      "param_name": "card_quality",
+      "is_requirment": "否",
+      "type": "object",
+      "description": "输入参数 detect_quality = true 时，则返回该字段识别身份证质量类型: IsClear - 是否清晰；IsComplete - 是否边框/四角完整；IsNoCover - 是否头像、关键字段无遮挡/马赛克。及对应的概率：IsComplete_propobility、IsClear_propobility、IsNoCover_propobility，值在0-1之间，值越大表示图像质量越好。默认阈值（仅为推荐值，建议按照实际业务场景，基于图片返回的具体概率值，自定义设置判断阈值）：当 IsClear_propobility、IsComplete_propobility 超过0.5时，对应IsClear、IsComplete 返回1，低于0.5，则返回0；当 IsNoCover_propobility 超过0.3时，对应IsNoCover 返回1，低于0.3，则返回0"
+    },
+    {
+      "param_name": "photo",
+      "is_requirment": "否",
+      "type": "string",
+      "description": "当请求参数 detect_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）"
+    },
+    {
+      "param_name": "photo_location",
+      "is_requirment": "否",
+      "type": "object",
+      "description": "当请求参数 detect_photo = true时返回，头像的位置信息（坐标0点为左上角）"
+    },
+    {
+      "param_name": "card_image",
+      "is_requirment": "否",
+      "type": "string",
+      "description": "当请求参数 detect_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）"
+    },
+    {
+      "param_name": "card_location",
+      "is_requirment": "否",
+      "type": "object",
+      "description": "当请求参数 detect_card = true时返回，身份证裁剪切图的位置信息（坐标0点为左上角）"
+    },
+    {
+      "param_name": "idcard_number_type",
+      "is_requirment": "是",
+      "type": "int",
+      "description": "用于校验身份证号码、性别、出生是否一致，输出结果及其对应关系如下：- 1： 身份证正面所有字段全为空0： 身份证证号不合法，此情况下不返回身份证证号1： 身份证证号和性别、出生信息一致2： 身份证证号和性别、出生信息都不一致3： 身份证证号和出生信息不一致4： 身份证证号和性别信息不一致"
+    },
+    {
+      "param_name": "+ location",
+      "is_requirment": "是",
+      "type": "array[]",
+      "description": "位置数组（坐标0点为左上角）"
+    },
+    {
+      "param_name": "++ left",
+      "is_requirment": "是",
+      "type": "uint32",
+      "description": "表示定位位置的长方形左上顶点的水平坐标"
+    },
+    {
+      "param_name": "++ top",
+      "is_requirment": "是",
+      "type": "uint32",
+      "description": "表示定位位置的长方形左上顶点的垂直坐标"
+    },
+    {
+      "param_name": "++ width",
+      "is_requirment": "是",
+      "type": "uint32",
+      "description": "表示定位位置的长方形的宽度"
+    },
+    {
+      "param_name": "++ height",
+      "is_requirment": "是",
+      "type": "uint32",
+      "description": "表示定位位置的长方形的高度"
+    },
+    {
+      "param_name": "+ words",
+      "is_requirment": "否",
+      "type": "string",
+      "description": "识别结果字符串"
     }
   ],
-  "return_example": [
-    {
-      "success": true,
-      "log_id": "xxxxxx",
-      "result": {
-        "task_id": "task-xxxxxxx",
-        "ret_code": 3,
-        "ret_msg": "已完成",
-        "percent": 100,
-        "result_data": {
-          "word": "word_download_url",
-          "excel": ""
-        },
-        "create_time": "2023-01-17 11:06:12",
-        "start_time": "2023-01-17 11:06:13",
-        "end_time": "2023-01-17 11:06:15"
-      },
-      "code": 1001,
-      "message": "Query task successfully!"
-      "
-    }
-  ]
+  "return_example": {
+    "log_id": "2648325511",
+    "result": "密文"
+  }
 }

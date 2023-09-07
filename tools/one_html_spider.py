@@ -62,26 +62,36 @@ def get_html(url: str):
               in tr_list]
 
     # 化成json
-    result_json = json.dumps(result,ensure_ascii=False)
+    result_json = json.dumps(result, ensure_ascii=False)
 
     request_parameters = result_json
 
-    print(result_json)
+    print(request_parameters)
 
-    # print(result)
+    # 找到返回说明
+    return_h2 = html_soup.find('h2', {"id": "返回说明"})
+    return_table = return_h2.find_next_sibling().find_next_sibling()
+    return_body = return_table.find('tbody')
+    # 选tr节点
+    tr_list1 = return_body.find_all('tr')
+    # 将tr节点四个一组封装为字典
+    result1 = [{f: td.text.strip() for f, td in
+                zip(['param_name', 'is_requirment', 'type', 'description'], tr.find_all('td'))} for tr
+               in tr_list1]
 
-    # # 构建json
-    # api_list = {}
-    # data = json.loads(json.dumps(api_list))
-    #
-    # data['api_name'] = api_name
-    # data['api_description'] = api_description
-    # data['method'] = method
-    # data['base_url'] = base_url
-    #
-    # api_list_json = json.dumps(data,ensure_ascii=False)
-    #
-    # print(api_list_json)
+    result_json1 = json.dumps(result1, ensure_ascii=False)
+
+    response_parameters = result_json1
+    print(response_parameters)
+
+    # 返回实例 首先找到这个类
+    return_example_div = html_soup.find('code', class_='language-json')
+
+    # 获取code标签中的JSON字符串
+    json_str = return_example_div.text.strip()
+
+    return_example = json_str
+    print(return_example)
 
 
 if __name__ == '__main__':

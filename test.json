@@ -23,6 +23,12 @@
               }
             ],
             "response_parameters": [
+              {
+                "param_name": "image",
+                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "type": "string",
+                 "description":""
+              }
             ],
             "return_example": {
               "log_id": 1390582998516105216,

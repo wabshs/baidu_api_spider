@@ -1,6 +1,44 @@
-{
-  "api_name": "通用文字识别（高精度版）",
-  "api_description": "在通用文字识别的基础上，提供更高精度的识别服务，支持更多语种识别（丹麦语、荷兰语、马来语、瑞典语、印尼语、波兰语、罗马尼亚语、土耳其语、希腊语、匈牙利语、泰语、越语、阿拉伯语、印地语及部分中国少数民族语言），并将字库从1w+扩展到2w+，能识别所有常用字和大部分生僻字。",
-  "method": "POST",
-  "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic"
-}
+[
+  {
+    "category_name": "文本识别",
+    "category_description": "xxxx",
+    "api_category": [
+      {
+        "api_category_name": "通用场景文字识别",
+        "api_list": [
+          {
+            "api_name": "通用文字识别（高精度版）",
+            "api_description": "在通用文字识别的基础上，提供更高精度的识别服务，支持更多语种识别（丹麦语、荷兰语、马来语、瑞典语、印尼语、波兰语、罗马尼亚语、土耳其语、希腊语、匈牙利语、泰语、越语、阿拉伯语、印地语及部分中国少数民族语言），并将字库从1w+扩展到2w+，能识别所有常用字和大部分生僻字。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic",
+            "header": "",
+            "url_param": "",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "type": "string",
+                "optional_range": "-",
+                "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+              }
+            ],
+            "response_parameters": [
+            ],
+            "return_example": {
+              "log_id": 1390582998516105216,
+              "words_result_num": 2,
+              "words_result": [
+                {
+                  "words": " OCR"
+                },
+                {
+                  "words": "百度通用文字识别高精度版"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -68,7 +68,7 @@ def get_html(url: str):
     print(request_parameters)
 
     # 找到返回说明
-    return_h2 = html_soup.find('h2', {"id": "返回说明"})
+    return_h2 = html_soup.find('h3', {"id": "返回说明"})
     return_table = return_h2.find_next_sibling().find_next_sibling()
     return_body = return_table.find('tbody')
     # 选tr节点
@@ -85,9 +85,11 @@ def get_html(url: str):
     return_example_div = html_soup.find('code', class_='language-json')
 
     # 获取code标签中的JSON字符串
-    json_str = return_example_div.text.strip()
+    json_str = return_example_div.text
 
-    return_example = json_str
+    dick = json.dumps(json_str, ensure_ascii=False, indent=4)
+
+    return_example = dick
     print(return_example)
 
     # 组装
@@ -95,18 +97,18 @@ def get_html(url: str):
 
     api_one = {"api_name": api_name, "api_description": api_description, "method": method, "base_url": base_url,
                "header": header, "url_param": url_param, "request_parameters": request_parameters,
-               "response_parameters": response_parameters, "return_example": return_example}
+               "response_parameters": response_parameters, "return_example": ""}
 
     pattern = r'[\n ]'
 
-    api_one["return_example"] = re.sub(pattern, '', api_one["return_example"])
-    api_one["return_example"] = re.sub(r'\\', '', api_one["return_example"])
+
 
     api_one_json = json.dumps(api_one, ensure_ascii=False)
 
     # 打印格式化的JSON字符串
+
     print(api_one_json)
 
 
 if __name__ == '__main__':
-    get_html('https://ai.baidu.com/ai-doc/OCR/zk3h7xz52')
+    get_html('https://ai.baidu.com/ai-doc/OCR/Elf3sp7cz')

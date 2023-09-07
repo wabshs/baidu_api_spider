@@ -1,3 +1,5 @@
+import re
+
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -41,7 +43,7 @@ def get_html(url: str):
 
     # header的table
     header_table = table.find_next_sibling().find_next()
-    header = header_table.find('td').text
+    header = header_table.find('td').text + ':application/x-www-form-urlencoded'
     print(header)
 
     # 开始构建参数列表
@@ -95,6 +97,11 @@ def get_html(url: str):
                "header": header, "url_param": url_param, "request_parameters": request_parameters,
                "response_parameters": response_parameters, "return_example": return_example}
 
+    pattern = r'[\n ]'
+
+    api_one["return_example"] = re.sub(pattern, '', api_one["return_example"])
+    api_one["return_example"] = re.sub(r'\\', '', api_one["return_example"])
+
     api_one_json = json.dumps(api_one, ensure_ascii=False)
 
     # 打印格式化的JSON字符串
@@ -102,4 +109,4 @@ def get_html(url: str):
 
 
 if __name__ == '__main__':
-    get_html('https://ai.baidu.com/ai-doc/OCR/1k3h7y3db')
+    get_html('https://ai.baidu.com/ai-doc/OCR/zk3h7xz52')

@@ -1,0 +1,1864 @@
+[
+  {
+    "category_name": "自然语言处理技术",
+    "category_description": "本文档主要针对初次接触百度自然语言处理技术的开发者，为了让您能够更方便快速地找到产品说明，我们准备了一份导览文档，请您查看",
+    "api_category": [
+      {
+        "api_category_name": "语言理解技术",
+        "api_list": [
+          {
+            "api_name": "地址识别",
+            "api_description": "针对快递、电商行业中客户在线提交的大量非结构化地址单据，该接口可以帮助提取快递填单文本中的姓名、电话、地址信息，通过自然语言处理辅助地址识别，生成标准规范的结构化信息，大幅提升企业处理单据的效率。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/address",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "待识别的文本内容，不超过1000字节"
+              },
+              {
+                "param_name": "confidence",
+                "type": "int",
+                "is_requirement": "否",
+                "description": "不设置时默认为-1"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "text",
+                "type": "string",
+                "description": "原始输入的文本内容"
+              },
+              {
+                "param_name": "province",
+                "type": "string",
+                "description": "省（直辖市/自治区）"
+              },
+              {
+                "param_name": "province_code",
+                "type": "string",
+                "description": "省国标code"
+              },
+              {
+                "param_name": "city",
+                "type": "string",
+                "description": "市"
+              },
+              {
+                "param_name": "city_code",
+                "type": "string",
+                "description": "城市国标code"
+              },
+              {
+                "param_name": "county",
+                "type": "string",
+                "description": "区（县）"
+              },
+              {
+                "param_name": "county_code",
+                "type": "string",
+                "description": "区县国标code"
+              },
+              {
+                "param_name": "town",
+                "type": "string",
+                "description": "街道（乡/镇）"
+              },
+              {
+                "param_name": "town_code",
+                "type": "string",
+                "description": "街道/乡镇国标code"
+              },
+              {
+                "param_name": "person",
+                "type": "string",
+                "description": "姓名"
+              },
+              {
+                "param_name": "detail",
+                "type": "string",
+                "description": "详细地址"
+              },
+              {
+                "param_name": "phonenum",
+                "type": "string",
+                "description": "电话号码"
+              },
+              {
+                "param_name": "lat",
+                "type": "float",
+                "description": "纬度（百度坐标，仅供参考）"
+              },
+              {
+                "param_name": "Ing",
+                "type": "float",
+                "description": "经度（百度坐标，仅供参考）"
+              }
+            ],
+            "return_example": {
+              "province": "上海市",
+              "city": "上海市",
+              "province_code": "310000",
+              "log_id": 1420038644986026316,
+              "text": "上海市浦东新区纳贤路701号百度上海研发中心 F4A000 张三",
+              "town": "张江镇",
+              "phonenum": "",
+              "detail": "纳贤路701号百度上海研发中心F4A000",
+              "county": "浦东新区",
+              "person": "张三",
+              "town_code": "310115125",
+              "county_code": "310115",
+              "city_code": "310100"
+            }
+          },
+          {
+            "api_name": "情感倾向分析",
+            "api_description": "情感倾向分析接口：对只包含单一主体主观信息的文本，进行自动情感倾向性判断（积极、消极、中性），并给出相应的置信度。为口碑分析、话题监控、舆情分析等应用提供基础技术支持。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/sentiment_classify",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "is_requirement": "文本内容，最大2048字节"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "sentiment",
+                "type": "int",
+                "description": "表示情感极性分类结果，0:负向，1:中性，2:正向"
+              },
+              {
+                "param_name": "confidence",
+                "type": "float",
+                "description": "表示分类的置信度，取值范围[0,1]"
+              },
+              {
+                "param_name": "positive_prob",
+                "type": "float",
+                "description": "表示属于积极类别的概率 ，取值范围[0,1]"
+              },
+              {
+                "param_name": "negative_prob",
+                "type": "float",
+                "description": "表示属于消极类别的概率，取值范围[0,1]"
+              }
+            ],
+            "return_example": {
+              "text": "我爱祖国",
+              "items": [
+                {
+                  "sentiment": 2,
+                  "confidence": 0.90,
+                  "positive_prob": 0.94,
+                  "negative_prob": 0.06
+                }
+              ]
+            }
+          },
+          {
+            "api_name": "评论观点抽取",
+            "api_description": "评论观点抽取接口：提取评论句子的关注点和评论观点，并输出评论观点标签及评论观点极性。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v2/comment_tag",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "必选",
+                "is_requirement": "string",
+                "description": "评论内容，最大10240字节"
+              },
+              {
+                "param_name": "type",
+                "type": "可选",
+                "is_requirement": "int",
+                "description": "评论行业类型，默认为4（餐饮美食）"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "prop",
+                "type": "string",
+                "description": "匹配上的属性词"
+              },
+              {
+                "param_name": "adj",
+                "type": "string",
+                "description": "匹配上的描述词"
+              },
+              {
+                "param_name": "sentiment",
+                "type": "int",
+                "description": "该情感搭配的极性（0表示消极，1表示中性，2表示积极）"
+              },
+              {
+                "param_name": "begin_pos",
+                "type": "int",
+                "description": "该情感搭配在句子中的开始位置"
+              },
+              {
+                "param_name": "end_pos",
+                "type": "int",
+                "description": "该情感搭配在句子中的结束位置"
+              },
+              {
+                "param_name": "abstract",
+                "type": "string",
+                "description": "对应于该情感搭配的短句摘要"
+              }
+            ],
+            "return_example": {
+              "items": [
+                {
+                  "prop": "电池",
+                  "adj": "不给力",
+                  "sentiment": 0,
+                  "begin_pos": 8,
+                  "end_pos": 18,
+                  "abstract": "三星电脑<span>电池不给力</span>"
+                }
+              ]
+            }
+          },
+          {
+            "api_name": "对话情绪识别",
+            "api_description": "针对用户日常沟通文本背后所蕴含情绪的一种直观检测，可自动识别出当前会话者所表现出的一级和二级细分情绪类别及其置信度，针对正面和负面的情绪，还可给出参考回复话术。帮助企业更全面地把握产品服务质量、监控客户服务质量。在自动监控中如果发现有负面情绪出现，可以及时介入人工处理，帮助在有限的人工客服条件下，减少客户流失。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/emotion",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "待识别情感文本，输入限制512字节"
+              },
+              {
+                "param_name": "scene",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "default（默认项-不区分场景），talk（闲聊对话-如度秘聊天等），task（任务型对话-如导航对话等），customer_service（客服对话-如电信/银行客服等）"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "text",
+                "type": "string",
+                "description": "输入的对话文本内容"
+              },
+              {
+                "param_name": "items",
+                "type": "list",
+                "description": "分析结果数组"
+              },
+              {
+                "param_name": "++label",
+                "type": "string",
+                "description": "情绪一级分类标签；pessimistic（负向情绪）、neutral（中性情绪）、optimistic（正向情绪）"
+              },
+              {
+                "param_name": "++prob",
+                "type": "double",
+                "description": "情绪一级分类标签对应的概率"
+              },
+              {
+                "param_name": "++subitems",
+                "type": "double",
+                "description": "二级分析结果数组"
+              },
+              {
+                "param_name": "+++label",
+                "type": "string",
+                "description": "情绪二级分类标签；客服模型正向（thankful感谢、happy愉快）、客服模型负向（complaining抱怨、angry愤怒）；闲聊模型正向（like喜爱、happy愉快）、闲聊模型负向（angry愤怒、disgusting厌恶、fearful恐惧、sad悲伤）"
+              },
+              {
+                "param_name": "+++prob",
+                "type": "double",
+                "description": "情绪二级分类标签对应的概率"
+              },
+              {
+                "param_name": "+++replies",
+                "type": "array of string",
+                "description": "参考回复话术，中性情绪下该项为空"
+              }
+            ],
+            "return_example": {
+              "log_id": 4258005459150262970,
+              "text": "你真棒",
+              "items": [
+                {
+                  "prob": 0.97848,
+                  "label": "optimistic",
+                  "subitems": [
+                    {
+                      "prob": 0.656986,
+                      "label": "like",
+                      "replies": [
+                        "谢谢，我很开心"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "api_name": "词法分析",
+            "api_description": "词法分析：向用户提供分词、词性标注、专名识别三大功能；能够识别出文本串中的基本词汇（分词），对这些词汇进行重组、标注组合后词汇的词性，并进一步识别出命名实体。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/lexer",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "is_requirement": "待分析文本，长度不超过20000字节"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "description": "是"
+              },
+              {
+                "param_name": "items",
+                "type": "array  of objects",
+                "description": "是"
+              },
+              {
+                "param_name": "+item",
+                "type": "string",
+                "description": "是"
+              },
+              {
+                "param_name": "+ne",
+                "type": "string",
+                "description": "是"
+              },
+              {
+                "param_name": "+pos",
+                "type": "string",
+                "description": "是"
+              },
+              {
+                "param_name": "+byte_offset",
+                "type": "int",
+                "description": "是"
+              },
+              {
+                "param_name": "+byte_length",
+                "type": "int",
+                "description": "是"
+              },
+              {
+                "param_name": "+uri",
+                "type": "string",
+                "description": "否"
+              },
+              {
+                "param_name": "+formal",
+                "type": "string",
+                "description": "否"
+              },
+              {
+                "param_name": "+basic_words",
+                "type": "array of strings",
+                "description": "是"
+              },
+              {
+                "param_name": "+loc_details",
+                "type": "array  of objects",
+                "description": "否"
+              },
+              {
+                "param_name": "++type",
+                "type": "string",
+                "description": "是"
+              },
+              {
+                "param_name": "++byte_offset",
+                "type": "int",
+                "description": "是"
+              },
+              {
+                "param_name": "++byte_length",
+                "type": "int",
+                "description": "是"
+              }
+            ],
+            "return_example": {
+              "text": "百度是一家高科技公司",
+              "items": [
+                {
+                  "byte_length": 4,
+                  "byte_offset": 0,
+                  "formal": "",
+                  "item": "百度",
+                  "ne": "ORG",
+                  "pos": "",
+                  "uri": "",
+                  "loc_details": [],
+                  "basic_words": [
+                    "百度"
+                  ]
+                },
+                {
+                  "byte_length": 2,
+                  "byte_offset": 4,
+                  "formal": "",
+                  "item": "是",
+                  "ne": "",
+                  "pos": "v",
+                  "uri": "",
+                  "loc_details": [],
+                  "basic_words": [
+                    "是"
+                  ]
+                },
+                {
+                  "byte_length": 4,
+                  "byte_offset": 6,
+                  "formal": "",
+                  "item": "一家",
+                  "ne": "",
+                  "pos": "m",
+                  "uri": "",
+                  "loc_details": [],
+                  "basic_words": [
+                    "一",
+                    "家"
+                  ]
+                },
+                {
+                  "byte_length": 6,
+                  "byte_offset": 10,
+                  "formal": "",
+                  "item": "高科技",
+                  "ne": "",
+                  "pos": "n",
+                  "uri": "",
+                  "loc_details": [],
+                  "basic_words": [
+                    "高",
+                    "科技"
+                  ]
+                },
+                {
+                  "byte_length": 4,
+                  "byte_offset": 16,
+                  "formal": "",
+                  "item": "公司",
+                  "ne": "",
+                  "pos": "n",
+                  "uri": "",
+                  "loc_details": [],
+                  "basic_words": [
+                    "公司"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "api_name": "实体分析",
+            "api_description": "百度AI开放平台-实体分析接口，结合上下文，识别文本中的实体并将其关联到百科知识库中的唯一实体对象。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/entity_analysis",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "需要进行实体分析的文本（最多128个汉字）"
+              },
+              {
+                "param_name": "mention",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "输入需要指定分析的实体"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "text",
+                "type": "string",
+                "description": "需要进行实体分析的文本"
+              },
+              {
+                "param_name": "entity_analysis",
+                "type": "array",
+                "description": "实体标注结果的数组集合"
+              },
+              {
+                "param_name": "mention",
+                "type": "string",
+                "description": "识别出的实体"
+              },
+              {
+                "param_name": "category",
+                "type": "array",
+                "description": "实体概念分析结果"
+              },
+              {
+                "param_name": "+level_1",
+                "type": "string",
+                "description": "一级概念"
+              },
+              {
+                "param_name": "+level_2",
+                "type": "string",
+                "description": "二级概念"
+              },
+              {
+                "param_name": "+level_3",
+                "type": "string",
+                "description": "三级概念"
+              },
+              {
+                "param_name": "confidence",
+                "type": "string",
+                "description": "实体关联至该百科内容的置信度"
+              },
+              {
+                "param_name": "desc",
+                "type": "string",
+                "description": "实体的简介"
+              },
+              {
+                "param_name": "status",
+                "type": "string",
+                "description": "用于对关联结果进行标识，包括LINKED（正常关联）、 NIL（无关联内容）"
+              }
+            ],
+            "return_example": {
+              "log_id": 1422384097687362147,
+              " text ": "马布里",
+              " entity_analysis ": [
+                {
+                  "mention": "马布里",
+                  "category": {
+                    "level_1": "人物",
+                    "level_2": "体育人物",
+                    "level_3": "主教练"
+                  },
+                  "confidence": 0.9993299245834351,
+                  "desc": "前NBA,CBA球员，现北京紫禁勇士男篮主教练",
+                  "status": "LINKED"
+                }
+              ]
+            }
+          },
+          {
+            "api_name": "短文本相似度",
+            "api_description": "\n本接口已于2021年10月1日升级，基于百度自研的ERNIE预训练语言模型，该算子具备更强语义理解能力，能够深层理解文本间的语义关系。\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v2/simnet",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text_1",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "待比较文本1，最大512字节"
+              },
+              {
+                "param_name": "text_2",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "待比较文本2，最大512字节"
+              },
+              {
+                "param_name": "model",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "默认为\"ERNIE\""
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "随机数，请求唯一标识码"
+              },
+              {
+                "param_name": "score",
+                "type": "float",
+                "description": "相似度结果取值(0,1]，分数越高说明相似度越高"
+              }
+            ],
+            "return_example": {
+              "log_id": 12345,
+              "texts": {
+                "text_1": "浙富股份",
+                "text_2": "万事通自考网"
+              },
+              "score": 0.3300237655639648
+            }
+          },
+          {
+            "api_name": "文本纠错",
+            "api_description": "识别输入文本中有错误的片段，提示错误并给出正确的文本结果。支持短文本、长文本、语音等内容的错误识别，纠错是搜索引擎、语音识别、内容审查等功能更好运行的基础模块之一。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/ecnet",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "is_requirement": "待纠错文本，输入限制550个汉字",
+                "description": "必填"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "+correct_query",
+                "type": "string",
+                "description": "纠错后的文本"
+              },
+              {
+                "param_name": "+score",
+                "type": "double",
+                "description": "模型置信度打分。备注：若score返回为数字7，表示输入不合法，比如输入过长或过短。该情况没有纠错结果。"
+              },
+              {
+                "param_name": "item",
+                "type": "object",
+                "description": "分析结果"
+              },
+              {
+                "param_name": "+vec_fragment",
+                "type": "list",
+                "description": "替换候选片段信息"
+              },
+              {
+                "param_name": "++ori_frag",
+                "type": "string",
+                "description": "原片段"
+              },
+              {
+                "param_name": "++correct_frag",
+                "type": "string",
+                "description": "替换片段"
+              },
+              {
+                "param_name": "++begin_pos",
+                "type": "int",
+                "description": "片段起始"
+              },
+              {
+                "param_name": "++end_pos",
+                "type": "int",
+                "description": "片段结尾"
+              }
+            ],
+            "return_example": {
+              "item": {
+                "vec_fragment": [
+                  {
+                    "end_pos": 11,
+                    "begin_pos": 5,
+                    "correct_frag": "人工智能公司",
+                    "ori_frag": "人工只能公司"
+                  }
+                ],
+                "score": 0.0,
+                "correct_query": "百度是一家人工智能公司"
+              },
+              "text": "百度是一家人工只能公司",
+              "log_id": 1607927786443355511
+            }
+          },
+          {
+            "api_name": "文本纠错-高级版",
+            "api_description": "纠错是搜索引擎、语音识别、内容审查等功能更好运行的基础模块之一。文本纠错-高级版，能够识别输入文本中有错误的片段，提示错误并给出正确的文本结果。支持字词、标点、语法、专名、地址纠错。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v2/text_correction",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "is_requirement": "待纠错文本，字数上限为3000字节（汉字=3字节）",
+                "description": "必填"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "text",
+                "type": "string",
+                "description": "纠错前的文本"
+              },
+              {
+                "param_name": "+correct_query",
+                "type": "string",
+                "description": "纠错后的文本"
+              },
+              {
+                "param_name": "content_len",
+                "type": "int",
+                "description": "content的长度"
+              },
+              {
+                "param_name": "details",
+                "type": "list",
+                "description": "纠错信息列表"
+              },
+              {
+                "param_name": "sentence_id",
+                "type": "int",
+                "description": "子句id(子句为最细标点符号切割粒度)"
+              },
+              {
+                "param_name": "sentence",
+                "type": "string",
+                "description": "原始子句文本"
+              },
+              {
+                "param_name": "sentence_fixed",
+                "type": "string",
+                "description": "纠正后的子句文本"
+              },
+              {
+                "param_name": "+score",
+                "type": "double",
+                "description": "模型置信度打分。备注：若score返回为数字7，表示输入不合法，比如输入过长或过短。该情况没有纠错结果。"
+              },
+              {
+                "param_name": "item",
+                "type": "object",
+                "description": "分析结果"
+              },
+              {
+                "param_name": "+vec_fragment",
+                "type": "list",
+                "description": "替换候选片段信息"
+              },
+              {
+                "param_name": "++ori_frag",
+                "type": "string",
+                "description": "原片段"
+              },
+              {
+                "param_name": "++correct_frag",
+                "type": "string",
+                "description": "替换片段"
+              },
+              {
+                "param_name": "++begin_pos",
+                "type": "int",
+                "description": "片段起始"
+              },
+              {
+                "param_name": "++end_pos",
+                "type": "int",
+                "description": "片段结尾"
+              },
+              {
+                "param_name": "++explain",
+                "type": "string",
+                "description": "纠错释义"
+              },
+              {
+                "param_name": "explain_long",
+                "type": "string",
+                "description": "详细的释义信息，说明常用字/词纠错的具体原因"
+              },
+              {
+                "param_name": "explain_structure",
+                "type": "string",
+                "description": "涉政相关的结构化释义信息"
+              },
+              {
+                "param_name": "++operation",
+                "type": "int",
+                "description": "建议操作类型，0:检查，1:交换，2:替换，3:插入，4:删除"
+              },
+              {
+                "param_name": "++label",
+                "type": "string",
+                "description": "错误类型。010100:别字，010200:别词， 010600:诗词错误, 020100:标点误用，020200:标点缺失，020300:标点冗余，030100:语法错误-冗余，030200:语法错误-缺失，030300:语法错误-乱序， 030400:语法错误-语句不通, 040101:人名专名错误，040102:职务专名错误，040200：专名搭配错误，040300:专名排序错误，040400:术语错误，060100:地址别字，060200:地址搭配错误，060300:地址缺失错误"
+              },
+              {
+                "param_name": "error_num",
+                "type": "int",
+                "description": "纠错片段数量"
+              },
+              {
+                "param_name": "begin_sentence_offset",
+                "type": "int",
+                "description": "子句在content中的起始位置(长度单位)"
+              },
+              {
+                "param_name": "end_sentence_offset",
+                "type": "int",
+                "description": "子句在content中的结尾位置(长度单位)"
+              },
+              {
+                "param_name": "begin_psent_cont_offset",
+                "type": "int",
+                "description": "子句所属句子在content中的起始位置(长度单位)"
+              },
+              {
+                "param_name": "end_psent_cont_offset",
+                "type": "int",
+                "description": "子句所属句子在content中的结尾位置(长度单位)"
+              }
+            ],
+            "return_example": {
+              "item": {
+                "text": "实现祖国完全统一，是全体中华儿女共同愿望，解决台湾问题，是中华民族根本利益所在。推动两岸关系和平发展，必须继续坚持“和平统一、一郭两制”方针，退进祖国和平统一。",
+                "error_num": 2,
+                "correct_query": "实现祖国完全统一，是全体中华儿女共同愿望，解决台湾问题，是中华民族根本利益所在。推动两岸关系和平发展，必须继续坚持“和平统一、一国两制”方针，推进祖国和平统一。",
+                "content_len": 80,
+                "details": [
+                  {
+                    "sentence_fixed": "必须继续坚持“和平统一、一国两制”方针，",
+                    "begin_sentence_offset": 51,
+                    "vec_fragment": [
+                      {
+                        "explain_long": "",
+                        "operation": 2,
+                        "explain": "建议用“一国两制”替换“一郭两制”",
+                        "label": "040400",
+                        "score": 1.0,
+                        "begin_pos": 63,
+                        "end_pos": 67,
+                        "ori_frag": "一郭两制",
+                        "correct_frag": "一国两制",
+                        "explain_structure": "{\"时间\":\"\",\"事件\":\"\",\"含义\":\"\",\"详细内容\":\"“一国两制”的基本内容是：在一个中国的前提下，国家的主体坚持社会主义制度；香港、澳门、台湾是中华人民共和国不可分离的部分，它们作为特别行政区保持原有的资本主义制度长期不变。在国际上代表中国的，只能是中华人民共和国。“一国两制”是中国的一个伟大创举，是中华民族为世界和平与发展作出的新贡献。习近平在庆祝澳门回归祖国15周年大会暨澳门特别行政区第四届政府就职典礼、庆祝香港回归祖国20周年大会暨香港特别行政区第五届政府就职典礼等重要场合，对深入推进“一国两制”实践作出了重要综述。继续推进“一国两制”事业，是中央政府、特别行政区政府和包括港澳同胞在内的全国各族人民的共同使命。中央贯彻“一国两制”方针坚持两点，一是坚定不移，不会变、不动摇；二是全面准确，确保“一国两制”在港澳的实践不走样、不变形，始终沿着正确方向前进。事实证明，“一国两制”在港澳的实践已经取得了举世公认的成功。当然，作为一项前无古人的开创性事业，“一国两制”的实践不会一帆风顺，需要在实践中不断探索。\",\"类别\":\"政治\"}"
+                      }
+                    ],
+                    "sentence": "必须继续坚持“和平统一、一郭两制”方针，",
+                    "sentence_id": 5,
+                    "end_psent_cont_offset": 80,
+                    "end_sentence_offset": 71,
+                    "begin_psent_cont_offset": 40
+                  },
+                  {
+                    "sentence_fixed": "推进祖国和平统一。",
+                    "begin_sentence_offset": 71,
+                    "vec_fragment": [
+                      {
+                        "explain_long": "",
+                        "operation": 2,
+                        "explain": "建议用“推进”替换“退进”",
+                        "label": "010200",
+                        "score": 0.7009568214416504,
+                        "begin_pos": 71,
+                        "end_pos": 73,
+                        "ori_frag": "退进",
+                        "correct_frag": "推进",
+                        "explain_structure": ""
+                      }
+                    ],
+                    "sentence": "退进祖国和平统一。",
+                    "sentence_id": 6,
+                    "end_psent_cont_offset": 80,
+                    "end_sentence_offset": 80,
+                    "begin_psent_cont_offset": 40
+                  }
+                ]
+              },
+              "log_id": 1607933485727930154
+            }
+          },
+          {
+            "api_name": "关键词提取",
+            "api_description": "能够从文本中自动抽取若干个反映文本主题、话题、实体等方面的关键词或短语。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/txt_keywords_extraction",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "原文本内容，最大65535字符（1个汉字=1个字符），建议在文本中同一词语的出现次数少于500次"
+              },
+              {
+                "param_name": "num",
+                "type": "int",
+                "is_requirement": "否",
+                "description": "需要提取的关键词数量的最大值，取值为大于等于1的正整数，无num字段时返回全部关键词（提示：num取值较大时，返回的关键词数量可能小于num值）"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "results",
+                "type": "array",
+                "description": "关键词提取结果的数组集合"
+              },
+              {
+                "param_name": "+score",
+                "type": "float",
+                "description": "关键词的置信度，数值范围[0,1]"
+              },
+              {
+                "param_name": "+word",
+                "type": "string",
+                "description": "提取出的关键词"
+              }
+            ],
+            "return_example": {
+              "log_id": 123123,
+              "results": [
+                {
+                  "score": 0.2669559478242008,
+                  "word": "颜勤礼碑"
+                },
+                {
+                  "score": 0.25579790927326845,
+                  "word": "书法"
+                },
+                {
+                  "score": 0.23924662247807055,
+                  "word": "原碑"
+                },
+                {
+                  "score": 0.23799952042446024,
+                  "word": "唐颜真卿"
+                }
+              ]
+            }
+          },
+          {
+            "api_name": "中文词向量表示",
+            "api_description": "本接口已于2017年5月25日升级，仅支持中文词向量查询。如果希望查询两个词的相似度，可使用词义相似度。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v2/word_emb_vec",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "word",
+                "type": "是",
+                "is_requirement": "string",
+                "description": "文本内容，最大64字节"
+              },
+              {
+                "param_name": "dem",
+                "type": "否",
+                "is_requirement": "int",
+                "description": "词向量维度。默认值为0(对应1024维)，目前仅支持dem=0"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "word",
+                "type": "string",
+                "description": "查询词"
+              },
+              {
+                "param_name": "vec",
+                "type": "float",
+                "description": "词向量结果表示"
+              }
+            ],
+            "return_example": {
+              "word": "张飞",
+              "vec": [
+                0.233962,
+                0.336867,
+                0.187044,
+                0.565261,
+                0.191568,
+                0.450725,
+                0.43869,
+                -0.448038,
+                0.283711,
+                -0.233656,
+                0.555556
+              ]
+            }
+          },
+          {
+            "api_name": "词义相似度",
+            "api_description": "输入两个词，得到两个词的词义相似度结果。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v2/word_emb_sim",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "word_1",
+                "type": "是",
+                "is_requirement": "string",
+                "description": "词1，最大64字节"
+              },
+              {
+                "param_name": "word_2",
+                "type": "是",
+                "is_requirement": "string",
+                "description": "词2，最大64字节"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码,随机数"
+              },
+              {
+                "param_name": "score",
+                "type": "float",
+                "description": "相似度结果，(0,1]，分数越高说明相似度越高"
+              }
+            ],
+            "return_example": {
+              "score": 0.456862,
+              "words": {
+                "word_1": "北京",
+                "word_2": "上海"
+              }
+            }
+          },
+          {
+            "api_name": "依存句法分析",
+            "api_description": "依存句法分析接口可自动分析文本中的依存句法结构信息，利用句子中词与词之间的依存关系来表示词语的句法结构信息（如“主谓”、“动宾”、“定中”等结构关系），并用树状结构来表示整句的结构（如“主谓宾”、“定状补”等）。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v2/depparser",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "待分析文本，长度不超过128字符"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "随机数，本次请求的唯一标识码"
+              },
+              {
+                "param_name": "text",
+                "type": "string",
+                "description": "请求中的待分析文本"
+              },
+              {
+                "param_name": "items",
+                "type": "list",
+                "description": "分析文本按词维度的分析结果，数组形式"
+              },
+              {
+                "param_name": "+id",
+                "type": "int",
+                "description": "词的ID"
+              },
+              {
+                "param_name": "+word",
+                "type": "string",
+                "description": "词"
+              },
+              {
+                "param_name": "+postag",
+                "type": "string",
+                "description": "词性，请参照下方词性（postag)取值范围"
+              },
+              {
+                "param_name": "+head",
+                "type": "int",
+                "description": "词的父节点ID"
+              },
+              {
+                "param_name": "+deprel",
+                "type": "string",
+                "description": "词与父节点的依存关系，请参照下方依存关系标识"
+              }
+            ],
+            "return_example": {
+              "log_id": 12345,
+              "text": "今天天气怎么样",
+              "items": [
+                {
+                  "id": "1",
+                  "word": "今天",
+                  "postag": "TIME",
+                  "head": "2",
+                  "deprel": "ATT"
+                },
+                {
+                  "id": "2",
+                  "word": "天气",
+                  "postag": "n",
+                  "head": "3",
+                  "deprel": "SBV"
+                },
+                {
+                  "id": "3",
+                  "word": "怎么样",
+                  "postag": "r",
+                  "head": "0",
+                  "deprel": "HED"
+                }
+              ]
+            }
+          },
+          {
+            "api_name": "中文DNN语言模型",
+            "api_description": "中文DNN语言模型接口用于输出切词结果并给出每个词在句子中的概率值,判断一句话是否符合语言表达习惯。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v2/dnnlm_cn",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "string",
+                "is_requirement": "文本内容，最大256字节，不需要切词"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "word",
+                "type": "string",
+                "description": "句子的切词结果"
+              },
+              {
+                "param_name": "prob",
+                "type": "float",
+                "description": "该词在句子中的概率值,取值范围[0,1]"
+              },
+              {
+                "param_name": "ppl",
+                "type": "float",
+                "description": "描述句子通顺的值：数值越低，句子越通顺"
+              }
+            ],
+            "return_example": {
+              "text": "床前明月光",
+              "items": [
+                {
+                  "word": "床",
+                  "prob": 0.0000385273
+                },
+                {
+                  "word": "前",
+                  "prob": 0.0289018
+                },
+                {
+                  "word": "明月",
+                  "prob": 0.0284406
+                },
+                {
+                  "word": "光",
+                  "prob": 0.808029
+                }
+              ],
+              "ppl": 79.0651
+            }
+          },
+          {
+            "api_name": "文本信息提取",
+            "api_description": "能够根据用户输入的短语或问题，自动提取出包括但不限于实体、关系、事件论元、事件描述等文本信息，帮助用户快速理解文本核心内容，适用于媒体、金融、政务、法律等多领域的文本理解和信息提取场景。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/txt_monet",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "content_list",
+                "type": "array",
+                "is_requirement": "是",
+                "description": "输入的文本列表，支持不超过2段的文本进行批量提取"
+              },
+              {
+                "param_name": "+content",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "输入文本，每段文本不超过450个字符"
+              },
+              {
+                "param_name": "+query_list",
+                "type": "array",
+                "is_requirement": "是",
+                "description": "用户自定义的短语（或问题）列表，每段文本的短语（或问题）数量不超过5个"
+              },
+              {
+                "param_name": "++query",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "用户自定义的短语（或问题）"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "results_list",
+                "type": "array",
+                "description": "输入的原文本内容列表"
+              },
+              {
+                "param_name": "+content",
+                "type": "string",
+                "description": "原文本内容"
+              },
+              {
+                "param_name": "+results",
+                "type": "array",
+                "description": "针对原文本提出的所有query的返回结果列表"
+              },
+              {
+                "param_name": "++items",
+                "type": "array",
+                "description": "每个query的返回结果集合"
+              },
+              {
+                "param_name": "+++text",
+                "type": "string",
+                "description": "每个query的返回结果"
+              },
+              {
+                "param_name": "+++prob",
+                "type": "float",
+                "description": "返回结果的起始位置概率和结束位置概率的乘积"
+              },
+              {
+                "param_name": "+++start_offset",
+                "type": "int",
+                "description": "返回结果的起始位置"
+              },
+              {
+                "param_name": "+++end_offset",
+                "type": "int",
+                "description": "返回结果的结束位置"
+              }
+            ],
+            "request_example": {
+              "content_list": [
+                {
+                  "content": "俄对乌空袭是对克里米亚大桥爆炸事件的回应。当地时间10月10日，乌克兰国家紧急事务局表示，空袭影响了乌克兰八个州和基辅市的关键基础设施，部分地区处于断水、断电状态。乌克兰能源部长加卢先科表示，当天能源系统遭到的攻击是自俄乌冲突开始以来最大的一次。据乌克兰国家紧急事务局10月11日通报的最新数据，10日俄罗斯对乌克兰各地的导弹打击已造成乌方19人死亡、105人受伤。",
+                  "query_list": [
+                    {
+                      "query": "空袭时间"
+                    },
+                    {
+                      "query": "死亡人数"
+                    }
+                  ]
+                },
+                {
+                  "content": "《如果我爱你》是由海润影视与明道工作室联合出品，徐辅军执导，明道、李沁、胡兵、白歆惠、狄杰等人气明星联袂主演的浪漫偶像剧。剧情跌宕起伏，非常精彩。",
+                  "query_list": [
+                    {
+                      "query": "如果我爱你的出品公司"
+                    },
+                    {
+                      "query": "主演"
+                    }
+                  ]
+                }
+              ]
+            },
+            "return_example": {
+              "results_list": [
+                {
+                  "content": "俄对乌空袭是对克里米亚大桥爆炸事件的回应。当地时间10月10日，乌克兰国家紧急事务局表示，空袭影响了乌克兰八个州和基辅市的关键基础设施，部分地区处于断水、断电状态。乌克兰能源部长加卢先科表示，当天能源系统遭到的攻击是自俄乌冲突开始以来最大的一次。据乌克兰国家紧急事务局10月11日通报的最新数据，10日俄罗斯对乌克兰各地的导弹打击已造成乌方19人死亡、105人受伤。",
+                  "results": [
+                    {
+                      "items": [
+                        {
+                          "text": "当地时间10月10日",
+                          "prob": 0.6710904973087573,
+                          "start_offset": 21,
+                          "end_offset": 31
+                        }
+                      ]
+                    },
+                    {
+                      "items": [
+                        {
+                          "text": "19人",
+                          "prob": 0.8428687555779248,
+                          "start_offset": 170,
+                          "end_offset": 173
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "content": "《如果我爱你》是由海润影视与明道工作室联合出品，徐辅军执导，明道、李沁、胡兵、白歆惠、狄杰等人气明星联袂主演的浪漫偶像剧。剧情跌宕起伏，非常精彩。",
+                  "results": [
+                    {
+                      "items": [
+                        {
+                          "text": "海润影视与明道工作室",
+                          "prob": 0.9106359261350576,
+                          "start_offset": 9,
+                          "end_offset": 19
+                        }
+                      ]
+                    },
+                    {
+                      "items": [
+                        {
+                          "text": "明道、李沁、胡兵、白歆惠、狄杰",
+                          "prob": 0.698116182566288,
+                          "start_offset": 30,
+                          "end_offset": 45
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "log_id": 1597869187893333727
+            }
+          }
+        ]
+      },
+      {
+        "api_category_name": "语言生成技术",
+        "api_list": [
+          {
+            "api_name": "文章标签",
+            "api_description": "文本标签服务对文章的标题和内容进行深度分析，输出能够反映文章关键信息的主题、话题、实体等多维度标签以及对应的置信度，该技术在个性化推荐、文章聚合、内容检索等场景具有广泛的应用价值。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/keyword",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "title",
+                "type": "string",
+                "is_requirement": "文章标题，最大80字节",
+                "description": "必填"
+              },
+              {
+                "param_name": "content",
+                "type": "string",
+                "is_requirement": "文章内容，最大65535字节",
+                "description": "必填"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "items",
+                "type": "array of objects",
+                "description": "分析结果数组"
+              },
+              {
+                "param_name": "+tag",
+                "type": "string",
+                "description": "内容标签"
+              },
+              {
+                "param_name": "+score",
+                "type": "float",
+                "description": "权重值，取值范围[0,1]"
+              }
+            ],
+            "return_example": {
+              "log_id": 4457308639853058292,
+              "items": [
+                {
+                  "score": 0.997762,
+                  "tag": "iphone"
+                },
+                {
+                  "score": 0.861775,
+                  "tag": "手机"
+                },
+                {
+                  "score": 0.845657,
+                  "tag": "苹果"
+                },
+                {
+                  "score": 0.83649,
+                  "tag": "苹果公司"
+                },
+                {
+                  "score": 0.797243,
+                  "tag": "数码"
+                }
+              ]
+            }
+          },
+          {
+            "api_name": "文章分类",
+            "api_description": "对文章按照内容类型进行自动分类，首批支持娱乐、体育、科技等26个主流内容类型，为文章聚类、文本内容分析等应用提供基础技术支持。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/topic",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "title",
+                "type": "string",
+                "is_requirement": "文章标题，最大80字节",
+                "description": "必填"
+              },
+              {
+                "param_name": "content",
+                "type": "string",
+                "is_requirement": "文章内容，最大65535字节",
+                "description": "必填"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "item",
+                "type": "object",
+                "description": "分析结果数组"
+              },
+              {
+                "param_name": "+lv1_tag_list",
+                "type": "array of objects",
+                "description": "一级分类结果（唯一）"
+              },
+              {
+                "param_name": "+lv2_tag_list",
+                "type": "array of objects",
+                "description": "二级分类结果"
+              },
+              {
+                "param_name": "++score",
+                "type": "float",
+                "description": "类别标签对应得分，范围0-1"
+              },
+              {
+                "param_name": "++tag",
+                "type": "string",
+                "description": "类别标签"
+              }
+            ],
+            "return_example": {
+              "log_id": 3591049593939822907,
+              "item": {
+                "lv2_tag_list": [
+                  {
+                    "score": 0.877436,
+                    "tag": "足球"
+                  },
+                  {
+                    "score": 0.793682,
+                    "tag": "国际足球"
+                  },
+                  {
+                    "score": 0.775911,
+                    "tag": "英超"
+                  }
+                ],
+                "lv1_tag_list": [
+                  {
+                    "score": 0.824329,
+                    "tag": "体育"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "api_name": "新闻摘要",
+            "api_description": "自动抽取新闻文本中的关键信息，进而生成指定长度的新闻摘要",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/news_summary",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "title",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "字符串（限200字符数）字符串仅支持GBK编码，长度需小于200字符数（即400字节），请输入前确认字符数没有超限，若字符数超长会返回错误。标题在算法中具有重要的作用，若文章确无标题，不必输入此参数"
+              },
+              {
+                "param_name": "content",
+                "type": "string",
+                "is_requirement": "必填",
+                "description": "字符串（限3000字符数以内）字符串仅支持GBK编码，长度需小于3000字符数（即6000字节），请输入前确认字符数没有超限，若字符数超长会返回错误。正文中如果包含段落信息，请使用\"\\n\"分隔，段落信息算法中有重要的作用，请尽量保留"
+              },
+              {
+                "param_name": "max_summary_len",
+                "type": "number",
+                "is_requirement": "必填",
+                "description": "此数值将作为摘要结果的最大长度。例如：原文长度1000字，本参数设置为150，则摘要结果的最大长度是150字；推荐最优区间：200-500字"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "summary",
+                "type": "string",
+                "description": "摘要结果"
+              }
+            ],
+            "return_example": {
+              "log_id": 7310552510652020090,
+              "summary": "麻省理工学院的研究团队为无人机在仓库中使用RFID技术进行库存查找等工作，创造了一种聪明的新方式。使用RFID标签更换仓库中的条形码，将帮助提升自动化并提高库存管理的准确性。几家公司已经解决了无人机读取RFID的技术问题。麻省理工学院的新解决方案，名为Rfly，允许无人机阅读RFID标签，而不用捆绑巨型读卡器。无人机接收从远程RFID读取器发送的信号，然后转发它读取附近的标签。"
+            }
+          },
+          {
+            "api_name": "智能春联",
+            "api_description": "根据用户输入的命题关键词自动生成一副春联，包括上联、下联和横批。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/creation/v1/couplets",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "是",
+                "is_requirement": "string",
+                "description": "字符串（限5字符数以内）即春联的主题"
+              },
+              {
+                "param_name": "index",
+                "type": "否",
+                "is_requirement": "int",
+                "description": "整数   默认为数值为0，即第一幅春联。每换一次，数值加1即可，一定数量后会返回之前的春联结果。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "couplets",
+                "type": "object",
+                "description": "object嵌套结构，对应返回的春联"
+              },
+              {
+                "param_name": "+first",
+                "type": "string",
+                "description": "春联上联：成7-9个字的上联"
+              },
+              {
+                "param_name": "+second",
+                "type": "string",
+                "description": "春联下联：生成7-9个字的春联下联"
+              },
+              {
+                "param_name": "+center",
+                "type": "string",
+                "description": "春联横批：生成4个字的春联横批"
+              }
+            ],
+            "return_example": {
+              "couplets": {
+                "first": "喜气千年千里新",
+                "second": "清风百度百花艳",
+                "center": "千云祥集"
+              }
+            }
+          },
+          {
+            "api_name": "智能写诗",
+            "api_description": "根据用户输入的命题关键词自动生成一首七言绝句。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/creation/v1/poem",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "是",
+                "is_requirement": "string",
+                "description": "字符串（限5字符数以内）即作诗的主题"
+              },
+              {
+                "param_name": "index",
+                "type": "否",
+                "is_requirement": "int",
+                "description": "整数    默认为数值为0，即第一首诗。每换一次，数值加1即可，一定数量后会返回之前的作诗结果"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "poem",
+                "type": "array",
+                "description": "数组结构，元素对应七言绝句诗"
+              },
+              {
+                "param_name": "+title",
+                "type": "string",
+                "description": "诗名，即用户输入作诗主题"
+              },
+              {
+                "param_name": "+content",
+                "type": "string",
+                "description": "作诗结果：为一首七言绝句"
+              }
+            ],
+            "return_example": {
+              "poem": [
+                {
+                  "title": "百度",
+                  "content": "神州百度庆元功 华夏千秋唱大风        伟业宏图开盛世        红旗锦绣耀长空"
+                }
+              ]
+            }
+          },
+          {
+            "api_name": "文章标题生成",
+            "api_description": "百度AI开放平台-文章标题生成，根据文章内容自动生成多个通用类型标题，推荐标题可直观体现文章主题内容，为内容生产者提供灵感。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/titlepredictor",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "doc",
+                "type": "是",
+                "is_requirement": "string",
+                "description": "输入文本，200字到1500字之间，默认GBK编码；若须输入UTF-8编码文本，请添加URL参数charset=UTF-8"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "热请求唯一标识码"
+              },
+              {
+                "param_name": "reference_titles",
+                "type": "list",
+                "description": "标题列表"
+              },
+              {
+                "param_name": "+score",
+                "type": "string",
+                "description": "置信度"
+              },
+              {
+                "param_name": "+title",
+                "type": "string",
+                "description": "标题文本"
+              }
+            ],
+            "return_example": {
+              "log_id": 1422384097687362147,
+              "reference_titles": [
+                {
+                  "score": 0.00299454875964,
+                  "title": "有哪些解酒的方法？"
+                },
+                {
+                  "score": 0.00297089506731,
+                  "title": "哪些方法可以快速解酒？"
+                },
+                {
+                  "score": 0.00292691859261,
+                  "title": "有哪些方法可以快速解酒？"
+                }
+              ]
+            }
+          },
+          {
+            "api_name": "文章主题短语生成",
+            "api_description": "对文章的标题和正文进行深度分析，输出能够反映文章关键信息的主题短语（5-14个字），满足内容分发等对标题长度有所限制的场景诉求；常应用于热点榜单、个性化推荐等场景。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/creation/v1/topic_phrase",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "title",
+                "type": "是",
+                "is_requirement": "string",
+                "description": "title=新闻标题，必选，否则返回空结果。建议长度需小于100字符数（即200字节）"
+              },
+              {
+                "param_name": "summary",
+                "type": "是",
+                "is_requirement": "string",
+                "description": "summary =新闻摘要内容，必选，否则返回空结果。字段无长度限制，建议长度需<=10万字符（即<=20万字节）"
+              },
+              {
+                "param_name": "dup_check",
+                "type": "否",
+                "is_requirement": "boolean",
+                "description": "结果是否去重，false（否/默认），true （是）"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "content",
+                "type": "list",
+                "description": "主题短语生成结果"
+              },
+              {
+                "param_name": "content.phrase",
+                "type": "list",
+                "description": "主题短语候选列表"
+              },
+              {
+                "param_name": "content.title",
+                "type": "string",
+                "description": "短语对应的资讯标题，用于和结果做映射"
+              },
+              {
+                "param_name": "error_message",
+                "type": "string",
+                "description": "处理成功及出错时显示的相关信息"
+              }
+            ],
+            "return_example": {
+              "log_id": 912552587062086805,
+              "phrase": [
+                "华夏幸福披露债务重组进展"
+              ],
+              "title": "华夏幸福披露债务重组进展"
+            }
+          },
+          {
+            "api_name": "祝福语生成",
+            "api_description": "祝福语生成能力，针对常见节日与节气生成200字以内的祝福语，每次生成3条不同的随机结果，针对每个关键词支持生成上万条不同的结果。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/bless_creation",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "text",
+                "type": "是",
+                "is_requirement": "string",
+                "description": "节日关键词，目前支持生成祝福语的关键词如下：平安夜 圣诞节 情人节 元旦 除夕 春节 新年 元宵节 妇女节 清明节 劳动节 端午节 国庆节 中秋节 重阳节 立春 雨水 惊蛰 春分 清明 谷雨 立夏 小满 芒种 夏至 小暑 大暑 立秋 处暑 白露 秋分 寒露 霜降 立冬 小雪 大雪 冬至 小寒 大寒 高考"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "热请求唯一标识码"
+              },
+              {
+                "param_name": "results",
+                "type": "array of objects",
+                "description": "生成祝福语的结果"
+              }
+            ],
+            "return_example": {
+              "log_id": 1422384097687362147,
+              "results": [
+                "放开往日的学习中的紧张，用一颗平常心去轻松面对，相信你会考出自己理想的成绩的。愿好运一直陪伴着你!",
+                "不论结果怎样，经历过，总会有结果的！高考啦，祝你们成功！",
+                "高考即将来临，希望你能够全力以赴，发挥出自己的水平，考上自己理想的学校。加油!"
+              ]
+            }
+          },
+          {
+            "api_name": "同义词推荐",
+            "api_description": "对提供的中文词语或短语，计算并返回多个同义或近义表达，帮助润色内容、启发灵感。同义词推荐是百度内部孵化的语言生成能力，适用于文本润色、文本改写、辅助智能创作等应用场景。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rpc/2.0/nlp/v1/txt_word_embellish",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "word",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "需要查询同义词的词语，一次输入一个单词，1-4个中文字符"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "description": "请求唯一标识码"
+              },
+              {
+                "param_name": "results",
+                "type": "array of objects",
+                "description": "同义词查询结果的数组集合"
+              }
+            ],
+            "return_example": {
+              "log_id": 123123,
+              "results": [
+                "职位",
+                "岗位",
+                "官职",
+                "文职",
+                "职守",
+                "正职",
+                "肥缺",
+                "初任",
+                "差使",
+                "哨位"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

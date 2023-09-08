@@ -1,186 +1,3559 @@
-{
-  "api_name": "身份证识别",
-  "api_description": "支持对二代居民身份证正反面所有8个字段进行结构化识别，包括姓名、性别、民族、出生日期、住址、身份证号、签发机关、有效期限，识别准确率超过99%；同时支持身份证正面头像检测，并返回头像切片的base64编码及位置信息。",
-  "method": "POST",
-  "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/idcard",
-  "header": "Content-Type:application/x-www-form-urlencoded",
-  "url_param": "access_token",
-  "request_parameters": [
-    {
-      "param_name": "image",
-      "is_requirment": "和url二选一",
-      "type": "string",
-      "optional_range": "-",
-      "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式"
-    },
-    {
-      "param_name": "url",
-      "is_requirment": "和image二选一",
-      "type": "string",
-      "optional_range": "-",
-      "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
-    },
-    {
-      "param_name": "id_card_side",
-      "is_requirment": "是",
-      "type": "string",
-      "optional_range": "front/back",
-      "description": "-front：身份证含照片的一面-back：身份证带国徽的一面自动检测身份证正反面，如果传参指定方向与图片相反，支持正常识别，返回参数image_status字段为\"reversed_side\""
-    },
-    {
-      "param_name": "detect_risk",
-      "is_requirment": "否",
-      "type": "string",
-      "optional_range": "true/false",
-      "description": "是否开启身份证风险类型(身份证复印件、临时身份证、身份证翻拍、修改过的身份证)检测功能，默认不开启，即：false。- true：开启，请查看返回参数risk_type；- false：不开启"
-    },
-    {
-      "param_name": "detect_quality",
-      "is_requirment": "否",
-      "type": "string",
-      "optional_range": "true/false",
-      "description": "是否开启身份证质量类型(边框/四角不完整、头像或关键字段被遮挡/马赛克)检测功能，默认不开启，即：false。- true：开启，请查看返回参数card_quality；- false：不开启"
-    },
-    {
-      "param_name": "detect_photo",
-      "is_requirment": "否",
-      "type": "string",
-      "optional_range": "true/false",
-      "description": "是否检测头像内容，默认不检测。可选值：true-检测头像并返回头像的 base64 编码及位置信息"
-    },
-    {
-      "param_name": "detect_card",
-      "is_requirment": "否",
-      "type": "string",
-      "optional_range": "true/false",
-      "description": "是否检测身份证进行裁剪，默认不检测。可选值：true-检测身份证并返回证照的 base64 编码及位置信息"
-    },
-    {
-      "param_name": "detect_direction",
-      "is_requirment": "否",
-      "type": "string",
-      "optional_range": "true/false",
-      "description": "是否检测上传的身份证图片方向，默认不检测。可选值：-true：检测 - false：不检测"
+[
+  {
+    "api_name": "智能财务票据识别",
+    "api_description": "支持财务场景中13种常见票据的分类及结构化识别，包括增值税发票、卷票、机打发票、定额发票、火车票、出租车票、网约车行程单、飞机行程单、汽车票、过路过桥费、船票、机动车/二手车销售发票。支持多张不同种类票据在同一张图片上的混贴场景，可返回每张票据的位置、种类及票面信息的结构化识别结果。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/multiple_invoice",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "verify_parameter",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否开启验真，默认为 false，即不开启，当为 true 时，返回匹配发票验真接口所需的6要素信息，具体返回信息详见末尾说明"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回字段置信度，默认为 false ，即不返回"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回字段位置坐标，默认为 false，即不返回"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ probability",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "表示单张票据分类的置信度"
+      },
+      {
+        "param_name": "+ left",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "表示单张票据定位位置的长方形左上顶点的水平坐标"
+      },
+      {
+        "param_name": "+ top",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "表示单张票据定位位置的长方形左上顶点的垂直坐标"
+      },
+      {
+        "param_name": "+ width",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "表示单张票据定位位置的长方形的宽度"
+      },
+      {
+        "param_name": "+ height",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "表示单张票据定位位置的长方形的高度"
+      },
+      {
+        "param_name": "+ type",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "每一张票据的种类"
+      },
+      {
+        "param_name": "+ result",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "单张票据的识别结果数组"
+      }
+    ],
+    "return_example": {
+      "words_result": [
+        {
+          "type": "vat_invoice",
+          "width": 0,
+          "probability": 0.9980429411,
+          "height": 649,
+          "left": 154,
+          "top": 177,
+          "result": {
+            "AmountInWords": [
+              {
+                "word": "叁佰陆拾圆整"
+              }
+            ],
+            "InvoiceNumConfirm": [
+              {
+                "word": "07286261"
+              }
+            ],
+            "CommodityEndDate": [],
+            "CommodityVehicleType": [],
+            "CommodityStartDate": [],
+            "CommodityPrice": [
+              {
+                "row": "1",
+                "word": "339.62"
+              }
+            ],
+            "NoteDrawer": [
+              {
+                "word": "余佳燕"
+              }
+            ],
+            "SellerAddress": [],
+            "CommodityNum": [
+              {
+                "row": "1",
+                "word": "1"
+              }
+            ],
+            "SellerRegisterNum": [
+              {
+                "word": "91330106673959654P"
+              }
+            ],
+            "MachineCode": [],
+            "Remarks": [],
+            "SellerBank": [
+              {
+                "word": "招商银行杭州高新支行502905023610702"
+              }
+            ],
+            "CommodityTaxRate": [
+              {
+                "row": "1",
+                "word": "6%"
+              }
+            ],
+            "TotalTax": [
+              {
+                "word": "20.38"
+              }
+            ],
+            "InvoiceCodeConfirm": [
+              {
+                "word": "3321192130"
+              }
+            ],
+            "CheckCode": [],
+            "InvoiceCode": [
+              {
+                "word": "3321192130"
+              }
+            ],
+            "InvoiceDate": [
+              {
+                "word": "2019年08月28日"
+              }
+            ],
+            "PurchaserRegisterNum": [
+              {
+                "word": "91110911717743469K"
+              }
+            ],
+            "InvoiceTypeOrg": [
+              {
+                "word": "浙江增值税专用发票"
+              }
+            ],
+            "OnlinePay": [],
+            "Password": [
+              {
+                "word": "508>3909>1*>01/-46709-6/3+*7+8>/1*19+7-0**>+58290-6>647-+324865*9*1<*2191/7754/<0>2<838+//5-69--748*<251408<"
+              }
+            ],
+            "Agent": [
+              {
+                "word": "否"
+              }
+            ],
+            "AmountInFiguers": [
+              {
+                "word": "360.00"
+              }
+            ],
+            "PurchaserBank": [
+              {
+                "word": "招商银行北京分行大电路支行866180100210002"
+              }
+            ],
+            "Checker": [
+              {
+                "word": "柳余"
+              }
+            ],
+            "City": [],
+            "TotalAmount": [
+              {
+                "word": "339.62"
+              }
+            ],
+            "CommodityAmount": [
+              {
+                "row": "1",
+                "word": "339.62"
+              }
+            ],
+            "PurchaserName": [
+              {
+                "word": "百度在线网络技术(北京)有限公司"
+              }
+            ],
+            "CommodityType": [],
+            "Province": [
+              {
+                "word": "浙江"
+              }
+            ],
+            "InvoiceType": [
+              {
+                "word": "专用发票"
+              }
+            ],
+            "SheetNum": [
+              {
+                "word": "第二联：抵扣联"
+              }
+            ],
+            "PurchaserAddress": [],
+            "CommodityTax": [
+              {
+                "row": "1",
+                "word": "20.38"
+              }
+            ],
+            "CommodityPlateNum": [],
+            "CommodityUnit": [
+              {
+                "row": "1",
+                "word": "套"
+              }
+            ],
+            "Payee": [
+              {
+                "word": "佳机"
+              }
+            ],
+            "CommodityName": [
+              {
+                "row": "1",
+                "word": "*信息技术服务*软件服务费"
+              }
+            ],
+            "SellerName": [
+              {
+                "word": "百度智能云"
+              }
+            ],
+            "InvoiceNum": [
+              {
+                "word": "07286261"
+              }
+            ]
+          }
+        },
+        {
+          "type": "taxi_receipt",
+          "width": 0,
+          "probability": 0.9858493805,
+          "height": 615,
+          "left": 1325,
+          "top": 200,
+          "result": {
+            "PickupTime": [
+              {
+                "word": "10:50"
+              }
+            ],
+            "DropoffTime": [
+              {
+                "word": "17:06"
+              }
+            ],
+            "Time": [
+              {
+                "word": "10:50-17:06"
+              }
+            ],
+            "City": [
+              {
+                "word": ""
+              }
+            ],
+            "FuelOilSurcharge": [
+              {
+                "word": "1.00"
+              }
+            ],
+            "Date": [
+              {
+                "word": "2019-03-20"
+              }
+            ],
+            "Province": [
+              {
+                "word": "陕西省"
+              }
+            ],
+            "CallServiceSurcharge": [
+              {
+                "word": "0.00"
+              }
+            ],
+            "Fare": [
+              {
+                "word": "21.10"
+              }
+            ],
+            "TotalFare": [
+              {
+                "word": "22.00"
+              }
+            ],
+            "TaxiNum": [
+              {
+                "word": "AQ6353"
+              }
+            ],
+            "PricePerkm": [
+              {
+                "word": "2.30"
+              }
+            ],
+            "InvoiceCode": [
+              {
+                "word": "161001881016"
+              }
+            ],
+            "Distance": [
+              {
+                "word": "6.0"
+              }
+            ],
+            "InvoiceNum": [
+              {
+                "word": "05070716"
+              }
+            ],
+            "Location": [
+              {
+                "word": "陕西省"
+              }
+            ]
+          }
+        }
+      ],
+      "words_result_num": 2,
+      "log_id": 1438382953545048984
     }
-  ],
-  "response_parameters": [
-    {
-      "param_name": "log_id",
-      "is_requirment": "是",
-      "type": "uint64",
-      "description": "唯一的log id，用于问题定位"
-    },
-    {
-      "param_name": "words_result",
-      "is_requirment": "是",
-      "type": "array[]",
-      "description": "定位和识别结果数组"
-    },
-    {
-      "param_name": "words_result_num",
-      "is_requirment": "是",
-      "type": "uint32",
-      "description": "识别结果数，表示words_result的元素个数"
-    },
-    {
-      "param_name": "direction",
-      "is_requirment": "否",
-      "type": "int32",
-      "description": "图像方向，输入参数 detect_direction= true 时返回。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
-    },
-    {
-      "param_name": "image_status",
-      "is_requirment": "是",
-      "type": "string",
-      "description": "normal-识别正常reversed_side-身份证正反面颠倒non_idcard-上传的图片中不包含身份证blurred-身份证模糊other_type_card-其他类型证照over_exposure-身份证关键字段反光或过曝over_dark-身份证欠曝（亮度过低）unknown-未知状态"
-    },
-    {
-      "param_name": "risk_type",
-      "is_requirment": "否",
-      "type": "string",
-      "description": "输入参数 detect_risk = true 时，则返回该字段识别身份证风险类型: normal-正常身份证；copy-复印件；temporary-临时身份证；screen-翻拍；unknown-其他未知情况"
-    },
-    {
-      "param_name": "edit_tool",
-      "is_requirment": "否",
-      "type": "string",
-      "description": "如果参数 detect_risk = true 时，则返回此字段。如果检测身份证被编辑过，该字段指定编辑软件名称，如:Adobe Photoshop CC 2014 (Macintosh),如果没有被编辑过则返回值无此参数"
-    },
-    {
-      "param_name": "card_quality",
-      "is_requirment": "否",
-      "type": "object",
-      "description": "输入参数 detect_quality = true 时，则返回该字段识别身份证质量类型: IsClear - 是否清晰；IsComplete - 是否边框/四角完整；IsNoCover - 是否头像、关键字段无遮挡/马赛克。及对应的概率：IsComplete_propobility、IsClear_propobility、IsNoCover_propobility，值在0-1之间，值越大表示图像质量越好。默认阈值（仅为推荐值，建议按照实际业务场景，基于图片返回的具体概率值，自定义设置判断阈值）：当 IsClear_propobility、IsComplete_propobility 超过0.5时，对应IsClear、IsComplete 返回1，低于0.5，则返回0；当 IsNoCover_propobility 超过0.3时，对应IsNoCover 返回1，低于0.3，则返回0"
-    },
-    {
-      "param_name": "photo",
-      "is_requirment": "否",
-      "type": "string",
-      "description": "当请求参数 detect_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）"
-    },
-    {
-      "param_name": "photo_location",
-      "is_requirment": "否",
-      "type": "object",
-      "description": "当请求参数 detect_photo = true时返回，头像的位置信息（坐标0点为左上角）"
-    },
-    {
-      "param_name": "card_image",
-      "is_requirment": "否",
-      "type": "string",
-      "description": "当请求参数 detect_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）"
-    },
-    {
-      "param_name": "card_location",
-      "is_requirment": "否",
-      "type": "object",
-      "description": "当请求参数 detect_card = true时返回，身份证裁剪切图的位置信息（坐标0点为左上角）"
-    },
-    {
-      "param_name": "idcard_number_type",
-      "is_requirment": "是",
-      "type": "int",
-      "description": "用于校验身份证号码、性别、出生是否一致，输出结果及其对应关系如下：- 1： 身份证正面所有字段全为空0： 身份证证号不合法，此情况下不返回身份证证号1： 身份证证号和性别、出生信息一致2： 身份证证号和性别、出生信息都不一致3： 身份证证号和出生信息不一致4： 身份证证号和性别信息不一致"
-    },
-    {
-      "param_name": "+ location",
-      "is_requirment": "是",
-      "type": "array[]",
-      "description": "位置数组（坐标0点为左上角）"
-    },
-    {
-      "param_name": "++ left",
-      "is_requirment": "是",
-      "type": "uint32",
-      "description": "表示定位位置的长方形左上顶点的水平坐标"
-    },
-    {
-      "param_name": "++ top",
-      "is_requirment": "是",
-      "type": "uint32",
-      "description": "表示定位位置的长方形左上顶点的垂直坐标"
-    },
-    {
-      "param_name": "++ width",
-      "is_requirment": "是",
-      "type": "uint32",
-      "description": "表示定位位置的长方形的宽度"
-    },
-    {
-      "param_name": "++ height",
-      "is_requirment": "是",
-      "type": "uint32",
-      "description": "表示定位位置的长方形的高度"
-    },
-    {
-      "param_name": "+ words",
-      "is_requirment": "否",
-      "type": "string",
-      "description": "识别结果字符串"
+  },
+  {
+    "api_name": "增值税发票识别",
+    "api_description": "支持对增值税普票、专票、全电发票（新版全国统一电子发票，专票/普票）、卷票、区块链发票的所有字段进行结构化识别，包括发票基本信息、销售方及购买方信息、商品信息、价税信息等，其中五要素字段的识别准确率超过 99.9%；\n同时，支持对增值税卷票的 21 个关键字段进行识别，包括发票类型、发票代码、发票号码、机打号码、机器编号、收款人、销售方名称、销售方纳税人识别号、开票日期、购买方名称、购买方纳税人识别号、项目、单价、数量、金额、税额、合计金额(小写)、合计金额(大写)、校验码、省、市，四要素字段的识别准确率可达95%。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/vat_invoice",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "type",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "normal/roll",
+        "description": "进行识别的增值税发票类型，默认为 normal，可缺省- normal：可识别增值税普票、专票、电子发票- roll：可识别增值税卷票"
+      },
+      {
+        "param_name": "seal_tag",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否开启印章判断功能，并返回印章内容的识别结果- true：开启- false：不开启"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      },
+      {
+        "param_name": "ofd_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入OFD文件的总页数，当 ofd_file 参数有效时返回该字段"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ ServiceType",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票消费类型。不同消费类型输出：餐饮、电器设备、通讯、服务、日用品食品、医疗、交通、其他"
+      },
+      {
+        "param_name": "+ InvoiceType",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票种类。不同类型发票输出：普通发票、专用发票、电子普通发票、电子专用发票、通行费电子普票、区块链发票、通用机打电子发票、电子发票(专用发票)、电子发票(普通发票)"
+      },
+      {
+        "param_name": "+ InvoiceTypeOrg",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票名称"
+      },
+      {
+        "param_name": "+ InvoiceCode",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票代码"
+      },
+      {
+        "param_name": "+ InvoiceNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票号码"
+      },
+      {
+        "param_name": "+ InvoiceCodeConfirm",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票代码的辅助校验码，一般业务情景可忽略"
+      },
+      {
+        "param_name": "+ InvoiceNumConfirm",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票号码的辅助校验码，一般业务情景可忽略"
+      },
+      {
+        "param_name": "+ InvoiceNumDigit",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "数电票号，仅针对纸质的全电发票，在密码区有数电票号码的字段输出"
+      },
+      {
+        "param_name": "+ InvoiceTag",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "增值税发票左上角标志。 包含：通行费、销项负数、代开、收购、成品油、其他"
+      },
+      {
+        "param_name": "+ MachineNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "机打号码。仅增值税卷票含有此参数"
+      },
+      {
+        "param_name": "+ MachineCode",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "机器编号。仅增值税卷票含有此参数"
+      },
+      {
+        "param_name": "+ CheckCode",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "校验码"
+      },
+      {
+        "param_name": "+ InvoiceDate",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "开票日期"
+      },
+      {
+        "param_name": "+ PurchaserName",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "购方名称"
+      },
+      {
+        "param_name": "+ PurchaserRegisterNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "购方纳税人识别号"
+      },
+      {
+        "param_name": "+ PurchaserAddress",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "购方地址及电话"
+      },
+      {
+        "param_name": "+ PurchaserBank",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "购方开户行及账号"
+      },
+      {
+        "param_name": "+ Password",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "密码区"
+      },
+      {
+        "param_name": "+ Province",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "省"
+      },
+      {
+        "param_name": "+ City",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "市"
+      },
+      {
+        "param_name": "+ SheetNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "联次信息。专票第一联到第三联分别输出：第一联：记账联、第二联：抵扣联、第三联：发票联；普通发票第一联到第二联分别输出：第一联：记账联、第二联：发票联"
+      },
+      {
+        "param_name": "+ Agent",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "是否代开"
+      },
+      {
+        "param_name": "+ CommodityName",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "货物名称"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityType",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "规格型号"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityUnit",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "单位"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityNum",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "数量"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityPrice",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "单价"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityAmount",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "金额"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityTaxRate",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "税率"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityTax",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "税额"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++  word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityPlateNum",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "车牌号。仅通行费增值税电子普通发票含有此参数"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityVehicleType",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "类型。仅通行费增值税电子普通发票含有此参数"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityStartDate",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "通行日期起。仅通行费增值税电子普通发票含有此参数"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint33",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityEndDate",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "通行日期止。仅通行费增值税电子普通发票含有此参数"
+      },
+      {
+        "param_name": "++ row",
+        "is_requirement": "是",
+        "type": "uint33",
+        "description": "行号"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ OnlinePay",
+        "is_requirement": "是",
+        "type": "String",
+        "description": "电子支付标识。仅区块链发票含有此参数"
+      },
+      {
+        "param_name": "+ SellerName",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "销售方名称"
+      },
+      {
+        "param_name": "+ SellerRegisterNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "销售方纳税人识别号"
+      },
+      {
+        "param_name": "+ SellerAddress",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "销售方地址及电话"
+      },
+      {
+        "param_name": "+ SellerBank",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "销售方开户行及账号"
+      },
+      {
+        "param_name": "+ TotalAmount",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "合计金额"
+      },
+      {
+        "param_name": "+ TotalTax",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "合计税额"
+      },
+      {
+        "param_name": "+ AmountInWords",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "价税合计(大写)"
+      },
+      {
+        "param_name": "+ AmountInFiguers",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "价税合计(小写)"
+      },
+      {
+        "param_name": "+ Payee",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "收款人"
+      },
+      {
+        "param_name": "+ Checker",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "复核"
+      },
+      {
+        "param_name": "+ NoteDrawer",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "开票人"
+      },
+      {
+        "param_name": "+ Remarks",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "备注"
+      },
+      {
+        "param_name": "+ company_seal",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "判断是否存在印章。返回“0或1”，1代表存在印章，0代表不存在印章，当 seal_tag=true 时返回该字段"
+      },
+      {
+        "param_name": "+ seal_info",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "印章识别结果内容。当 seal_tag=true 时返回该字段"
+      }
+    ],
+    "return_example": {
+      "log_id": "5425496231209218858",
+      "words_result_num": 36,
+      "words_result": {
+        "InvoiceNumDigit": "123456",
+        "ServiceType": "其他",
+        "InvoiceNum": "14641426",
+        "InvoiceNumConfirm": "14641426",
+        "SellerName": "上海易火广告传媒有限公司",
+        "CommodityTaxRate": [
+          {
+            "word": "6%",
+            "row": "1"
+          }
+        ],
+        "SellerBank": "中国银行南翔支行446863841354",
+        "Checker": ":沈园园",
+        "TotalAmount": "94339.62",
+        "CommodityAmount": [
+          {
+            "word": "94339.62",
+            "row": "1"
+          }
+        ],
+        "InvoiceDate": "2016年06月02日",
+        "CommodityTax": [
+          {
+            "word": "5660.38",
+            "row": "1"
+          }
+        ],
+        "PurchaserName": "百度时代网络技术(北京)有限公司",
+        "CommodityNum": [
+          {
+            "word": "",
+            "row": "1"
+          }
+        ],
+        "Province": "上海",
+        "City": "",
+        "SheetNum": "第三联",
+        "Agent": "否",
+        "PurchaserBank": "招商银行北京分行大屯路支行8661820285100030",
+        "Remarks": "告传",
+        "Password": "074/45781873408>/6>8>65*887676033/51+<5415>9/32--852>1+29<65>641-5>66<500>87/*-34<943359034>716905113*4242>",
+        "SellerAddress": ":嘉定区胜辛南路500号15幢1161室55033753",
+        "PurchaserAddress": "北京市海淀区东北旺西路8号中关村软件园17号楼二属A2010-59108001",
+        "InvoiceCode": "3100153130",
+        "InvoiceCodeConfirm": "3100153130",
+        "CommodityUnit": [
+          {
+            "word": "",
+            "row": "1"
+          }
+        ],
+        "Payee": ":徐蓉",
+        "PurchaserRegisterNum": "110108787751579",
+        "CommodityPrice": [
+          {
+            "word": "",
+            "row": "1"
+          }
+        ],
+        "NoteDrawer": "沈园园",
+        "AmountInWords": "壹拾万圆整",
+        "AmountInFiguers": "100000.00",
+        "TotalTax": "5660.38",
+        "InvoiceType": "专用发票",
+        "SellerRegisterNum": "913101140659591751",
+        "CommodityName": [
+          {
+            "word": "信息服务费",
+            "row": "1"
+          }
+        ],
+        "CommodityType": [
+          {
+            "word": "",
+            "row": "1"
+          }
+        ],
+        "CommodityPlateNum": [],
+        "CommodityVehicleType": [],
+        "CommodityStartDate": [],
+        "CommodityEndDate": [],
+        "OnlinePay": ""
+      }
     }
-  ],
-  "return_example": {
-    "log_id": "2648325511",
-    "result": "密文"
+  },
+  {
+    "api_name": "增值税发票验真",
+    "api_description": "支持 12 种增值税发票的信息核验，包括增值税专票、电子专票、普票、电子普票、卷票、区块链发票（深圳地区）、全电发票（新版全国统一电子发票，专票/普票）、通行费增值税电子普通发票、货物运输业增值税专用发票、机动车销售发票、二手车销售发票等，支持返回票面的全部信息。同时可直接与同平台的发票识别能力对接，完成发票识别的同时进行自动化验真。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/vat_invoice_verification",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "invoice_code",
+        "is_requirement": "是",
+        "type": "string",
+        "range": "-",
+        "description": "发票代码。全电发票（专用发票）、全电发票（普通发票）此参数可为空，其他类型发票均不可为空"
+      },
+      {
+        "param_name": "invoice_num",
+        "is_requirement": "是",
+        "type": "string",
+        "range": "-",
+        "description": "发票号码"
+      },
+      {
+        "param_name": "invoice_date",
+        "is_requirement": "是",
+        "type": "string",
+        "range": "-",
+        "description": "开票日期。格式YYYYMMDD，例：20210101"
+      },
+      {
+        "param_name": "invoice_type",
+        "is_requirement": "是",
+        "type": "string",
+        "range": "增值税专用发票：special_vat_invoice增值税电子专用发票：elec_special_vat_invoice增值税普通发票：normal_invoice增值税普通发票（电子）：elec_normal_invoice增值税普通发票（卷式）：roll_normal_invoice通行费增值税电子普通发票：toll_elec_normal_invoice\t区块链电子发票（目前仅支持深圳地区）：blockchain_invoice全电发票（专用发票）：elec_invoice_special全电发票（普通发票）：elec_invoice_normal货运运输业增值税专用发票：special_freight_transport_invoice机动车销售发票：motor_vehicle_invoice二手车销售发票：used_vehicle_invoice",
+        "description": "发票种类"
+      },
+      {
+        "param_name": "check_code",
+        "is_requirement": "是",
+        "type": "string",
+        "range": "-",
+        "description": "校验码。填写发票校验码后6位。增值税电子专票、普票、电子普票、卷票、区块链电子发票、通行费增值税电子普通发票此参数必填；其他类型发票此参数可为空"
+      },
+      {
+        "param_name": "total_amount",
+        "is_requirement": "是",
+        "type": "string",
+        "range": "-",
+        "description": "发票金额。增值税专票、电子专票、区块链电子发票、机动车销售发票、货运专票填写不含税金额；二手车销售发票填写车价合计；全电发票（专用发票）、全电发票（普通发票）填写价税合计金额，其他类型发票可为空"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "VerifyResult",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "查验结果。查验成功返回“0001”，查验失败返回对应查验结果错误码，详见末尾表格"
+      },
+      {
+        "param_name": "VerifyMessage",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "查验结果信息。查验成功且发票为真返回“查验成功发票一致“，查验失败返回对应错误原因，详见末尾表格"
+      },
+      {
+        "param_name": "VerifyFrequency",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "查验次数。为历史查验次数"
+      },
+      {
+        "param_name": "InvalidSign",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "是否作废（冲红）。Y：已作废；H：已冲红；N：未作废"
+      },
+      {
+        "param_name": "InvoiceType",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票种类。即增值税专用发票、增值税电子专用发票、增值税普通发票、增值税普通发票（电子）、增值税普通发票（卷式）、通行费增值税电子普通发票、区块链电子发票、全电发票（专用发票）、全电发票（普通发票）、机动车销售发票、二手车销售发票、货物运输业增值税专用发票"
+      },
+      {
+        "param_name": "InvoiceCode",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票代码"
+      },
+      {
+        "param_name": "InvoiceNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票号码"
+      },
+      {
+        "param_name": "CheckCode",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "校验码"
+      },
+      {
+        "param_name": "InvoiceDate",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "开票日期"
+      },
+      {
+        "param_name": "MachineCode",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "机器编号"
+      }
+    ],
+    "return_example": {
+      "words_result": {
+        "log_id": 1394226734160674816,
+        "words_result_num": 43,
+        "VerifyFrequency": "3",
+        "VerifyMessage": "查验成功发票一致",
+        "InvalidSign": "N",
+        "InvoiceType": "增值税普通发票（电子）",
+        "MachineCode": "661616300747",
+        "CheckCode": "67820461013285253079",
+        "InvoiceCode": "043002000111",
+        "InvoiceDate": "20210503",
+        "VerifyResult": "0001",
+        "InvoiceNum": "63509760",
+        "TaxControlNum": "",
+        "CommodityEndDate": [
+          {
+            "row": "1",
+            "word": ""
+          }
+        ],
+        "VehicleTonnage": "",
+        "CommodityVehicleType": [
+          {
+            "row": "1"
+          }
+        ],
+        "CommodityStartDate": [
+          {
+            "row": "1",
+            "word": ""
+          }
+        ],
+        "SellerAddress": "湖南省长沙市天心区芙蓉中路三段446号0731-83592079",
+        "CommodityPrice": [
+          {
+            "row": "1",
+            "word": "28.20000000"
+          }
+        ],
+        "TransportCargoInformation": "",
+        "NoteDrawer": "",
+        "CommodityNum": [
+          {
+            "row": "1",
+            "word": "1.00000000"
+          }
+        ],
+        "SellerRegisterNum": "914301007121984812",
+        "SellerBank": "建行长沙铁银支行营业部43001710661050003739",
+        "Remarks": "账期:202104",
+        "TotalTax": "0.00",
+        "CommodityTaxRate": [
+          {
+            "row": "1",
+            "word": "不征税"
+          }
+        ],
+        "CommodityExpenseItem": [
+          {
+            "row": "1",
+            "word": ""
+          }
+        ],
+        "ZeroTaxRateIndicator": "",
+        "Carrier": "",
+        "SenderCode": "",
+        "PurchaserRegisterNum": "911101087877515792",
+        "ReceiverCode": "",
+        "AmountInFiguers": "28.20",
+        "PurchaserBank": "招商银行北京分行大屯路支行 866182028510003",
+        "Checker": "",
+        "TollSign": "",
+        "VehicleTypeNum": "",
+        "DepartureViaArrival": "",
+        "Receiver": "",
+        "Recipient": "",
+        "TotalAmount": "28.20",
+        "CommodityAmount": [
+          {
+            "row": "1",
+            "word": "28.20"
+          }
+        ],
+        "PurchaserName": "百度时代网络技术（北京）有限公司",
+        "CommodityType": [
+          {
+            "row": "1",
+            "word": ""
+          }
+        ],
+        "Sender": "",
+        "PurchaserAddress": "北京市海淀区东北旺西路8号中关村软件园17号楼二层A201059108001",
+        "CommodityTax": [
+          {
+            "row": "1",
+            "word": "***"
+          }
+        ],
+        "CarrierCode": "",
+        "CommodityPlateNum": [
+          {
+            "row": "1",
+            "word": ""
+          }
+        ],
+        "CommodityUnit": [
+          {
+            "row": "1",
+            "word": ""
+          }
+        ],
+        "Payee": "",
+        "RecipientCode": "",
+        "CommodityName": [
+          {
+            "row": "1",
+            "word": "*电信服务*通讯费服务费"
+          }
+        ],
+        "SellerName": "中国移动通信集团湖南有限公司长沙分公司"
+      }
+    }
+  },
+  {
+    "api_name": "银行回单识别",
+    "api_description": "支持对不同版式银行回单进行结构化识别，包括标题、付款人户名、付款人开户银行、付款人账号、收款人户名、收款人开户银行、收款人账号、大写金额、小写金额、流水号、回单编号、交易日期、摘要、用途 14个关键字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/bank_receipt_new",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回字段置信度，默认为 false ，即不返回"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回字段位置坐标，默认为 false，即不返回"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段识别结果，对应标题、付款人户名、付款人开户银行、付款人账号、收款人户名、收款人开户银行、收款人账号、大写金额、小写金额、流水号、回单编号、交易日期、摘要、用途 14个字段的识别结果"
+      },
+      {
+        "param_name": "+  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时返回该字段"
+      },
+      {
+        "param_name": "++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "+ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时返回该字段"
+      },
+      {
+        "param_name": "++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "words_result_num": 14,
+      "words_result": {
+        "标题": [
+          {
+            "word": "中国工商银行网上银行电子回单"
+          }
+        ],
+        "付款人户名": [
+          {
+            "word": "北京小度网络科技有限公司"
+          }
+        ],
+        "付款人开户银行": [
+          {
+            "word": "北京开发区支行营业室"
+          }
+        ],
+        "付款人账号": [
+          {
+            "word": "3208095919200208008"
+          }
+        ],
+        "收款人户名": [
+          {
+            "word": "上海小度网络科技有限公司"
+          }
+        ],
+        "收款人开户银行": [
+          {
+            "word": "工行前海支行"
+          }
+        ],
+        "收款人账号": [
+          {
+            "word": "3707020802702372707"
+          }
+        ],
+        "大写金额": [
+          {
+            "word": "人民币壹万陆仟贰佰叁拾玖元叁角"
+          }
+        ],
+        "小写金额": [
+          {
+            "word": "￥16239.30元"
+          }
+        ],
+        "流水号": [
+          {
+            "word": "27208770"
+          }
+        ],
+        "回单编号": [
+          {
+            "word": "2085758711703264"
+          }
+        ],
+        "交易日期": [
+          {
+            "word": ""
+          }
+        ],
+        "摘要": [
+          {
+            "word": "货款"
+          }
+        ],
+        "用途": [
+          {
+            "word": ""
+          }
+        ]
+      },
+      "log_id": 1630759834809123854
+    }
+  },
+  {
+    "api_name": "定额发票识别",
+    "api_description": "支持对各类定额发票的发票代码、发票号码、金额、发票所在地、发票金额小写、省、市7个关键字段进行结构化识别。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/quota_invoice",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "识别结果数组"
+      },
+      {
+        "param_name": "+ invoice_code",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "发票代码"
+      },
+      {
+        "param_name": "+ invoice_number",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "发票号码"
+      },
+      {
+        "param_name": "+ invoice_rate",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "金额"
+      },
+      {
+        "param_name": "+ location",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "发票所在地"
+      },
+      {
+        "param_name": "+ invoice_rate_lowercase",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "发票金额小写"
+      },
+      {
+        "param_name": "+ province",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "省"
+      },
+      {
+        "param_name": "+ city",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "市"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      }
+    ],
+    "return_example": {
+      "log_id": 2480896295,
+      "words_result_num": 3,
+      "words_result": {
+        "invoice_code": "132081490320",
+        "invoice_number": "01275486",
+        "invoice_rate": "伍拾元整",
+        "invoice_rate_lowercase": "100.00",
+        "invoice_code": "161034127200",
+        "province": "陕西"
+      }
+    }
+  },
+  {
+    "api_name": "通用机打发票识别",
+    "api_description": "支持对国家/地方税务局发行的横/竖版通用机打发票的23个关键字段进行结构化识别，包括发票类型、发票号码、发票代码、开票日期、合计金额大写、合计金额小写、商品名称、商品单位、商品单价、商品数量、商品金额、机打代码、机打号码、校验码、销售方名称、销售方纳税人识别号、购买方名称、购买方纳税人识别号、合计税额等。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/invoice",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "direction",
+        "is_requirement": "是",
+        "type": "int32",
+        "description": "图像方向。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ InvoiceType",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "发票类型"
+      },
+      {
+        "param_name": "+ InvoiceCode",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "发票代码"
+      },
+      {
+        "param_name": "+ InvoiceNum",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "发票号码"
+      },
+      {
+        "param_name": "+ InvoiceDate",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "开票日期"
+      },
+      {
+        "param_name": "+ AmountInFiguers",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "合计金额小写"
+      },
+      {
+        "param_name": "+ AmountInWords",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "合计金额大写"
+      },
+      {
+        "param_name": "+ CommodityName",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "商品名称"
+      },
+      {
+        "param_name": "++  row",
+        "is_requirement": "否",
+        "type": "unit32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++  word",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityUnit",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "商品单位"
+      },
+      {
+        "param_name": "++  row",
+        "is_requirement": "否",
+        "type": "unit32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++  word",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityPrice",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "商品单价"
+      },
+      {
+        "param_name": "++  row",
+        "is_requirement": "否",
+        "type": "unit32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++  word",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityNum",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "商品数量"
+      },
+      {
+        "param_name": "++  row",
+        "is_requirement": "否",
+        "type": "unit32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++  word",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ CommodityAmount",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "商品金额"
+      },
+      {
+        "param_name": "++  row",
+        "is_requirement": "否",
+        "type": "unit32",
+        "description": "行号"
+      },
+      {
+        "param_name": "++  word",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "内容"
+      },
+      {
+        "param_name": "+ IndustrySort",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "行业分类"
+      },
+      {
+        "param_name": "+ MachineNum",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "机打号码"
+      },
+      {
+        "param_name": "+ CheckCode",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "校验码"
+      },
+      {
+        "param_name": "+ SellerName",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "销售方名称"
+      },
+      {
+        "param_name": "+ SellerRegisterNum",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "销售方纳税人识别号"
+      },
+      {
+        "param_name": "+ PurchaserName",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "购买方名称"
+      },
+      {
+        "param_name": "+ PurchaserRegisterNum",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "购买方纳税人识别号"
+      },
+      {
+        "param_name": "+ TotalTax",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "合计税额"
+      },
+      {
+        "param_name": "+ Province",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "省"
+      },
+      {
+        "param_name": "+ City",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "市"
+      },
+      {
+        "param_name": "+ Time",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "时间"
+      },
+      {
+        "param_name": "+ SheetNum",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "联次"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      }
+    ],
+    "return_example": {
+      "log_id": 4423022131715883558,
+      "direction": 0,
+      "words_result_num": 22,
+      "words_result": {
+        "City": "",
+        "InvoiceNum": "01445096",
+        "SellerName": "百度餐饮店",
+        "IndustrySort": "生活服务",
+        "Province": "广东省",
+        "CommodityAmount": [
+          {
+            "word": "183.00",
+            "row": "1"
+          }
+        ],
+        "InvoiceDate": "2020年07月28日",
+        "PurchaserName": "中信建投证券股份有限公司",
+        "CommodityNum": [],
+        "InvoiceCode": "144001901511",
+        "CommodityUnit": [],
+        "SheetNum": "",
+        "PurchaserRegisterNum": "9144223008453480X9",
+        "Time": "",
+        "CommodityPrice": [],
+        "AmountInFiguers": "183.00",
+        "AmountInWords": "壹佰捌拾叁元整",
+        "CheckCode": "61042119820421061301",
+        "TotalTax": "183.00",
+        "InvoiceType": "广东通用机打发票",
+        "SellerRegisterNum": "61042119820421061301",
+        "CommodityName": [
+          {
+            "word": "餐费",
+            "row": "1"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "api_name": "火车票识别",
+    "api_description": "支持对红、蓝火车票的13个关键字段进行结构化识别，包括车票号码、始发站、目的站、车次、日期、票价、席别、姓名、座位号、身份证号、售站、序列号、时间。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/train_ticket",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "请求标识码，唯一，用于调用失败后进行问题定位"
+      },
+      {
+        "param_name": "direction",
+        "is_requirement": "是",
+        "type": "int32",
+        "description": "图像方向- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "+ ticket_num",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "车票号"
+      },
+      {
+        "param_name": "+ starting_station",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "始发站"
+      },
+      {
+        "param_name": "+ train_num",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "车次号"
+      },
+      {
+        "param_name": "+ destination_station",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "到达站"
+      },
+      {
+        "param_name": "+ date",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "出发日期"
+      },
+      {
+        "param_name": "+ ticket_rates",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "车票金额"
+      },
+      {
+        "param_name": "+ seat_category",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "席别"
+      },
+      {
+        "param_name": "+ name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "乘客姓名"
+      },
+      {
+        "param_name": "+ id_num",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "身份证号"
+      },
+      {
+        "param_name": "+ serial_number",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "序列号"
+      },
+      {
+        "param_name": "+ sales_station",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "售站"
+      },
+      {
+        "param_name": "+ time",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "时间"
+      },
+      {
+        "param_name": "+ seat_num",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "座位号"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      }
+    ],
+    "return_example": {
+      "log_id": "12317512659",
+      "direction": 1,
+      "words_result_num": 13,
+      "words_result": {
+        "id_num": "2302051998****156X",
+        "name": "裴一丽",
+        "ticket_rates": "￥54.5元",
+        "destination_station": "天津站",
+        "seat_category": "二等座",
+        "sales_station": "北京南",
+        "ticket_num": "F05706",
+        "seat_num": "02车03C号",
+        "time": "09:36",
+        "date": "2019年04月03日",
+        "serial_number": "10010300067846",
+        "train_num": "C255",
+        "starting_station": "北京南站"
+      }
+    }
+  },
+  {
+    "api_name": "出租车票识别",
+    "api_description": "支持识别全国各大城市出租车票的 16 个关键字段，包括发票号码、代码、车号、日期、总金额、燃油附加费、叫车服务费、省、市、单价、里程、上车时间、下车时间等。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/taxi_receipt",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "请求标识码，随机数，唯一。"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "识别结果数组"
+      },
+      {
+        "param_name": "+ InvoiceCode",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票代号"
+      },
+      {
+        "param_name": "+ InvoiceNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票号码"
+      },
+      {
+        "param_name": "+ TaxiNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "车牌号"
+      },
+      {
+        "param_name": "+ Date",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "日期"
+      },
+      {
+        "param_name": "+ Time",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "上下车时间"
+      },
+      {
+        "param_name": "+ PickupTime",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "上车时间"
+      },
+      {
+        "param_name": "+ DropoffTime",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "下车时间"
+      },
+      {
+        "param_name": "+ Fare",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "金额"
+      },
+      {
+        "param_name": "+ FuelOilSurcharge",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "燃油附加费"
+      },
+      {
+        "param_name": "+ CallServiceSurcharge",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "叫车服务费"
+      },
+      {
+        "param_name": "+ TotalFare",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "总金额"
+      },
+      {
+        "param_name": "+ Location",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "开票城市"
+      },
+      {
+        "param_name": "+ Province",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "省"
+      },
+      {
+        "param_name": "+ City",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "市"
+      },
+      {
+        "param_name": "+ PricePerkm",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "单价"
+      },
+      {
+        "param_name": "+ Distance",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "里程"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      }
+    ],
+    "return_example": {
+      "log_id": 2034039896,
+      "words_result_num": 16,
+      "words_result": {
+        "Date": "2017-11-26",
+        "Fare": "¥153.30元",
+        "Location": "北京",
+        "InvoiceCode": "111001681009",
+        "InvoiceNum": "90769610",
+        "TaxiNum": "BV2062",
+        "Time": "20:42-21:07",
+        "PickupTime": "20:42",
+        "DropoffTime": "21:07",
+        "FuelOilSurcharge": "¥1.00",
+        "CallServiceSurcharge": "¥1.00",
+        "TotalFare": "¥155.30元",
+        "Province": "北京",
+        "City": "北京市",
+        "PricePerkm": "2.50元/KM",
+        "Distance": "4.5KM"
+      }
+    }
+  },
+  {
+    "api_name": "飞机行程单识别",
+    "api_description": "支持对飞机行程单的24个字段进行结构化识别，包括电子客票号、印刷序号、姓名、始发站、目的站、航班号、日期、时间、票价、身份证号、承运人、民航发展基金、保险费、燃油附加费、其他税费、合计金额、填开日期、订票渠道、客票级别、座位等级、销售单位号、签注、免费行李、验证码。\n同时，支持单张行程单上的多航班信息识别。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/air_ticket",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "multi_detect",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "控制是否开启多航班信息识别功能，默认值：false- true：开启多航班信息识别功能，开启后返回结果中对应字段格式将改为数组类型- false： 不开启，仅识别单一航班信息"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "姓名"
+      },
+      {
+        "param_name": "+ starting_station",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "始发站"
+      },
+      {
+        "param_name": "+ destination_station",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "目的站"
+      },
+      {
+        "param_name": "+ flight",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "航班号"
+      },
+      {
+        "param_name": "+ date",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "日期"
+      },
+      {
+        "param_name": "+ ticket_number",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "电子客票号码"
+      },
+      {
+        "param_name": "+ fare",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "票价"
+      },
+      {
+        "param_name": "+ dev_fund",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "民航发展基金/基建费"
+      },
+      {
+        "param_name": "+ fuel_surcharge",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "燃油附加费"
+      },
+      {
+        "param_name": "+ other_tax",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "其他税费"
+      },
+      {
+        "param_name": "+ ticket_rates",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "合计金额"
+      },
+      {
+        "param_name": "+ issued_date",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "填开日期"
+      },
+      {
+        "param_name": "+ id_num",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "身份证号"
+      },
+      {
+        "param_name": "+ carrier",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "承运人"
+      },
+      {
+        "param_name": "+ time",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "时间"
+      },
+      {
+        "param_name": "+ issued_by",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "订票渠道"
+      },
+      {
+        "param_name": "+ serial_number",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "印刷序号"
+      },
+      {
+        "param_name": "+ insurance",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "保险费"
+      },
+      {
+        "param_name": "+ fare_basis",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "客票级别"
+      },
+      {
+        "param_name": "+ class",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "座位等级"
+      },
+      {
+        "param_name": "+ agent_code",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "销售单位号"
+      },
+      {
+        "param_name": "+ endorsement",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "签注"
+      },
+      {
+        "param_name": "+ allow",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "免费行李"
+      },
+      {
+        "param_name": "+ ck",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "验证码"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      }
+    ],
+    "return_example": [
+      {
+        "log_id": 7306800033425229106,
+        "words_result_num": 18,
+        "words_result": {
+          "insurance": "20.00",
+          "date": "2019-10-22",
+          "allow": "20K",
+          "flight": "CA6589",
+          "issued_by": "中国国际航空服务有限公司",
+          "starting_station": "武汉",
+          "fare": "260.00",
+          "endorsement": "不得签转改期退转",
+          "ticket_rates": "350.00",
+          "ck": "5866",
+          "serial_number": "51523588676",
+          "ticket_number": "7843708871196",
+          "fuel_surcharge": "EXEMPT",
+          "carrier": "南航",
+          "issued_date": "2019-10-30",
+          "other_tax": "",
+          "fare_basis": "NREOW",
+          "id_num": "411201123909020877",
+          "destination_station": "合肥",
+          "name": "郭达",
+          "agent_code": "BJS19197300025",
+          "time": "21:25",
+          "class": "N",
+          "dev_fund": "50.00"
+        }
+      },
+      {
+        "words_result": {
+          "log_id": "1280814270572920832",
+          "words_result_num": 18,
+          "insurance": [
+            {
+              "word": "XXX"
+            }
+          ],
+          "date": [
+            {
+              "word": "2019-10-18"
+            },
+            {
+              "word": "2019-10-21"
+            }
+          ],
+          "flight": [
+            {
+              "word": "CZ3565"
+            },
+            {
+              "word": "CZ3566"
+            }
+          ],
+          "issued_by": [
+            {
+              "word": "上海携程旅行社有限公司"
+            }
+          ],
+          "starting_station": [
+            {
+              "word": "北京"
+            }
+          ],
+          "fare": [
+            {
+              "word": "1080.00"
+            }
+          ],
+          "ticket_rates": [
+            {
+              "word": "1420.00"
+            }
+          ],
+          "serial_number": [
+            {
+              "word": "45956029770"
+            }
+          ],
+          "ticket_number": [
+            {
+              "word": "7849648364314"
+            }
+          ],
+          "fuel_surcharge": [
+            {
+              "word": "240.00"
+            }
+          ],
+          "carrier": [
+            {
+              "word": "南航"
+            },
+            {
+              "word": "南航"
+            }
+          ],
+          "issued_date": [
+            {
+              "word": "2019-09-18"
+            }
+          ],
+          "other_tax": [],
+          "id_num": [
+            {
+              "word": "0789654700"
+            }
+          ],
+          "destination_station": [
+            {
+              "word": "深圳"
+            },
+            {
+              "word": "北京"
+            }
+          ],
+          "name": [
+            {
+              "word": "姚佳"
+            }
+          ],
+          "time": [
+            {
+              "word": "13:55"
+            },
+            {
+              "word": "16:30"
+            }
+          ],
+          "dev_fund": [
+            {
+              "word": "100.00"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "api_name": "汽车票识别",
+    "api_description": "支持对全国范围不同版式汽车票的发票代码、发票号码、到达站、出发站、日期、时间、金额、身份证号、姓名、开票日期10个字段进行结构化识别。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/bus_ticket",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ InvoiceCode",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票代码"
+      },
+      {
+        "param_name": "+ InvoiceNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票号码"
+      },
+      {
+        "param_name": "+ Date",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "日期"
+      },
+      {
+        "param_name": "+ Time",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "时间"
+      },
+      {
+        "param_name": "+ StartingStation",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "出发站"
+      },
+      {
+        "param_name": "+ Fare",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "金额"
+      },
+      {
+        "param_name": "+ IdNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "身份证号"
+      },
+      {
+        "param_name": "+ DestinationStation",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "到达站"
+      },
+      {
+        "param_name": "+ Name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "姓名"
+      }
+    ],
+    "return_example": {
+      "words_result": {
+        "DestinationStation": "郑州西站",
+        "IdNum": "424133********3014",
+        "Time": "08:30",
+        "InvoiceCode": "145021822522",
+        "InvoiceNum": "1450374239",
+        "StartingStation": "北京南站",
+        "Date": "2020-01-24",
+        "Name": "王文",
+        "Fare": "69.00"
+      },
+      "log_id": "1274914257661591552",
+      "words_result_num": 9
+    }
+  },
+  {
+    "api_name": "过路过桥费发票识别",
+    "api_description": "支持对全国范围不同版式过路、过桥费发票的发票代码、发票号码、入口、出口、日期、时间、金额、省、市9个字段进行结构化识别。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/toll_invoice",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ InvoiceCode",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票代码"
+      },
+      {
+        "param_name": "+ InvoiceNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票号码"
+      },
+      {
+        "param_name": "+ Entrance",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "入口"
+      },
+      {
+        "param_name": "+ Exit",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "出口"
+      },
+      {
+        "param_name": "+ Date",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "日期"
+      },
+      {
+        "param_name": "+ Time",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "时间"
+      },
+      {
+        "param_name": "+ Fare",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "金额"
+      },
+      {
+        "param_name": "+ Province",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "省"
+      },
+      {
+        "param_name": "+ City",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "市"
+      }
+    ],
+    "return_example": {
+      "words_result": {
+        "Entrance": "保定北",
+        "Time": "13:24",
+        "InvoiceCode": "237001473201",
+        "Date": "2020-02-18",
+        "Exit": "邯郸",
+        "Fare": "110.00",
+        "InvoiceNum": "95876669",
+        "City": "保定",
+        "Province": "河北"
+      },
+      "log_id": "1274932270494384128",
+      "words_result_num": 7
+    }
+  },
+  {
+    "api_name": "船票识别",
+    "api_description": "对全国范围内不同版式的客运船票、货运船票进行结构化识别，包括发票代码、发票号码、发票日期、发票类型、总金额、出发地点、到达地点等7个字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/ferry_ticket",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ InvoiceType",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票类型"
+      },
+      {
+        "param_name": "+ InvoiceCode",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票代码"
+      },
+      {
+        "param_name": "+ InvoiceNum",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "发票号码"
+      },
+      {
+        "param_name": "+ StartingStation",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "出发地点"
+      },
+      {
+        "param_name": "+ DestinationStation",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "到达地点"
+      },
+      {
+        "param_name": "+ Fare",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "总金额"
+      },
+      {
+        "param_name": "+ InvoiceDate",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "开票日期"
+      }
+    ],
+    "return_example": {
+      "log_id": 2034039811,
+      "words_result_num": 7,
+      "words_result": {
+        "InvoiceType": "客运船票",
+        "InvoiceCode": "111001681009",
+        "InvoiceNum": "90769610",
+        "StartingStation": "烟台",
+        "DestinationStation": "大连",
+        "InvoiceDate": "2020-10-26",
+        "Fare": "¥153.30元"
+      }
+    }
+  },
+  {
+    "api_name": "网约车行程单识别",
+    "api_description": "对各大主要服务商的网约车行程单进行结构化识别，包括滴滴打车、花小猪打车、高德地图、曹操出行、阳光出行，支持识别服务商、行程开始时间、行程结束时间、车型、总金额等16 个关键字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/online_taxi_itinerary",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ ServiceProvider",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "服务商"
+      },
+      {
+        "param_name": "+ StartTime",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "行程开始时间"
+      },
+      {
+        "param_name": "+ EndTime",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "行程结束时间"
+      },
+      {
+        "param_name": "+ Phone",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "行程人手机号"
+      },
+      {
+        "param_name": "+ ApplicationDate",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "申请日期"
+      },
+      {
+        "param_name": "+ TotalFare",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "总金额"
+      },
+      {
+        "param_name": "+ ItemNum",
+        "is_requirement": "是",
+        "type": "array",
+        "description": "行程信息中包含的行程数量"
+      },
+      {
+        "param_name": "+ Items",
+        "is_requirement": "是",
+        "type": "array",
+        "description": "行程信息"
+      },
+      {
+        "param_name": "++ ItemId",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "行程信息的对应序号"
+      },
+      {
+        "param_name": "++ PickupTime",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "上车时间"
+      },
+      {
+        "param_name": "++ PickupDate",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "上车日期"
+      },
+      {
+        "param_name": "++ CarType",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "车型"
+      },
+      {
+        "param_name": "++ Distance",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "里程"
+      },
+      {
+        "param_name": "++ StartPlace",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "起点"
+      },
+      {
+        "param_name": "++ DestinationPlace",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "终点"
+      },
+      {
+        "param_name": "++ City",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "城市"
+      },
+      {
+        "param_name": "++ Fare",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "金额"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      }
+    ],
+    "return_example": {
+      "log_id": 1385196013945356288,
+      "words_result_num": 7,
+      "words_result": {
+        "TotalFare": "2316",
+        "EndTime": "2020-07-30 19:00",
+        "Phone": "13000000000",
+        "ServiceProvider": "滴滴企业版",
+        "StartTime": "2020-07-01 16:00",
+        "ApplicationDate": "2017-12-08",
+        "ItemId": "3",
+        "items": [
+          {
+            "ItemId": "1",
+            "StartPlace": "鱼化寨地铁-D口",
+            "PickupTime": "16:00",
+            "CarType": "快车",
+            "City": "西安市",
+            "Distance": "9.7",
+            "PickupDate": "20-07-01",
+            "DestinationPlace": "创新港",
+            "Fare": "20.86"
+          },
+          {
+            "ItemId": "2",
+            "StartPlace": "科学园东门",
+            "PickupTime": "14:56",
+            "CarType": "快车",
+            "City": "西安市",
+            "Distance": "91",
+            "PickupDate": "20-07-02",
+            "DestinationPlace": "鱼化寨地铁站",
+            "Fare": "18.58"
+          },
+          {
+            "ItemId": "3",
+            "StartPlace": "中俄丝路创新园东门",
+            "PickupTime": "19:00",
+            "CarType": "快车",
+            "City": "西安市",
+            "Distance": "9.1",
+            "PickupDate": "20-07-30",
+            "DestinationPlace": "新门地铁站",
+            "Fare": "20.38"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "api_name": "通用票据识别",
+    "api_description": "针对票据字体做了专项优化的通用文字识别版本，支持对医疗票据、银行兑票、购物小票等各类票据的票面内容进行识别，并按行返回结果。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/receipt",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url/ofd_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "ofd_file",
+        "is_requirement": "和 image/url/pdf_file 四选一",
+        "type": "string",
+        "range": "-",
+        "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
+      },
+      {
+        "param_name": "ofd_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "recognize_granularity",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "big/small",
+        "description": "是否定位单字符位置，big：不定位单字符位置，默认值；small：定位单字符位置"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回识别结果中每一行的置信度"
+      },
+      {
+        "param_name": "accuracy",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "normal/缺省",
+        "description": "normal：使用快速服务；缺省或其它值：使用高精度服务"
+      },
+      {
+        "param_name": "detect_direction",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否检测图像朝向，默认不检测，即：false。可选值包括：- true：检测朝向；- false：不检测朝向，朝向是指输入图像是正常方向、逆时针旋转90/180/270度"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "定位和识别结果数组"
+      },
+      {
+        "param_name": "+ location",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "位置数组（坐标0点为左上角）"
+      },
+      {
+        "param_name": "++ left",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的水平坐标"
+      },
+      {
+        "param_name": "++ top",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的垂直坐标"
+      },
+      {
+        "param_name": "++ width",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形的宽度"
+      },
+      {
+        "param_name": "++ height",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形的高度"
+      },
+      {
+        "param_name": "+ words",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "识别结果字符串"
+      },
+      {
+        "param_name": "+ chars",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "单字符结果，recognize_granularity=small 时存在"
+      },
+      {
+        "param_name": "++ char",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "单字符识别结果"
+      },
+      {
+        "param_name": "++ location",
+        "is_requirement": "否",
+        "type": "object{}",
+        "description": "位置数组（坐标0点为左上角）"
+      },
+      {
+        "param_name": "+++ left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的水平坐标"
+      },
+      {
+        "param_name": "+++ top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的垂直坐标"
+      },
+      {
+        "param_name": "+++ width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示定位定位位置的长方形的宽度"
+      },
+      {
+        "param_name": "+++ height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示位置的长方形的高度"
+      },
+      {
+        "param_name": "+ probability",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "识别结果中每一行的置信度值，包含average：行置信度平均值，variance：行置信度方差，min：行置信度最小值"
+      }
+    ],
+    "return_example": {
+      "log_id": 2661573626,
+      "words_result_num": 1,
+      "words_result": [
+        {
+          "location": {
+            "left": 212,
+            "top": 3,
+            "width": 738,
+            "height": 24
+          },
+          "words": "卡号/病案号:105353990标本编号:150139071送检科室:血液透析门诊病房"
+        }
+      ]
+    }
   }
-}
+]

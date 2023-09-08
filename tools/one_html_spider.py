@@ -48,7 +48,9 @@ def get_html(url: str):
 
     # 开始构建参数列表
     request_parameters = []  # 里面由几个json构成
-    params_table = html_soup.find_all('table')[3]
+    params_table_before = html_soup.title('请求参数')
+
+    params_table = html_soup.find_all('table')[2]
     # print(params_table)
 
     # 里面的tbody
@@ -99,7 +101,6 @@ def get_html(url: str):
                "header": header, "url_param": url_param, "request_parameters": request_parameters,
                "response_parameters": response_parameters, "return_example": ""}
 
-    pattern = r'[\n ]'
 
     api_one_json = json.dumps(api_one, ensure_ascii=False)
 
@@ -109,4 +110,4 @@ def get_html(url: str):
 
 
 if __name__ == '__main__':
-    get_html('https://ai.baidu.com/ai-doc/OCR/rk3h7xzck')
+    get_html('https://ai.baidu.com/ai-doc/NLP/vk6z52h5n')

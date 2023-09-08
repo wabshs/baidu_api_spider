@@ -1,0 +1,2997 @@
+[
+  {
+    "api_name": "医疗发票识别",
+    "api_description": "支持识别全国各地门诊/住院发票的 业务流水号、发票号、住院号、门诊号、病例号、姓名、性别、社保卡号、金额大/小写、收款单位、省市、医保统筹支付、个人账户支付 等关键字段，其中北京/广东/河北/河南/江苏/山东/上海/天津/浙江等地区票据识别效果较佳。支持识别收费项目明细，并可根据不同省市地区返回对应的识别参数。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_invoice",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "InvoiceType",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "票据种类"
+      },
+      {
+        "param_name": "Province",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "省市：支持返回以下省市 北京/广东/河北/河南/江苏/山东/上海/天津/浙江等"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ BusinessNum",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "业务流水号"
+      },
+      {
+        "param_name": "+ InvoiceNum",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "发票号码"
+      },
+      {
+        "param_name": "+ HospitalNum",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "住院号"
+      },
+      {
+        "param_name": "+ HospitalName",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "医院名称"
+      },
+      {
+        "param_name": "+ RecordNum",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "病例号"
+      },
+      {
+        "param_name": "+ HospitalDay",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "住院天数"
+      },
+      {
+        "param_name": "+ AdmissionDate",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "入院时间"
+      },
+      {
+        "param_name": "+ DischargeDate",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "出院时间"
+      },
+      {
+        "param_name": "+ Name",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "姓名"
+      },
+      {
+        "param_name": "+ Sex",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "性别"
+      },
+      {
+        "param_name": "+ HospitalType",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "医疗机构类型"
+      },
+      {
+        "param_name": "+ SocialSecurityNum",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "社保卡号"
+      },
+      {
+        "param_name": "+ InsuranceType",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "医保类型"
+      },
+      {
+        "param_name": "+ ChargingUnit",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "收款单位"
+      },
+      {
+        "param_name": "+ Payee",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "收款人"
+      },
+      {
+        "param_name": "+ Date",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "开票日期"
+      },
+      {
+        "param_name": "+ AmountInWords",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "大写合计金额"
+      },
+      {
+        "param_name": "+ AmountInFiguers",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "小写合计金额"
+      },
+      {
+        "param_name": "+ InsurancePayment",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "医保统筹支付"
+      },
+      {
+        "param_name": "+ PersonalPayment",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "个人账户支付"
+      },
+      {
+        "param_name": "+ PrepayAmount",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "预缴金额"
+      },
+      {
+        "param_name": "+ PaymentAmount",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "补缴金额"
+      },
+      {
+        "param_name": "+  RefundAmount",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "退费金额"
+      },
+      {
+        "param_name": "+ ClinicNum",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "门诊号"
+      },
+      {
+        "param_name": "++  word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段识别结果，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "+++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "+++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "+++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "++ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "+++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      },
+      {
+        "param_name": "+ CostCategories",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "项目大类：治疗费、检查费等项目大类"
+      },
+      {
+        "param_name": "+ CostDetail",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "明细类别：药物/检查的明细类别"
+      },
+      {
+        "param_name": "+ RegionSupplement",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "地区字段：根据省市返回改地区特有的字段"
+      }
+    ],
+    "return_example": {
+      "log_id": 1397076899313745920,
+      "words_result_num": 28,
+      "Province": "北京",
+      "InvoiceType": "门诊发票",
+      "words_result": {
+        "AmountInWords": {
+          "word": "玖佰叁拾玖元肆角捌分"
+        },
+        "Sex": {
+          "word": "男"
+        },
+        "InsuranceType": {
+          "word": "城镇职工"
+        },
+        "Name": {
+          "word": "王成"
+        },
+        "SocialSecurityNum": {
+          "word": "T03419700077"
+        },
+        "DischargeDate": {
+          "word": "2016-01-01"
+        },
+        "HospitalNum": {
+          "word": "0937829032"
+        },
+        "HospitalName": {
+          "word": "北京市房山区良乡医院"
+        },
+        "CostCategories": [
+          [
+            {
+              "name": "收费项目",
+              "word": "西药费"
+            },
+            {
+              "name": "金额",
+              "word": "426.70"
+            }
+          ],
+          [
+            {
+              "name": "收费项目",
+              "word": "中成药费"
+            },
+            {
+              "name": "金额",
+              "word": "512.78"
+            }
+          ]
+        ],
+        "RegionSupplement": [
+          {
+            "name": "其他医保支付",
+            "word": "0.00"
+          },
+          {
+            "name": "年度门诊大额累计支付",
+            "word": "83.79"
+          },
+          {
+            "name": "起付金额",
+            "word": "777.11"
+          },
+          {
+            "name": "基金支付",
+            "word": "101.75"
+          },
+          {
+            "name": "本次支付后个人账户余额",
+            "word": "0.00"
+          },
+          {
+            "name": "个人支付金额",
+            "word": "837.73"
+          },
+          {
+            "name": "交易流水号",
+            "word": "111100030Z160517006328"
+          },
+          {
+            "name": "自付一",
+            "word": "795.06"
+          },
+          {
+            "name": "自付二",
+            "word": "42.67"
+          },
+          {
+            "name": "累计医保内范围金额",
+            "word": "1419.70"
+          },
+          {
+            "name": "门诊大额支付",
+            "word": "83.79"
+          },
+          {
+            "name": "本次医保范围内金额",
+            "word": "896.81"
+          },
+          {
+            "name": "退休补充支付",
+            "word": "17.96"
+          },
+          {
+            "name": "超封顶金额",
+            "word": "0.00"
+          },
+          {
+            "name": "残军补助支付",
+            "word": "0.00"
+          },
+          {
+            "name": "单位补充险[原公疗]支付",
+            "word": "0.00"
+          },
+          {
+            "name": "自费",
+            "word": "42.67"
+          }
+        ],
+        "ClinicNum": {
+          "word": "12169298"
+        },
+        "AmountInFiguers": {
+          "word": "939.48"
+        },
+        "AdmissionDate": {
+          "word": "2016-01-01"
+        },
+        "HospitalType": {
+          "word": "综合医院"
+        },
+        "RefundAmount": {
+          "word": "0.00"
+        },
+        "Date": {
+          "word": "2016年05月17日"
+        },
+        "ChargingUnit": {
+          "word": "房山区良乡医院"
+        },
+        "CostDetail": [
+          [
+            {
+              "name": "编码",
+              "word": "01"
+            },
+            {
+              "name": "项目",
+              "word": "阿托伐他汀钙胶囊"
+            },
+            {
+              "name": "规格",
+              "word": "10mg*7支"
+            },
+            {
+              "name": "数量",
+              "word": "10"
+            },
+            {
+              "name": "单价",
+              "word": "29.3200"
+            },
+            {
+              "name": "金额",
+              "word": "293.20"
+            }
+          ],
+          [
+            {
+              "name": "编码",
+              "word": "02"
+            },
+            {
+              "name": "项目",
+              "word": "替米沙坦胶囊"
+            },
+            {
+              "name": "规格",
+              "word": "40mg*12粒"
+            },
+            {
+              "name": "数量",
+              "word": "5"
+            },
+            {
+              "name": "单价",
+              "word": "26.7000"
+            },
+            {
+              "name": "金额",
+              "word": "133.50"
+            }
+          ]
+        ],
+        "PaymentAmount": {
+          "word": "0.00"
+        },
+        "PrepayAmount": {
+          "word": "0.00"
+        },
+        "PersonalPayment": {
+          "word": "0.00"
+        },
+        "HospitalDay": {
+          "word": "15"
+        },
+        "BusinessNum": {
+          "word": "40091198916051710196"
+        },
+        "InsurancePayment": {
+          "word": "0.00"
+        },
+        "Payee": {
+          "word": "刘冰"
+        },
+        "RecordNum": {
+          "word": "0001268129"
+        },
+        "InvoiceNum": {
+          "word": "0103152099"
+        }
+      }
+    }
+  },
+  {
+    "api_name": "医疗费用明细识别",
+    "api_description": "支持识别全国医疗费用明细的姓名、日期、病人ID、总金额等关键字段，支持识别费用明细项目清单，包含项目类型、项目名称、单价、数量、规格、金额，其中北京地区识别效果最佳。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_detail",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过10M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "+ Name",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "姓名"
+      },
+      {
+        "param_name": "+ Date",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "日期"
+      },
+      {
+        "param_name": "+ PatientID",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "病人ID"
+      },
+      {
+        "param_name": "+ TotalAmount",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "总金额"
+      },
+      {
+        "param_name": "+ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段识别结果，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "+++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "+++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "+++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "++ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "+++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      },
+      {
+        "param_name": "+ CostDetail",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "项目明细"
+      }
+    ],
+    "return_example": {
+      "log_id": 1397090241579319296,
+      "words_result_num": 5,
+      "words_result": {
+        "PatientID": {
+          "word": "23683829"
+        },
+        "TotalAmount": {
+          "word": "600.00"
+        },
+        "Date": {
+          "word": "2020年11月04日"
+        },
+        "Name": {
+          "word": "范浩"
+        },
+        "CostDetail": [
+          [
+            {
+              "word_name": "清单项目名称",
+              "word": "普通过敏原(新)筛查"
+            },
+            {
+              "word_name": "单价",
+              "word": "580.00"
+            },
+            {
+              "word_name": "数量",
+              "word": "1.00"
+            },
+            {
+              "word_name": "金额",
+              "word": "580.00"
+            },
+            {
+              "word_name": "规格",
+              "word": "次"
+            },
+            {
+              "word_name": "项目类型",
+              "word": "化验费"
+            }
+          ],
+          [
+            {
+              "word_name": "清单项目名称",
+              "word": "总IgE测定"
+            },
+            {
+              "word_name": "单价",
+              "word": "20.00"
+            },
+            {
+              "word_name": "数量",
+              "word": "1.00"
+            },
+            {
+              "word_name": "金额",
+              "word": "20.00"
+            },
+            {
+              "word_name": "规格",
+              "word": "次"
+            },
+            {
+              "word_name": "项目类型",
+              "word": "化验费"
+            }
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "api_name": "医疗费用结算单识别",
+    "api_description": "支持识别全国医疗费用结算单的姓名、出/入院时间、发票总金额、自费金额、医保支付金额等 6 个关键字段，其中北京地区票据识别效果最佳。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_statement",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "InvoiceType",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "票据种类"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ AdmissionDate",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "入院时间"
+      },
+      {
+        "param_name": "+ DischargeDate",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "出院时间"
+      },
+      {
+        "param_name": "+ Name",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "姓名"
+      },
+      {
+        "param_name": "+ AmountInFiguers",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "发票总金额"
+      },
+      {
+        "param_name": "+ SelfPaymentAmount",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "全自费"
+      },
+      {
+        "param_name": "+ MedicalInsuranceAmount",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "医保支付"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段识别结果，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++ location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++ top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "+++ left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "+++ height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "+++ width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "++ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "+++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "log_id": 1397086143811420160,
+      "words_result_num": 6,
+      "InvoiceType": "普通结算单",
+      "word_result": {
+        "AmountInFiguers": {
+          "word": "10066.84"
+        },
+        "MedicalInsuranceAmount": {
+          "word": "9066.84"
+        },
+        "SelfPaymentAmount": {
+          "word": "1000.00"
+        },
+        "AdmissionDate": {
+          "word": "2017-06-02"
+        },
+        "DischargeDate": {
+          "word": "2017-06-13"
+        },
+        "Name": {
+          "word": "王美花"
+        }
+      }
+    }
+  },
+  {
+    "api_name": "医疗检验报告单识别",
+    "api_description": "支持识别全国各地医疗检验报告单的姓名、性别、医院名称、报告单名称等关键字段，支持识别检查具体项目的项目名称、结果、单位、参考区间、结果提示等明细字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_report_detection",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "CommonData_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "患者具体信息的识别结果数，表示CommonData的元素个数"
+      },
+      {
+        "param_name": "Item_row_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "检查项目的行数，表示Item中的数组个数"
+      },
+      {
+        "param_name": "+ CommonData",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "患者具体信息"
+      },
+      {
+        "param_name": "+ Item",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "检查项目"
+      },
+      {
+        "param_name": "++ word_name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段名，详见下方表格区说明"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "word_name字段对应的识别结果"
+      },
+      {
+        "param_name": "++  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "+++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "+++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "+++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "++ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "+++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "Item_row_num": 5,
+      "words_result": {
+        "Item": [
+          [
+            {
+              "word_name": "仪器类型",
+              "word": ""
+            },
+            {
+              "word_name": "单位",
+              "word": "10^9/L"
+            },
+            {
+              "word_name": "参考区间",
+              "word": "3.97--9.15"
+            },
+            {
+              "word_name": "测试方法",
+              "word": ""
+            },
+            {
+              "word_name": "结果",
+              "word": "18.82"
+            },
+            {
+              "word_name": "结果提示",
+              "word": ""
+            },
+            {
+              "word_name": "项目代号",
+              "word": "WBC"
+            },
+            {
+              "word_name": "项目名称",
+              "word": "白细胞计数"
+            }
+          ],
+          [
+            {
+              "word_name": "仪器类型",
+              "word": ""
+            },
+            {
+              "word_name": "单位",
+              "word": "10^12/L"
+            },
+            {
+              "word_name": "参考区间",
+              "word": "3.68-574"
+            },
+            {
+              "word_name": "测试方法",
+              "word": ""
+            },
+            {
+              "word_name": "结果",
+              "word": "5.13"
+            },
+            {
+              "word_name": "结果提示",
+              "word": ""
+            },
+            {
+              "word_name": "项目代号",
+              "word": "RBC"
+            },
+            {
+              "word_name": "项目名称",
+              "word": "红细胞计数"
+            }
+          ],
+          [
+            {
+              "word_name": "仪器类型",
+              "word": ""
+            },
+            {
+              "word_name": "单位",
+              "word": "g/L"
+            },
+            {
+              "word_name": "参考区间",
+              "word": "113--172"
+            },
+            {
+              "word_name": "测试方法",
+              "word": ""
+            },
+            {
+              "word_name": "结果",
+              "word": "132.00"
+            },
+            {
+              "word_name": "结果提示",
+              "word": ""
+            },
+            {
+              "word_name": "项目代号",
+              "word": "HGB"
+            },
+            {
+              "word_name": "项目名称",
+              "word": "血红蛋白浓度"
+            }
+          ],
+          [
+            {
+              "word_name": "仪器类型",
+              "word": ""
+            },
+            {
+              "word_name": "单位",
+              "word": "10^9/L"
+            },
+            {
+              "word_name": "参考区间",
+              "word": "101--320"
+            },
+            {
+              "word_name": "测试方法",
+              "word": ""
+            },
+            {
+              "word_name": "结果",
+              "word": "419.101"
+            },
+            {
+              "word_name": "结果提示",
+              "word": ""
+            },
+            {
+              "word_name": "项目代号",
+              "word": "PLT"
+            },
+            {
+              "word_name": "项目名称",
+              "word": "血小板计数"
+            }
+          ],
+          [
+            {
+              "word_name": "仪器类型",
+              "word": ""
+            },
+            {
+              "word_name": "单位",
+              "word": "%"
+            },
+            {
+              "word_name": "参考区间",
+              "word": "50-70"
+            },
+            {
+              "word_name": "测试方法",
+              "word": ""
+            },
+            {
+              "word_name": "结果",
+              "word": "68.54"
+            },
+            {
+              "word_name": "结果提示",
+              "word": ""
+            },
+            {
+              "word_name": "项目代号",
+              "word": "NEUT%"
+            },
+            {
+              "word_name": "项目名称",
+              "word": "中性粒细胞百分比"
+            }
+          ]
+        ],
+        "CommonData": [
+          {
+            "word_name": "临床症状",
+            "word": ""
+          },
+          {
+            "word_name": "临床诊断",
+            "word": ""
+          },
+          {
+            "word_name": "医院",
+            "word": ""
+          },
+          {
+            "word_name": "姓名",
+            "word": "刘安洋"
+          },
+          {
+            "word_name": "年龄",
+            "word": "3岁"
+          },
+          {
+            "word_name": "建议",
+            "word": ""
+          },
+          {
+            "word_name": "性别",
+            "word": "女"
+          },
+          {
+            "word_name": "报告单名称",
+            "word": "霍林郭勒市中蒙医医院检验报告单"
+          },
+          {
+            "word_name": "时间",
+            "word": "20201031"
+          },
+          {
+            "word_name": "标本情况",
+            "word": ""
+          },
+          {
+            "word_name": "标本种类",
+            "word": "血液"
+          },
+          {
+            "word_name": "检查目的",
+            "word": ""
+          },
+          {
+            "word_name": "检查结果",
+            "word": ""
+          },
+          {
+            "word_name": "检查项目",
+            "word": ""
+          },
+          {
+            "word_name": "科室",
+            "word": "儿科门诊"
+          }
+        ]
+      },
+      "CommonData_result_num": 15,
+      "log_id": 1455012594820522020
+    }
+  },
+  {
+    "api_name": "医疗诊断报告单识别",
+    "api_description": "支持识别全国各地各医院医疗诊断报告单，包括医院名称、报告名称、姓名、性别、年龄、科室、临床诊断、报告日期、检查部位、检查方法、检查所见、检查提示、建议、肉眼可见 14个字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/health_report",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "+ word_name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段名，详见下方表格区说明"
+      },
+      {
+        "param_name": "+ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "word_name字段对应的识别结果"
+      },
+      {
+        "param_name": "+  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "+ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "words_result_num": 14,
+      "words_result": [
+        {
+          "word": "陆军军医大学第一附属医院(西南医院)",
+          "word_name": "医院名称"
+        },
+        {
+          "word": "放射科CT诊断报告单",
+          "word_name": "报告名称"
+        },
+        {
+          "word": "杜凤一",
+          "word_name": "姓名"
+        },
+        {
+          "word": "女",
+          "word_name": "性别"
+        },
+        {
+          "word": "60岁",
+          "word_name": "年龄"
+        },
+        {
+          "word": "骨科新冠筛查门诊",
+          "word_name": "科室"
+        },
+        {
+          "word": "待查",
+          "word_name": "临床诊断"
+        },
+        {
+          "word": "CT胸椎三维重建检查",
+          "word_name": "检查方法"
+        },
+        {
+          "word": "胸椎椎序列正常,椎体缘可见骨质增生变尖,胸9椎体致密结节影,椎间隙无狭窄,椎管内未见异常密度,椎旁软组织未见异常。",
+          "word_name": "检查所见"
+        },
+        {
+          "word": "1.胸椎轻度退性行改变。2.胸9椎体骨岛可能。",
+          "word_name": "检查提示"
+        },
+        {
+          "word": "20201019",
+          "word_name": "报告日期"
+        },
+        {
+          "word": "",
+          "word_name": "肉眼可见"
+        },
+        {
+          "word": "",
+          "word_name": "建议"
+        },
+        {
+          "word": "",
+          "word_name": "检查部位"
+        }
+      ],
+      "log_id": 1547051630940329127
+    }
+  },
+  {
+    "api_name": "病案首页识别",
+    "api_description": "支持识别全国各地病案首页的病案号、姓名、性别、出生日期、身份证号、出/入院科别、住院次数、药物过敏情况等 15 个关键字段，其中北京地区票据识别效果最佳",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_record",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "InvoiceType",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "票据种类"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "+ RecordNum",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "病案号"
+      },
+      {
+        "param_name": "+ Name",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "姓名"
+      },
+      {
+        "param_name": "+ Sex",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "性别"
+      },
+      {
+        "param_name": "+ Birthday",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "出生日期"
+      },
+      {
+        "param_name": "+ Age",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "年龄"
+      },
+      {
+        "param_name": "+ Career",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "职业"
+      },
+      {
+        "param_name": "+ MaritalStatus",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "婚姻"
+      },
+      {
+        "param_name": "+ Nation",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "民族"
+      },
+      {
+        "param_name": "+ ID",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "身份证号"
+      },
+      {
+        "param_name": "+ Nationality",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "国籍"
+      },
+      {
+        "param_name": "+ AdmissionDepartment",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "入院科别"
+      },
+      {
+        "param_name": "+ DischargeDepartment",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "出院科别"
+      },
+      {
+        "param_name": "+ HospitalDay",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "住院次数"
+      },
+      {
+        "param_name": "+ Allergy",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "药物过敏"
+      },
+      {
+        "param_name": "+ BloodType",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "血型、Rh血型、ABO血型"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段识别结果，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++ location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++ top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "+++ left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "+++ height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "+++ width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "++ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "+++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "log_id": 1397084278038200320,
+      "words_result_num": 15,
+      "InvoiceType": "病案首页",
+      "words_result": {
+        "Nation": {
+          "word": "汉族"
+        },
+        "Allergy": {
+          "word": "2"
+        },
+        "Sex": {
+          "word": "2"
+        },
+        "Birthday": {
+          "word": "1968年01月10日"
+        },
+        "Nationality": {
+          "word": "中国"
+        },
+        "Name": {
+          "word": "毛丽"
+        },
+        "MaritalStatus": {
+          "word": "已婚"
+        },
+        "HospitalDay": {
+          "word": "第1次住院"
+        },
+        "AdmissionDepartment": {
+          "word": "乳腺中心病房"
+        },
+        "ID": {
+          "word": "1101"
+        },
+        "DischargeDepartment": {
+          "word": "外科"
+        },
+        "Career": {
+          "word": "其他"
+        },
+        "Age": {
+          "word": "48岁"
+        },
+        "BloodType": {
+          "word": "A型"
+        },
+        "RecordNum": {
+          "word": "796968"
+        }
+      }
+    }
+  },
+  {
+    "api_name": "出院小结识别",
+    "api_description": "支持识别全国出院小结的科室、姓名、性别、年龄、入院日期、出院日期、住院天数、入院诊断、出院诊断、出院医嘱等关键字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_summary",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "+ word_name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段名，包括：科室、姓名、性别、年龄、入院日期、出院日期、住院天数、入院诊断、出院诊断、出院医嘱"
+      },
+      {
+        "param_name": "+ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段识别结果，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "+ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "words_result": [
+        {
+          "word_name": "住院天数",
+          "word": "10"
+        },
+        {
+          "word_name": "入院日期",
+          "word": "2020-12-16"
+        },
+        {
+          "word_name": "入院诊断",
+          "word": "肠胃炎"
+        },
+        {
+          "word_name": "出院医嘱",
+          "word": ""
+        },
+        {
+          "word_name": "出院日期",
+          "word": "2020-12-26"
+        },
+        {
+          "word_name": "出院诊断",
+          "word": "已康复"
+        },
+        {
+          "word_name": "姓名",
+          "word": "曹根华"
+        },
+        {
+          "word_name": "年龄",
+          "word": "46"
+        },
+        {
+          "word_name": "性别",
+          "word": "男"
+        },
+        {
+          "word_name": "科室",
+          "word": "肠胃一科"
+        }
+      ],
+      "words_result_num": 10,
+      "log_id": 1468419876418830448
+    }
+  },
+  {
+    "api_name": "入院小结识别",
+    "api_description": "支持识别全国各地各医院入院小结的姓名、性别、年龄、入院时间、主诉、身份证号、联系人电话、病史采集日期、既往史、现病史、个人史、月经婚育史、工作单位、可靠程度 14个关键字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_summary_in_hospital",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "+ word_name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段名，详见下方表格区说明"
+      },
+      {
+        "param_name": "+ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "word_name字段对应的识别结果"
+      },
+      {
+        "param_name": "+  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "+ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "words_result_num": 14,
+      "words_result": [
+        {
+          "word": "生于原籍,无外地久居史。否认疫区、疫水接触史,否认特殊化学品及放射性物质接触史。无吸烟饮酒等不良嗜好。",
+          "word_name": "个人史"
+        },
+        {
+          "word": "发现双侧甲状腺多发结节2年半",
+          "word_name": "主诉"
+        },
+        {
+          "word": "2019年04月29日 14:17:00",
+          "word_name": "入院时间"
+        },
+        {
+          "word": "可靠",
+          "word_name": "可靠程度"
+        },
+        {
+          "word": "王月",
+          "word_name": "姓名"
+        },
+        {
+          "word": "",
+          "word_name": "工作单位"
+        },
+        {
+          "word": "31岁",
+          "word_name": "年龄"
+        },
+        {
+          "word": "女",
+          "word_name": "性别"
+        },
+        {
+          "word": "平素身体健康状况一般,近期出现血压升高并诊断为高血压,最高血压196/120mHg,目前长期口服傲坦20mgqd,倍他乐克47.5mgqd,目前血压可控制在125/75mHg。",
+          "word_name": "既往史"
+        },
+        {
+          "word": "初潮13岁,行经天数5-7天,月经周期35-40天,末次月经2018-05-08。",
+          "word_name": "月经婚育史"
+        },
+        {
+          "word": "患者2年半前因体检发现双侧甲状腺多发结节(具体报告未见),未见临床症状,否认头痛、心悸、多汗、声音哑、情绪改变等其他不适,就诊于外院,建议患者行穿刺活检术以进一步明确诊断,患者未予重视。患者自起病以来,精神、饮食、睡眠可,大小便如常,体重未见明显变化。",
+          "word_name": "现病史"
+        },
+        {
+          "word": "",
+          "word_name": "病史采集日期"
+        },
+        {
+          "word": "",
+          "word_name": "联系人电话"
+        },
+        {
+          "word": "",
+          "word_name": "身份证号"
+        }
+      ],
+      "log_id": 1556908548410403256
+    }
+  },
+  {
+    "api_name": "诊断证明识别",
+    "api_description": "支持识别全国各地各医院诊断证明的姓名、性别、年龄、科室、入院时间、出院时间、住院号、出院诊断、出院医嘱 9个关键字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_summary_diagnosis",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "+ word_name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段名，详见下方表格区说明"
+      },
+      {
+        "param_name": "+ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "word_name字段对应的识别结果"
+      },
+      {
+        "param_name": "+  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "+ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "words_result_num": 9,
+      "words_result": [
+        {
+          "word": "473924782",
+          "word_name": "住院号"
+        },
+        {
+          "word": "2022-01-01",
+          "word_name": "入院时间"
+        },
+        {
+          "word": "无",
+          "word_name": "出院医嘱"
+        },
+        {
+          "word": "2022-01-07",
+          "word_name": "出院时间"
+        },
+        {
+          "word": "建议随访",
+          "word_name": "出院诊断"
+        },
+        {
+          "word": "张国立",
+          "word_name": "姓名"
+        },
+        {
+          "word": "56",
+          "word_name": "年龄"
+        },
+        {
+          "word": "男",
+          "word_name": "性别"
+        },
+        {
+          "word": "心脑外科",
+          "word_name": "科室"
+        }
+      ],
+      "log_id": 1545239263197406867
+    }
+  },
+  {
+    "api_name": "门诊病历识别",
+    "api_description": "支持识别全国各地各医院门诊病历的姓名、日期、诊断、检查、主诉、现病史 6个关键字段，及表格区清单项目名称、规格、单价、数量、金额、项目类型等字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_outpatient",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "CommonData_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "患者个人信息的识别结果数，表示CommonData的元素个数"
+      },
+      {
+        "param_name": "CostDetail_row_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "具体项目行数，表示CostDetail中的数组个数"
+      },
+      {
+        "param_name": "+ CommonData",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "患者个人信息"
+      },
+      {
+        "param_name": "+ CostDetail",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "具体项目"
+      },
+      {
+        "param_name": "++ word_name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段名，详见下方表格区说明"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "word_name字段对应的识别结果"
+      },
+      {
+        "param_name": "++  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "+++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "+++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "+++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "++ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "+++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "CommonData_result_num": 6,
+      "CostDetail_row_num": 2,
+      "words_result": {
+        "CommonData": [
+          {
+            "word_name": "姓名",
+            "word": "马奕冉"
+          },
+          {
+            "word_name": "主诉",
+            "word": "鼻堵"
+          },
+          {
+            "word_name": "检查",
+            "word": "鼻粘膜肿胀、苍白,双下甲肿大。"
+          },
+          {
+            "word_name": "日期",
+            "word": "2019年05月10日"
+          },
+          {
+            "word_name": "诊断",
+            "word": ""
+          },
+          {
+            "word_name": "现病史",
+            "word": ""
+          }
+        ],
+        "CostDetail": [
+          [
+            {
+              "word_name": "清单项目名称",
+              "word": "糖酸莫米松鼻喷雾剂"
+            },
+            {
+              "word_name": "规格",
+              "word": "50ug140喷/支"
+            },
+            {
+              "word_name": "单价",
+              "word": "58"
+            },
+            {
+              "word_name": "数量",
+              "word": "1"
+            },
+            {
+              "word_name": "金额",
+              "word": "58"
+            },
+            {
+              "word_name": "项目类型",
+              "word": ""
+            }
+          ],
+          [
+            {
+              "word_name": "清单项目名称",
+              "word": "孟鲁司特钠咀嚼片"
+            },
+            {
+              "word_name": "规格",
+              "word": "4mg×5片/盒"
+            },
+            {
+              "word_name": "单价",
+              "word": "98"
+            },
+            {
+              "word_name": "数量",
+              "word": "1"
+            },
+            {
+              "word_name": "金额",
+              "word": "98"
+            },
+            {
+              "word_name": "项目类型",
+              "word": ""
+            }
+          ]
+        ]
+      },
+      "log_id": 1545241096948571787
+    }
+  },
+  {
+    "api_name": "处方笺识别",
+    "api_description": "支持识别全国各地各医院处方笺的姓名、日期、病人ID、科别 4个关键字段，及表格区清单项目名称、规格、单价、数量、金额、频率、用量、用法等字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_prescription",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "CommonData_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "患者个人信息的识别结果数，表示CommonData的元素个数"
+      },
+      {
+        "param_name": "CostDetail_row_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "具体项目行数，表示CostDetail中的数组个数"
+      },
+      {
+        "param_name": "+ CommonData",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "患者个人信息"
+      },
+      {
+        "param_name": "+ CostDetail",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "具体项目"
+      },
+      {
+        "param_name": "++ word_name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段名，详见下方表格区说明"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "word_name字段对应的识别结果"
+      },
+      {
+        "param_name": "++  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "+++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "+++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "+++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "++ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "+++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "+++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "CommonData_result_num": 4,
+      "CostDetail_row_num": 3,
+      "words_result": {
+        "CommonData": [
+          {
+            "word_name": "病人ID",
+            "word": "000823203000"
+          },
+          {
+            "word_name": "姓名",
+            "word": "石彩云"
+          },
+          {
+            "word_name": "日期",
+            "word": ""
+          },
+          {
+            "word_name": "科别",
+            "word": ""
+          }
+        ],
+        "CostDetail": [
+          [
+            {
+              "word_name": "清单项目名称",
+              "word": "雷贝拉唑钠肠溶胶囊"
+            },
+            {
+              "word_name": "规格",
+              "word": "20mg×7粒/盒"
+            },
+            {
+              "word_name": "数量",
+              "word": "2.00"
+            },
+            {
+              "word_name": "频率",
+              "word": "2/日"
+            },
+            {
+              "word_name": "用量",
+              "word": "1粒/次"
+            },
+            {
+              "word_name": "用法",
+              "word": "口服"
+            },
+            {
+              "word_name": "单价",
+              "word": ""
+            },
+            {
+              "word_name": "金额",
+              "word": ""
+            }
+          ],
+          [
+            {
+              "word_name": "清单项目名称",
+              "word": "葛根芩连丸"
+            },
+            {
+              "word_name": "规格",
+              "word": "3g×6袋/盒"
+            },
+            {
+              "word_name": "数量",
+              "word": "4.00"
+            },
+            {
+              "word_name": "频率",
+              "word": "3/日"
+            },
+            {
+              "word_name": "用量",
+              "word": "1袋/次"
+            },
+            {
+              "word_name": "用法",
+              "word": "口服"
+            },
+            {
+              "word_name": "单价",
+              "word": ""
+            },
+            {
+              "word_name": "金额",
+              "word": ""
+            }
+          ],
+          [
+            {
+              "word_name": "清单项目名称",
+              "word": "洁白胶囊"
+            },
+            {
+              "word_name": "规格",
+              "word": "0.4g×36粒/盒"
+            },
+            {
+              "word_name": "数量",
+              "word": "2.00"
+            },
+            {
+              "word_name": "频率",
+              "word": "3/日"
+            },
+            {
+              "word_name": "用量",
+              "word": "3粒/次"
+            },
+            {
+              "word_name": "用法",
+              "word": "口服"
+            },
+            {
+              "word_name": "单价",
+              "word": ""
+            },
+            {
+              "word_name": "金额",
+              "word": ""
+            }
+          ]
+        ]
+      },
+      "log_id": 1545241586768488669
+    }
+  },
+  {
+    "api_name": "手术记录识别",
+    "api_description": "支持识别全国各地各医院手术记录的姓名、性别、年龄、科室、麻醉方式、手术操作名称、手术步骤、手术结果、术中所见、术中诊断、术前诊断、术后诊断 12个关键字段。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_surgery",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "location",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段的位置信息，默认为 false，可缺省- false：不返回字段位置信息- true：返回字段的位置信息，包括上边距（top）、左边距（left）、宽度（width）、高度（height）"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "true/false",
+        "range": "-",
+        "description": "是否返回字段识别结果的置信度，默认为 false，可缺省- false：不返回字段识别结果的置信度- true：返回字段识别结果的置信度，包括字段识别结果中各字符置信度的平均值（average）和最小值（min）"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "+ word_name",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "字段名，详见下方表格区说明"
+      },
+      {
+        "param_name": "+ word",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "word_name字段对应的识别结果"
+      },
+      {
+        "param_name": "+  location",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段位置信息，当请求参数 location=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++  top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的上边距"
+      },
+      {
+        "param_name": "++  left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的左边距"
+      },
+      {
+        "param_name": "++  height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的高度"
+      },
+      {
+        "param_name": "++  width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "字段的宽度"
+      },
+      {
+        "param_name": "+ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "字段识别结果置信度，当请求参数 probability=true 时，以上各字段均包含此参数"
+      },
+      {
+        "param_name": "++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度平均值"
+      },
+      {
+        "param_name": "++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "字段识别结果中各字符的置信度最小值"
+      }
+    ],
+    "return_example": {
+      "words_result_num": 12,
+      "words_result": [
+        {
+          "word": "郭一中",
+          "word_name": "姓名"
+        },
+        {
+          "word": "48岁",
+          "word_name": "年龄"
+        },
+        {
+          "word": "男",
+          "word_name": "性别"
+        },
+        {
+          "word": "肠粘连松解+胃部分切除术",
+          "word_name": "手术操作名称"
+        },
+        {
+          "word": "取平卧位,麻醉成功后,术野消毒铺单。沿有左侧腹手术痕作纵梭切#1,切除原有手术疤痕,逐层切开入腹腔,注意保护切口。部分小肠与原腹壁切口、部补小肠与大网膜、部分小肠及系膜广泛粘连呈团,予以锐性解剖开,仔细检查肠壁完整。肿瘤位于胃体上段大弯侧,直径约4.5cm,肿瘤与胃壁关系密切。游离胃大弯及肿物,注意保护膈肌及璃腺,距肿物边缘1.0cm用一次性线形切割吻合器闭合并切断胃壁,完整切除肿物,移走标本,新端消毒,远端浆肌层加强缝合满意。",
+          "word_name": "手术步骤"
+        },
+        {
+          "word": "",
+          "word_name": "手术结果"
+        },
+        {
+          "word": "",
+          "word_name": "术中所见"
+        },
+        {
+          "word": "",
+          "word_name": "术中诊断"
+        },
+        {
+          "word": "",
+          "word_name": "术前诊断"
+        },
+        {
+          "word": "",
+          "word_name": "术后诊断"
+        },
+        {
+          "word": "外科二病区",
+          "word_name": "科室"
+        },
+        {
+          "word": "",
+          "word_name": "麻醉方式"
+        }
+      ],
+      "log_id": 1556909218057240008
+    }
+  },
+  {
+    "api_name": "医疗票据类别检测",
+    "api_description": "支持对医疗发票、医疗费用明细、医疗费用结算单、病案首页、出院小结、增值税发票6项医疗票据的分类，并返回对应票据的图片质量及位置方向信息。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/medical_recipts_classify",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "调用日志id，用于问题定位"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "识别结果"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "+ quality",
+        "is_requirement": "是",
+        "type": "int：0或者1",
+        "description": "票据图像质量1：表示票据质量良好0：表示票据质量不佳"
+      },
+      {
+        "param_name": "+ class",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "票据图像的分类结果，具体返回值的中英文对照：medical_invoice     医疗发票medical_detail      医疗费用明细medical_statement   医疗费用结算单medical_summary     出院小结medical_record  病案首页medical_vat         增值税发票others              其他"
+      },
+      {
+        "param_name": "+ direction",
+        "is_requirement": "是",
+        "type": "int：0,1,2,3",
+        "description": "票据图像的方向- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
+      },
+      {
+        "param_name": "+  location",
+        "is_requirement": "是",
+        "type": "object",
+        "description": "票据图像的位置信息"
+      },
+      {
+        "param_name": "++  top",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "票据图像定位位置的长方形的上边距"
+      },
+      {
+        "param_name": "++  left",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "票据图像定位位置的长方形的左边距"
+      },
+      {
+        "param_name": "++  height",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "票据图像定位位置的长方形的高度"
+      },
+      {
+        "param_name": "++  width",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "票据图像定位位置的长方形的宽度"
+      }
+    ],
+    "return_example": {
+      "words_result": [
+        {
+          "direction": 0,
+          "class": "medical_invoice",
+          "location": {
+            "height": 1000,
+            "top": 69,
+            "width": 1469,
+            "left": 80
+          },
+          "quality": 0
+        }
+      ],
+      "words_result_num": 1,
+      "log_id": 1457967830499025185
+    }
+  }
+]

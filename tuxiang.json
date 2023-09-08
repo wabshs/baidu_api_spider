@@ -1,0 +1,2495 @@
+[
+  {
+    "category_name": "图像技术",
+    "category_description": "视频内容审核：配合关键帧抽取技术对视频帧中的图像、字幕进行审核，搭配语音识别技术，对视频内容进行全面审核，当然如果您不想进行抽帧等操作，可以直接使用视频审核接口\n电商平台内容审核：针对商家的广告宣传文本，通过图文审核判断是否符合新广告法，在双11、618、黑色星期五等购物节，通过百度内容审核，极大的弥补人力审核资源不足的问题，实时快速的对商品信息进行审核，保障平台内容安全\nUGC内容反垃圾：对论坛、贴吧等UGC内容中的图片、文章、评论进行合规性检查，并针对恶意推广、色情识别、低质灌水内容进行审核，降低平台违规风险、有效提升平台内容质量、吸引更多用户与优质资源",
+    "api_category": [
+      {
+        "api_category_name": "图像审核",
+        "api_list": [
+          {
+            "api_name": "组合接口API",
+            "api_description": "提供一个API接口，同时调用多个模型服务。支持图像识别的多个接口：通用物体和场景识别、图像单主体检测、动物识别、植物识别、果蔬识别、自定义菜品识别-检索、菜品识别、红酒识别、货币识别、地标识别、图像多主体检测等12个模型服务的调用。可通过入参灵活指定需要调用的模型服务，传入图像，返回指定模型的识别结果。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/api/v1/solution/direct/imagerecognition/combination",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "图像数据，base64编码，示例如：/9j/4AAQSkZJRgABAQEPMpJkR0FdXVridlPy/9k="
+              },
+              {
+                "param_name": "imgUrl",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "图像Url，不能与image并存，不需要urlEncode，示例如：https://aip.bdstatic.com/portal-pc-node/dist/1591263471100/images/technology/imagerecognition/general/1.jpg"
+              },
+              {
+                "param_name": "scenes",
+                "type": "array",
+                "is_requirement": "是",
+                "description": "指定本次调用的模型服务，以字符串数组表示。元素含义如下：advanced_general：通用物体和场景识别object_detect：图像单主体检测multi_object_detect：图像多主体检测animal：动物识别plant：植物识别ingredient：果蔬识别dish_search：自定义菜品识别-检索dishs：菜品识别red_wine：红酒识别 currency：货币识别landmark：地标识别示例如：“scenes”:[“currency”,”animal”,”plant”]"
+              },
+              {
+                "param_name": "sceneConf",
+                "type": "jsonObject",
+                "is_requirement": "否",
+                "description": "对特定服务，支持的个性化param_name，若不填则使用默认设置。jsonObjectdescription：key为要设置入参的服务type，可取值同scenesparam_name，例如：advanced_general：通用物体和场景识别object_detect：图像单主体检测value为各模型服务个性化param_name，详情请参照下文或百度AI开放平台官网“图像识别具体接口文档”"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "is_requirement": "是",
+                "description": "唯一的log id，用于问题定位。"
+              },
+              {
+                "param_name": "result",
+                "type": "object",
+                "is_requirement": "是",
+                "description": "返回结果json串，其内包含要调用的各个模型服务的返回结果。"
+              },
+              {
+                "param_name": "advanced_general",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「通用物体和场景识别」服务返回结果。请参照“通用物体和场景识别接口文档”"
+              },
+              {
+                "param_name": "object_detect",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「图像单主体检测」服务返回结果。请参照“图像单主体检测接口文档”"
+              },
+              {
+                "param_name": "multi_object_detect",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「图像多主体检测」服务返回结果。请参照“图像多主体检测接口文档”"
+              },
+              {
+                "param_name": "animal",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「动物识别」服务返回结果。请参照“动物识别接口文档”"
+              },
+              {
+                "param_name": "plant",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「植物识别」服务返回结果。请参照“植物识别接口文档”"
+              },
+              {
+                "param_name": "ingredient",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「果蔬识别」服务返回结果。请参照“果蔬识别接口文档”"
+              },
+              {
+                "param_name": "dish_search",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「自定义菜品识别-检索」服务返回结果。请参照“自定义菜品识别-检索接口文档”"
+              },
+              {
+                "param_name": "dishs",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「菜品识别」服务返回结果。请参照“菜品识别接口文档”"
+              },
+              {
+                "param_name": "red_wine",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「红酒识别」服务返回结果。请参照“红酒识别接口文档”"
+              },
+              {
+                "param_name": "currency",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「货币识别」服务返回结果。请参照“货币识别接口文档”"
+              },
+              {
+                "param_name": "landmark",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "「地标识别」服务返回结果。请参照“地标识别接口文档”"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "通用物体和场景识别",
+            "api_description": "该请求用于通用物体及场景识别，即对于输入的一张图片（可正常解码，且长宽比适宜），输出图片中的多个物体及场景标签。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v2/advanced_general",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式。注意：图片需要base64编码、去掉编码头（data:image/jpg;base64,）后，再进行urlencode。"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              },
+              {
+                "param_name": "baike_num",
+                "is_requirement": "否",
+                "type": "integer",
+                "range": "-",
+                "description": "用于控制返回结果是否带有百科信息，若不输入此param_name，则默认不返回百科结果；若输入此param_name，会根据输入的整数返回相应个数的百科信息"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "result_num",
+                "is_requirement": "是",
+                "type": "unit32",
+                "description": "返回结果数目，及result数组中的元素个数，最多返回5个结果"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "是",
+                "type": "arrry(object)",
+                "description": "标签结果数组"
+              },
+              {
+                "param_name": "+keyword",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "图片中的物体或场景名称"
+              },
+              {
+                "param_name": "+score",
+                "is_requirement": "是",
+                "type": "float",
+                "description": "置信度，0-1"
+              },
+              {
+                "param_name": "+root",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "识别结果的上层标签，有部分钱币、动漫、烟酒等tag无上层标签"
+              },
+              {
+                "param_name": "+baike_info",
+                "is_requirement": "否",
+                "type": "object",
+                "description": "对应识别结果的百科词条名称"
+              },
+              {
+                "param_name": "++baike_url",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "对应识别结果百度百科页面链接"
+              },
+              {
+                "param_name": "++image_url",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "对应识别结果百科图片链接"
+              },
+              {
+                "param_name": "++description",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "对应识别结果百科内容描述"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图像单主体检测",
+            "api_description": "用户向服务请求检测图像中的主体位置。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/object_detect",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "true",
+                "type": "string",
+                "range": "-",
+                "description": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式 。注意：图片需要base64编码、去掉编码头后再进行urlencode。"
+              },
+              {
+                "param_name": "with_face",
+                "is_requirement": "false",
+                "type": "number",
+                "range": "-",
+                "description": "如果检测主体是人，主体区域是否带上人脸部分，0-不带人脸区域，其他-带人脸区域，裁剪类需求推荐带人脸，检索/识别类需求推荐不带人脸。默认取1，带人脸。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "否",
+                "type": "watermark-location",
+                "description": "裁剪结果"
+              },
+              {
+                "param_name": "+left",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形左上顶点的水平坐标"
+              },
+              {
+                "param_name": "+top",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形左上顶点的垂直坐标"
+              },
+              {
+                "param_name": "+width",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形的宽度，单位px"
+              },
+              {
+                "param_name": "+height",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形的高度，单位px"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "动物识别",
+            "api_description": "该请求用于识别一张图片，即对于输入的一张图片（可正常解码，且长宽比较合适），输出动物识别结果。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/animal",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name名称": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "description": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式。注意：图片需要base64编码、去掉编码头后再进行urlencode。",
+                "": ""
+              },
+              {
+                "param_name名称": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。",
+                "": ""
+              },
+              {
+                "param_name名称": "top_num",
+                "is_requirement": "否",
+                "type": "integer",
+                "description": "返回预测得分top结果数，默认为6",
+                "": ""
+              },
+              {
+                "param_name名称": "baike_num",
+                "is_requirement": "否",
+                "type": "integer",
+                "description": "用于控制返回结果是否带有百科信息，若不输入此param_name，则默认不返回百科结果；若输入此param_name，会根据输入的整数返回相应个数的百科信息",
+                "": ""
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "is_requirement": "是",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "result",
+                "type": "arrry(object)",
+                "is_requirement": "是",
+                "description": "识别结果数组"
+              },
+              {
+                "param_name": "+name",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "动物名称，示例：蒙古马"
+              },
+              {
+                "param_name": "+score",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "置信度，示例：0.5321"
+              },
+              {
+                "param_name": "+baike_info",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "对应识别结果的百科词条名称"
+              },
+              {
+                "param_name": "++baike_url",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "对应识别结果百度百科页面链接"
+              },
+              {
+                "param_name": "++image_url",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "对应识别结果百科图片链接"
+              },
+              {
+                "param_name": "++description",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "对应识别结果百科内容描述"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "植物识别",
+            "api_description": "该请求用于识别一张图片，即对于输入的一张图片（可正常解码，且长宽比较合适），输出植物识别结果。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/plant",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name名称": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "description": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式。注意：图片需要base64编码、去掉编码头后再进行urlencode。",
+                "": ""
+              },
+              {
+                "param_name名称": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。",
+                "": ""
+              },
+              {
+                "param_name名称": "baike_num",
+                "is_requirement": "否",
+                "type": "integer",
+                "description": "用于控制返回结果是否带有百科信息，若不输入此param_name，则默认不返回百科结果；若输入此param_name，会根据输入的整数返回相应个数的百科信息",
+                "": ""
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "is_requirement": "是",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "result",
+                "type": "arrry(object)",
+                "is_requirement": "是",
+                "description": "植物识别结果数组"
+              },
+              {
+                "param_name": "+name",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "植物名称，示例：吉娃莲"
+              },
+              {
+                "param_name": "+score",
+                "type": "uint32",
+                "is_requirement": "是",
+                "description": "置信度，示例：0.5321"
+              },
+              {
+                "param_name": "+baike_info",
+                "type": "object",
+                "is_requirement": "否",
+                "description": "对应识别结果的百科词条名称"
+              },
+              {
+                "param_name": "++baike_url",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "对应识别结果百度百科页面链接"
+              },
+              {
+                "param_name": "++image_url",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "对应识别结果百科图片链接"
+              },
+              {
+                "param_name": "++description",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "对应识别结果百科内容描述"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "logo识别",
+            "api_description": "该请求用于检测和识别图片中的台标、品牌商标等logo信息。即对于输入的一张图片（可正常解码，且长宽比适宜），输出图片中logo的名称、位置和置信度。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v2/logo",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式.注意：图片需要base64编码、去掉编码头后再进行urlencode。"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              },
+              {
+                "param_name": "custom_lib",
+                "is_requirement": "否",
+                "type": "string",
+                "range": "-",
+                "description": "是否只检索用户子库，true则只检索用户子库，false(默认)为检索底库+用户子库"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "result_num",
+                "is_requirement": "是",
+                "type": "uint32",
+                "description": "识别结果数，标识返回结果数目"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "否",
+                "type": "array()",
+                "description": "返回结果数组，每一项为一个识别出的logo"
+              },
+              {
+                "param_name": "+location",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "位置信息（左起像素位置、上起像素位置、像素宽、像素高）"
+              },
+              {
+                "param_name": "++left",
+                "is_requirement": "是",
+                "type": "number",
+                "description": "左起像素位置"
+              },
+              {
+                "param_name": "++top",
+                "is_requirement": "是",
+                "type": "number",
+                "description": "上起像素位置"
+              },
+              {
+                "param_name": "++width",
+                "is_requirement": "是",
+                "type": "number",
+                "description": "像素宽"
+              },
+              {
+                "param_name": "++height",
+                "is_requirement": "是",
+                "type": "number",
+                "description": "像素高"
+              },
+              {
+                "param_name": "+name",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "识别的品牌名称"
+              },
+              {
+                "param_name": "+probability",
+                "is_requirement": "是",
+                "type": "number",
+                "description": "分类结果置信度（0--1.0）"
+              },
+              {
+                "param_name": "+type",
+                "is_requirement": "是",
+                "type": "number",
+                "description": "type=0为1千种高优商标识别结果;type=1为2万类logo库的结果；其它type为自定义logo库结果"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "果蔬识别",
+            "api_description": "该请求用于识别果蔬类食材，即对于输入的一张图片（可正常解码，且长宽比适宜），输出图片中的果蔬食材结果。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/classify/ingredient",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式。注意：图片需要base64编码、去掉编码头（data:image/jpg;base64,）后，再进行urlencode。",
+                "description": ""
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。",
+                "description": ""
+              },
+              {
+                "param_name": "top_num",
+                "is_requirement": "否",
+                "type": "unit32",
+                "range": "返回预测得分top结果数，如果为空或小于等于0默认为5；如果大于20默认20",
+                "description": ""
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "是",
+                "type": "object()",
+                "description": "识别结果"
+              },
+              {
+                "param_name": "result_num",
+                "is_requirement": "否",
+                "type": "unit32",
+                "description": "识别结果数"
+              },
+              {
+                "param_name": "+name",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "图像中的食材名称"
+              },
+              {
+                "param_name": "+score",
+                "is_requirement": "否",
+                "type": "double",
+                "description": "得分，0-1"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "自定义菜品识别",
+            "api_description": "该请求用于入库自定义的单菜品图，实现上传多菜品图的精准识别，返回具体的菜名、位置、置信度信息 。自定义菜品识别包括三个子接口：单菜品入库、菜品检索、菜品删除。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/realtime_search/dish/add",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "必填",
+                "type": "string",
+                "range": "-",
+                "description": "Base64编码字符串，以图片文件形式请求时必填。图片大小不超过4M。最短边至少300px，最长边最大3000px。注意：图片需要base64编码、去掉编码头后再进行urlencode。"
+              },
+              {
+                "param_name": "brief",
+                "is_requirement": "是",
+                "type": "string",
+                "range": "-",
+                "description": "菜品名称摘要信息，检索时带回，不超过256B。由于检索后需要与本地数据库关联，建议brief可传入图片在本地标记id、图片url、图片名称等，如\"brief\": \"{\\\"菜名\\\":\\\"鱼香肉丝\\\"}\""
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "否",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "cont_sign",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "输入图片签名"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "菜品识别",
+            "api_description": "该请求用于菜品识别。即对于输入的一张图片（可正常解码，且长宽比适宜），输出图片的菜品名称、卡路里信息、置信度。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v2/dish",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "description": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式。注意：图片需要base64编码、去掉编码头（data:image/jpg;base64,）后，再进行urlencode。",
+                "": ""
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。",
+                "": ""
+              },
+              {
+                "param_name": "top_num",
+                "is_requirement": "否",
+                "type": "unit32",
+                "description": "返回结果top n,默认5.",
+                "": ""
+              },
+              {
+                "param_name": "filter_threshold",
+                "is_requirement": "否",
+                "type": "float",
+                "description": "默认0.95，可以通过该param_name调节识别效果，降低非菜识别率.",
+                "": ""
+              },
+              {
+                "param_name": "baike_num",
+                "is_requirement": "否",
+                "type": "integer",
+                "description": "用于控制返回结果是否带有百科信息，若不输入此param_name，则默认不返回百科结果；若输入此param_name，会根据输入的整数返回相应个数的百科信息",
+                "": ""
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "result_num",
+                "is_requirement": "否",
+                "type": "unit32",
+                "description": "返回结果数目，及result数组中的元素个数"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "否",
+                "type": "array()",
+                "description": "菜品识别结果数组"
+              },
+              {
+                "param_name": "+name",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "菜名，示例：鱼香肉丝"
+              },
+              {
+                "param_name": "+calorie",
+                "is_requirement": "否",
+                "type": "float",
+                "description": "卡路里，每100g的卡路里含量"
+              },
+              {
+                "param_name": "+probability",
+                "is_requirement": "否",
+                "type": "float",
+                "description": "识别结果中每一行的置信度值，0-1"
+              },
+              {
+                "param_name": "+baike_info",
+                "is_requirement": "否",
+                "type": "object",
+                "description": "对应识别结果的百科词条名称"
+              },
+              {
+                "param_name": "++baike_url",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "对应识别结果百度百科页面链接"
+              },
+              {
+                "param_name": "++image_url",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "对应识别结果百科图片链接"
+              },
+              {
+                "param_name": "++description",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "对应识别结果百科内容描述"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "红酒识别",
+            "api_description": "该服务用于识别红酒标签，即对于输入的一张图片（可正常解码，长宽比适宜，且酒标清晰可见），输出图片中的红酒名称、国家、产区、酒庄、type、糖分、葡萄品种、酒品描述等信息。可识别数十万中外常见红酒。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/redwine",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "description": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式。注意：图片需要base64编码、去掉编码头（data:image/jpg;base64,）后，再进行urlencode。",
+                "": ""
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。",
+                "": ""
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "请求标识码，随机数，唯一"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "是",
+                "type": "dict",
+                "description": "识别结果"
+              },
+              {
+                "param_name": "+hasdetail",
+                "is_requirement": "是",
+                "type": "unit",
+                "description": "判断是否返回详细信息（除红酒中文名之外的其他param_name），含有返回1，不含有返回0"
+              },
+              {
+                "param_name": "+wineNameCn",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "红酒中文名，无法识别返回空，示例：波斯塔瓦经典赤霞珠品丽珠半甜红葡萄酒"
+              },
+              {
+                "param_name": "+wineNameEn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "红酒英文名，hasdetail = 0时，表示无法识别，该param_name不返回，示例：Bostavan Classic Cabernet"
+              },
+              {
+                "param_name": "+countryCn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "国家中文名，hasdetail = 0时，表示无法识别，该param_name不返回，示例：摩尔多瓦"
+              },
+              {
+                "param_name": "+countryEn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "国家英文名，hasdetail = 0时，表示无法识别，该param_name不返回，示例：Moldova"
+              },
+              {
+                "param_name": "+regionCn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "产区中文名，hasdetail = 0时，表示无法识别，该param_name不返回，示例：波尔多"
+              },
+              {
+                "param_name": "+regionEn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "产区英文名，hasdetail = 0时，表示无法识别，该param_name不返回，示例：Bordeaux"
+              },
+              {
+                "param_name": "+subRegionCn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "子产区中文名，hasdetail = 0时，表示无法识别，该param_name不返回，示例：梅多克"
+              },
+              {
+                "param_name": "+subRegionEn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "子产区英文名，hasdetail = 0时，表示无法识别，该param_name不返回，示例：Medoc"
+              },
+              {
+                "param_name": "+wineryCn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "酒庄中文名，hasdetail = 0时，表示无法识别，该param_name不返回，示例：波斯塔瓦酒庄"
+              },
+              {
+                "param_name": "+wineryEn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "酒庄英文名，hasdetail = 0时，表示无法识别，该param_name不返回，示例：Vinaria Bostavan"
+              },
+              {
+                "param_name": "+classifyByColor",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "酒type，hasdetail = 0时，表示无法识别，该param_name不返回，示例：红葡萄酒"
+              },
+              {
+                "param_name": "+classifyBySugar",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "糖分type，hasdetail = 0时，表示无法识别，该param_name不返回，示例：半甜型"
+              },
+              {
+                "param_name": "+color",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "色泽，hasdetail = 0时，表示无法识别，该param_name不返回，示例：宝石红色"
+              },
+              {
+                "param_name": "+grapeCn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "葡萄品种，可能有多种葡萄，hasdetail = 0时，表示无法识别，该param_name不返回，示例：品丽珠;赤霞珠"
+              },
+              {
+                "param_name": "+grapeEn",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "葡萄品种英文名，可能有多种葡萄，hasdetail = 0时，表示无法识别，该param_name不返回，示例：Cabernet Franc;Cabernet Sauvignon"
+              },
+              {
+                "param_name": "+tasteTemperature",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "品尝温度，hasdetail = 0时，表示无法识别，该param_name不返回，示例：6-11℃"
+              },
+              {
+                "param_name": "+description",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "酒品描述，hasdetail = 0时，表示无法识别，该param_name不返回，示例：葡萄酒呈深宝石红色，具有香料、香草和新鲜水果的果香，酒体分明，口感畅顺，果香横溢，单宁软化程度高，让你回味无穷"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "货币识别",
+            "api_description": "识别图像中的货币type，以纸币为主，正反面均可准确识别，接口返回货币的名称、代码、面值、年份信息；可识别各类近代常见货币，如美元、欧元、英镑、法郎、澳大利亚元、俄罗斯卢布、日元、韩元、泰铢、印尼卢比等。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/currency",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "description": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式。注意：图片需要base64编码、去掉编码头（data:image/jpg;base64,）后，再进行urlencode。",
+                "": ""
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。",
+                "": ""
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "请求标识码，随机数，唯一"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "是",
+                "type": "dict",
+                "description": "识别结果"
+              },
+              {
+                "param_name": "+hasdetail",
+                "is_requirement": "是",
+                "type": "unit",
+                "description": "判断是否返回详细信息（除货币名称之外的其他param_name），含有返回1，不含有返回0"
+              },
+              {
+                "param_name": "+currencyName",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "货币名称，无法识别返回空，示例：新加坡元"
+              },
+              {
+                "param_name": "+currencyCode",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "货币代码，hasdetail = 0时，表示无法识别，该param_name不返回，示例：SGD"
+              },
+              {
+                "param_name": "+currencyDenomination",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "货币面值，hasdetail = 0时，表示无法识别，该param_name不返回，示例：50元"
+              },
+              {
+                "param_name": "+year",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "货币年份，hasdetail = 0时，表示无法识别，该param_name不返回，示例：2004年"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "地标识别",
+            "api_description": "该请求用于识别地标，即对于输入的一张图片（可正常解码，且长宽比适宜），输出图片中的地标识别结果。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/landmark",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "description": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式。注意：图片需要base64编码、去掉编码头（data:image/jpg;base64,）后，再进行urlencode。",
+                "": ""
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。",
+                "": ""
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "请求标识码，随机数，唯一"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "是",
+                "type": "dict",
+                "description": "识别结果"
+              },
+              {
+                "param_name": "+landmark",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "地标名称，无法识别则返回空字符串"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图像多主体检测",
+            "api_description": "检测出图片中多个主体，并给出位置、标签和置信得分。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/multi_object_detect",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少64px，最长边最大4096px，长宽比3：1以内，支持jpg/png/bmp格式 。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）去掉编码头后再进行urlencode。"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少64px，最长边最大4096px，长宽比3：1以内，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "否",
+                "type": "object数组",
+                "description": "返回结果"
+              },
+              {
+                "param_name": "+name",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "图片标签"
+              },
+              {
+                "param_name": "+score",
+                "is_requirement": "否",
+                "type": "float",
+                "description": "置信度得分"
+              },
+              {
+                "param_name": "+location",
+                "is_requirement": "否",
+                "type": "object数组",
+                "description": "图中目标主体的检测框位置信息"
+              },
+              {
+                "param_name": "++left",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形左上顶点的水平坐标"
+              },
+              {
+                "param_name": "++top",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形左上顶点的垂直坐标"
+              },
+              {
+                "param_name": "++width",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形的宽度，单位px"
+              },
+              {
+                "param_name": "++height",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形的高度，单位px"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "自定义红酒识别（邀测）",
+            "api_description": "支持自建红酒图库，入库相关红酒信息资料，通过接口param_name可自由选择返回百度公库或者自定义子库的红酒结果",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/realtime_search/redwine/add",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "true",
+                "type": "string",
+                "description": "图像数据，base64编码后大小不超过4M，最短边至少50px，最长边最大4096px，支持jpg/png/bmp格式。重复添加完全相同的图片会返回错误，提示不能重复入库。注意要去掉图片头部，如（data:image/jpg;base64,）",
+                "": ""
+              },
+              {
+                "param_name": "brief",
+                "is_requirement": "true",
+                "type": "string",
+                "description": "红酒名称摘要信息，检索时带回，不超过256B。由于检索后需要与本地数据库关联，建议brief可传入图片在本地标记id、图片url、图片名称等",
+                "": ""
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "否",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "cont_sign",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "上传图片的签名信息，请务必保存至本地，以便后续用作批量删除、查询某张图是否已经入过库等用途"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "相似图片搜索",
+            "api_description": null,
+            "method": "base64编码",
+            "base_url": "（data:image/jpg;base64,）",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M。（和url二选一，image优先级更高），注意要去掉图片头部，如（data:image/jpg;base64,），最短边至少50px，最长边最大4096px，支持jpg/png/bmp格式。重复添加完全相同的图片会返回错误，提示不能重复入库。"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片URL，和image二选一，image优先级更高，由于图床的差异性，抓图服务无法适配所有的图床，部分URL可能抓不到图，或者图片下载超时，遇到上述情况时请更换图片URL、或者将图片下载到本地转码后上传"
+              },
+              {
+                "param_name": "brief",
+                "is_requirement": "是",
+                "type": "string",
+                "range": "-",
+                "description": "检索时原样带回,最长256B。样例：{\"name\":\"周杰伦\", \"id\":\"666\"} 。请注意，检索接口不返回原图，仅返回入库时填写的brief信息，所以调用该入库接口时，brief信息请尽量填写可关联至本地图库的图片id或者图片url、图片名称等信息，且不要重复"
+              },
+              {
+                "param_name": "tags",
+                "is_requirement": "否",
+                "type": "string",
+                "range": "1 - 65535范围内的整数",
+                "description": "tag间以逗号分隔，最多2个tag，2个tag无层级关系，检索时支持逻辑运算。样例：\"100,11\" ；检索时可圈定分类维度进行检索"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，无实际意义，用于问题定位"
+              },
+              {
+                "param_name": "cont_sign",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "输入图片的签名信息，请务必保存至本地，以便后续用作批量删除、查询某张图是否已经入过库等用途"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "相同图片搜索",
+            "api_description": null,
+            "method": "base64编码",
+            "base_url": "（data:image/jpg;base64,）",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M。（和url二选一，image优先级更高），注意要去掉图片头部，如（data:image/jpg;base64,）；最短边至少50px，最长边最大4096px，支持jpg/png/bmp格式。重复添加完全相同的图片会返回错误，提示不能重复入库。"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片URL，和image二选一，image优先级更高，由于图床的差异性，抓图服务无法适配所有的图床，部分URL可能抓不到图，或者图片下载超时，遇到上述情况时请更换图片URL、或者将图片下载到本地转码后上传"
+              },
+              {
+                "param_name": "brief",
+                "is_requirement": "是",
+                "type": "string",
+                "range": "-",
+                "description": "检索时原样带回,最长256B。样例：{\"name\":\"周杰伦\", \"id\":\"666\"} 。请注意，检索接口不返回原图，仅返回入库时填写的brief信息，所以调用入库接口时，brief信息请尽量填写可关联至本地图库的图片id或者图片url、图片名称等信息，且不要重复"
+              },
+              {
+                "param_name": "tags",
+                "is_requirement": "否",
+                "type": "string",
+                "range": "1 - 65535范围内的整数",
+                "description": "tag间以逗号分隔，最多2个tag，2个tag无层级关系，检索时支持逻辑运算。样例：\"100,11\" ；检索时可圈定分类维度进行检索"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，无实际意义，用于问题定位"
+              },
+              {
+                "param_name": "cont_sign",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "输入图片的签名信息，请务必保存至本地，以便后续用作批量删除、查询某张图是否已经入过库等用途"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "商品图片搜索",
+            "api_description": null,
+            "method": "base64编码",
+            "base_url": "（data:image/jpg;base64,）",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M。和url二选一，image优先级更高，注意要去掉图片头部，如（data:image/jpg;base64,），最短边至少300px，最长边最大4096px，支持jpg/png/bmp格式。重复添加会返回错误。"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片URL，和image二选一，image优先级更高 ，由于图床的差异性，抓图服务无法适配所有的图床，部分URL可能抓不到图，或者图片下载超时，遇到上述情况时请更换图片URL、或者将图片下载到本地转码后上传"
+              },
+              {
+                "param_name": "brief",
+                "is_requirement": "是",
+                "type": "string",
+                "range": "-",
+                "description": "检索时原样带回,最长256B。样例{\"name\":\"周杰伦\", \"id\":\"666\"}     请注意，检索接口不返回原图，仅返回当前填写的brief信息，所以调用入库接口时，brief信息请尽量填写可关联至本地图库的图片id或者图片url、图片名称等信息，且不要重复"
+              },
+              {
+                "param_name": "class_id1",
+                "is_requirement": "否",
+                "type": "int32",
+                "range": "1-65535范围内的整数",
+                "description": "商品分类维度1，检索时可圈定该分类维度进行检索；只传入class_id1，则检索结果中包含class_id1内容的都会被检索到；同时传入class_id1与class_id2，则检索结果中同时包含class_id1和class_id2内容的才会被检索到"
+              },
+              {
+                "param_name": "class_id2",
+                "is_requirement": "否",
+                "type": "int32",
+                "range": "1-65535范围内的整数",
+                "description": "商品分类维度2，检索时可圈定该分类维度进行检索 ，class_id1和class_id2无层级关系，检索时支持逻辑运算"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "cont_sign",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "上传图片的签名信息，请务必保存至本地，以便后续用作批量删除、查询某张图是否已经入过库等用途"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "绘本图片搜索",
+            "api_description": null,
+            "method": "base64编码",
+            "base_url": "（data:image/jpg;base64,）",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M。（和url二选一，image优先级更高），注意要去掉图片头部，如（data:image/jpg;base64,）；最短边至少150px，最长边最大4096px，长宽比在1：10-10：1之间。支持jpg/png/bmp格式。重复添加完全相同的图片会返回错误，提示不能重复入库。"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片URL，和image二选一，image优先级更高，由于图床的差异性，抓图服务无法适配所有的图床，部分URL可能抓不到图，或者图片下载超时，遇到上述情况时请更换图片URL、或者将图片下载到本地转码后上传"
+              },
+              {
+                "param_name": "brief",
+                "is_requirement": "是",
+                "type": "string",
+                "range": "-",
+                "description": "检索时原样带回,最长256B。样例：{\"name\":\"周杰伦\", \"id\":\"666\"} 。请注意，检索接口不返回原图，仅返回入库时填写的brief信息，所以调用入库接口时，brief信息请尽量填写可关联至本地图库的图片id或者图片url、图片名称等信息，且不要重复"
+              },
+              {
+                "param_name": "tags",
+                "is_requirement": "否",
+                "type": "string",
+                "range": "1 - 65535范围内的整数",
+                "description": "tag间以逗号分隔，最多2个tag，2个tag无层级关系，检索时支持逻辑运算。样例：\"100,11\" ；检索时可圈定分类维度进行检索"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，无实际意义，用于问题定位"
+              },
+              {
+                "param_name": "cont_sign",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "入库图片的签名信息，请务必保存至本地，以便后续用作批量删除、查询某张图是否已经入过库等用途"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "面料图片搜索",
+            "api_description": null,
+            "method": "base64编码",
+            "base_url": "（data:image/jpg;base64,）",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M。（和url二选一，image优先级更高），注意要去掉图片头部，如（data:image/jpg;base64,）；最大4096px，长宽比在1：20-20：1之间。支持jpg/png/bmp格式。重复添加完全相同的图片会返回错误，提示不能重复入库。"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片URL，和image二选一，image优先级更高，url长度不超过1024字节，url对应图片base64编码之后大小不超过4M，最长边至少4096px，长宽比在1：20-20：1之间。支持jpg/png/bmp格式。由于图床的差异性，抓图服务无法适配所有的图床，部分URL可能抓不到图，或者图片下载超时，遇到上述情况时请更换图片URL、或者将图片下载到本地转码后上传"
+              },
+              {
+                "param_name": "brief",
+                "is_requirement": "是",
+                "type": "string",
+                "range": "-",
+                "description": "检索时原样带回,最长256B。样例：{\"name\":\"周杰伦\", \"id\":\"666\"} 。请注意，检索接口不返回原图，仅返回入库时填写的brief信息，所以调用入库接口时，brief信息请尽量填写可关联至本地图库的图片id或者图片url、图片名称等信息，且不要重复"
+              },
+              {
+                "param_name": "tags",
+                "is_requirement": "否",
+                "type": "string",
+                "range": "1 - 65535范围内的整数",
+                "description": "tag间以逗号分隔，最多2个tag，2个tag无层级关系，检索时支持逻辑运算。样例：\"100,11\" ；检索时可圈定分类维度进行检索"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，无实际意义，用于问题定位"
+              },
+              {
+                "param_name": "cont_sign",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "入库图片的签名信息，请务必保存至本地，以便后续用作批量删除、查询某张图是否已经入过库等用途"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "黑白图像上色",
+            "api_description": "智能识别黑白图像内容并填充色彩，使黑白图像变得鲜活。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/colourize",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "base64编码图片"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图像风格转换",
+            "api_description": "可将图像转化成卡通画、铅笔画、彩色铅笔画，或者哥特油画、彩色糖块油画、呐喊油画、神奈川冲浪里油画、奇异油画、薰衣草油画等共计9种风格，可用于开展趣味活动，或集成到美图应用中对图像进行风格转换。\n以薰衣草油画风格为例示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/style_trans",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              },
+              {
+                "param_name": "option",
+                "is_requirement": "true",
+                "type": "string",
+                "range": "cartoonpencil color_pencilwarmwavelavendermononokescreamgothic",
+                "description": "cartoon：卡通画风格pencil：铅笔风格color_pencil：彩色铅笔画风格warm：彩色糖块油画风格wave：神奈川冲浪里油画风格lavender：薰衣草油画风格mononoke：奇异油画风格scream：呐喊油画风格gothic：哥特油画风格"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "base64编码图片"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "自定义图像风格",
+            "api_description": "支持自定义风格图+待处理图片进行风格迁移处理，自定义图片的风格，同时也提供30种艺术风格供选择，可用于开展趣味活动，或集成到美图应用中对图像进行风格转换。\n以自定义风格为例示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/customize_stylization",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "base64编码后大小不超过4M，最短边至少50px，最长边最大4096px。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少50px，最长边最大4096px，长宽比4：1以内,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              },
+              {
+                "param_name": "style_id",
+                "is_requirement": "和style二选一",
+                "type": "int",
+                "range": "0<= style_id < 30",
+                "description": "预设风格，共30个，具体图像风格样式可见下表，不超过已经提供默认风格数量，否则会报错。若自定义styleparam_name已填写，则此param_name可不填"
+              },
+              {
+                "param_name": "style",
+                "is_requirement": "和syle_id二选一",
+                "type": "string",
+                "range": "-",
+                "description": "自定义风格style，输入期望风格图像数据，Base64编码字符串，不超过4M，最短边至少50px，最长边最多4096px。支持图片格式：jpg/bmp/png。 若style_idparam_name已填写，则此param_name可不填。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "base64编码图片"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "人像动漫化",
+            "api_description": "运用世界领先的对抗生成网络，结合人脸检测、头发分割、人像分割等技术，为用户量身定制千人千面的二次元动漫形象，并且可通过param_name设置，生成戴口罩的二次元动漫人像。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/selfie_anime",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内,支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              },
+              {
+                "param_name": "type",
+                "is_requirement": "false",
+                "type": "string",
+                "range": "-",
+                "description": "anime或者anime_mask。前者生成二次元动漫图，后者生成戴口罩的二次元动漫人像"
+              },
+              {
+                "param_name": "mask_id",
+                "is_requirement": "false",
+                "type": "int",
+                "range": "1-8",
+                "description": "在typeparam_name填入anime_mask时生效，1～8之间的整数，用于指定所使用的口罩的编码。typeparam_name没有填入anime_mask，或mask_id 为空时，生成不戴口罩的二次元动漫图。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "处理后图片的Base64编码"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图像去雾",
+            "api_description": "对浓雾天气下拍摄，导致细节无法辨认的图像进行去雾处理，还原更清晰真实的图像。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/dehaze",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "base64编码图片"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图像对比度增强",
+            "api_description": "调整过暗或者过亮图像的对比度，使图像更加鲜明。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/contrast_enhance",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "base64编码图片"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图像无损放大",
+            "api_description": "输入一张图片，可以在尽量保持图像质量的条件下，将图像在长宽方向各放大两倍。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/image_quality_enhance",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "base64编码后大小不超过4M，长宽乘积不超过2000p x 2000px。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，长宽乘积不超过2000p x 2000px，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "base64编码图片"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "拉伸图像恢复",
+            "api_description": "自动识别过度拉伸的图像，将图像内容恢复成正常比例。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/stretch_restore",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "base64编码图片"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图像修复",
+            "api_description": "在图片中指定位置框定一个规则矩形，去掉不需要的遮挡物，并用背景内容填充，提高图像质量。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/inpainting",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "rectangle",
+                "is_requirement": "true",
+                "type": "array[]",
+                "range": "-",
+                "description": "要去除的位置为规则矩形时，给出坐标信息，每个元素包含left, top, width, height，int type。如： [{'width': 92, 'top': 25, 'height': 36, 'left': 543}]  注意：上传宽高、位置坐标param_name要比图片实际宽高小"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "被修复的图片base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "修复后的base64编码图片"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图像清晰度增强",
+            "api_description": "对压缩后的模糊图像实现智能快速去噪，优化图像纹理细节，使画面更加自然清晰。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/image_definition_enhance",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "处理后图片的Base64编码"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图像色彩增强",
+            "api_description": "可智能调节图片的色彩饱和度、亮度、对比度，使得图片内容细节、色彩更加逼真，可用于提升网站图片、手机相册图片、视频封面图片的质量。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/color_enhance",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内。注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过10M(参考：原图大约为8M以内），最短边至少10px，最长边最大5000px，长宽比4：1以内，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "处理后图片的Base64编码。"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图片去摩尔纹",
+            "api_description": "去除翻拍电脑、手机等显示屏照片中的摩尔纹，使图片更加清晰。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/remove_moire",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "type": "string",
+                "is_requirement": "和 url/pdf_file 三选一",
+                "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file，当imageparam_name存在时，url、pdf_fileparam_name失效"
+              },
+              {
+                "param_name": "url",
+                "type": "string",
+                "is_requirement": "和 image/pdf_file 三选一",
+                "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file，当imageparam_name存在时，urlparam_name失效请注意关闭URL防盗链"
+              },
+              {
+                "param_name": "pdf_file",
+                "type": "string",
+                "is_requirement": "和 image/url 三选一",
+                "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file，当image、urlparam_name存在时，pdf_fileparam_name失效"
+              },
+              {
+                "param_name": "pdf_file_num",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "需要识别的PDF文件的对应页码，当 pdf_file param_name有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "is_requirement": "是",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "image_processed",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "去除摩尔纹后的图片base64编码"
+              },
+              {
+                "param_name": "pdf_file_size",
+                "type": "string",
+                "is_requirement": "否",
+                "description": "传入PDF文件的总页数，当 pdf_file param_name有效时返回该param_name"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "文档图片去底纹",
+            "api_description": "自动识别并去除文档图片中的底纹，使图片更加清晰，便于阅读。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/doc_repair",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "type": "string",
+                "is_requirement": "和url二选一",
+                "description": "图像数据，base64编码字符串，大小不超过4M，最短边至少50px，最长边最大4096px，支持jpg/bmp/png格式优先级：image > url"
+              },
+              {
+                "param_name": "url",
+                "type": "string",
+                "is_requirement": "和image二选一",
+                "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过4M，最短边至少50px，最长边最大4096px，支持jpg/bmp/png格式优先级：image > url，当imageparam_name存在时，urlparam_name失效"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "is_requirement": "是",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "result",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "返回处理后的图片，base64编码"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "图像去噪",
+            "api_description": "自动识别图片内（由成像设备或者外部环境导致的）噪点，进行去噪处理，使得图像更加干净，细节更加突出。常见应用场景为老照片修复、监控图片处理。示意图如下：\n",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-process/v1/denoise",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "type": "string",
+                "is_requirement": "和url二选一",
+                "range": "-",
+                "description": "图像数据，base64编码字符串，大小不超过4M，最短边至少50px，最长边最大4096px，支持jpg/bmp/png格式优先级：image > url"
+              },
+              {
+                "param_name": "url",
+                "type": "string",
+                "is_requirement": "和image二选一",
+                "range": "-",
+                "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过4M，最短边至少50px，最长边最大4096px，支持jpg/bmp/png格式优先级：image > url，当imageparam_name存在时，urlparam_name失效"
+              },
+              {
+                "param_name": "option",
+                "type": "int",
+                "is_requirement": "是",
+                "range": "在[0，200]区间内",
+                "description": "可用于调节去噪强度，产生不同效果的去噪图，可根据期望进行效果调试"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "type": "uint64",
+                "is_requirement": "是",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "result",
+                "type": "string",
+                "is_requirement": "是",
+                "description": "返回处理后的图片，base64编码"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "车型识别",
+            "api_description": "识别图片中车辆的具体车型，可识别常见的3000+款车型（小汽车为主），输出车辆的品牌型号、颜色、年份、位置信息；支持返回对应识别结果的百度百科词条信息，包含词条名称、百科页面链接、百科图片链接、百科内容简介。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/car",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少50px，最长边最大4096px，支持jpg/png/bmp格式 。注意：图片需要base64编码、去掉编码头后再进行urlencode。"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少50px，最长边最大4096px，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              },
+              {
+                "param_name": "top_num",
+                "is_requirement": "否",
+                "type": "uint32",
+                "range": "-",
+                "description": "返回结果top n，默认5。"
+              },
+              {
+                "param_name": "baike_num",
+                "is_requirement": "否",
+                "type": "integer",
+                "range": "0",
+                "description": "返回百科信息的结果数，默认不返回"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "color_result",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "车身颜色。共11种颜色，分别为白色、黑色、灰色、香槟色、黄色、红色、绿色、紫色、橙色、棕色、蓝色"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "是",
+                "type": "car-result()",
+                "description": "车型识别结果数组"
+              },
+              {
+                "param_name": "+name",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "车型名称，示例：宝马x6"
+              },
+              {
+                "param_name": "+score",
+                "is_requirement": "是",
+                "type": "double",
+                "description": "置信度，取值0-1，示例：0.5321"
+              },
+              {
+                "param_name": "+year",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "年份"
+              },
+              {
+                "param_name": "+baike_info",
+                "is_requirement": "否",
+                "type": "object",
+                "description": "对应车型识别结果的百科词条名称"
+              },
+              {
+                "param_name": "++baike_url",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "对应车型识别结果百度百科页面链接"
+              },
+              {
+                "param_name": "++image_url",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "对应车型识别结果百科图片链接"
+              },
+              {
+                "param_name": "++description",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "对应车型识别结果百科内容描述"
+              },
+              {
+                "param_name": "location_result",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "车辆在图片中的位置信息"
+              },
+              {
+                "param_name": "+width",
+                "is_requirement": "是",
+                "type": "float",
+                "description": "车辆区域的宽度"
+              },
+              {
+                "param_name": "+height",
+                "is_requirement": "是",
+                "type": "float",
+                "description": "车辆区域的高度"
+              },
+              {
+                "param_name": "+left",
+                "is_requirement": "是",
+                "type": "float",
+                "description": "车辆区域离左边界的距离"
+              },
+              {
+                "param_name": "+top",
+                "is_requirement": "是",
+                "type": "float",
+                "description": "车辆区域离上边界的距离"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "车辆检测",
+            "api_description": "传入单帧图像，检测图片中所有机动车辆，返回每辆车的type和坐标位置，可识别小汽车、卡车、巴士、摩托车、三轮车5类车辆，并对每类车辆分别计数，同时可定位小汽车、卡车、巴士的车牌位置，支持指定矩形区域的车辆检测与数量统计。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/vehicle_detect",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "range": "0-255彩色图像（base64编码）",
+                "description": "图像数据，Base64编码字符串，不超过4M。最短边至少50px，最长边最多4096px。支持图片格式：jpg，bmp，png。 注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "range": "0-255彩色图像（base64编码）",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少50px，最长边最大4096px，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              },
+              {
+                "param_name": "area",
+                "is_requirement": "否",
+                "type": "string",
+                "range": "小于原图像素范围",
+                "description": "只统计该矩形区域内的车辆数，缺省时为全图统计。逗号分隔，如‘x1,y1,x2,y2,x3,y3...xn,yn'，按顺序依次给出每个顶点的x、y坐标（默认尾点和首点相连），形成闭合矩形区域。服务会做范围（顶点左边需在图像范围内）及个数校验（数组长度必须为偶数，且为4个顶点）；目前只支持单个矩形区域。坐标取值不能超过图像宽度和高度，比如1280的宽度，坐标值最大到1279。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "vehicle_num",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "检测到的车辆数目"
+              },
+              {
+                "param_name": "+car",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "小汽车数量"
+              },
+              {
+                "param_name": "+truck",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "卡车数量"
+              },
+              {
+                "param_name": "+bus",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "巴士数量"
+              },
+              {
+                "param_name": "+motorbike",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "摩托车数量"
+              },
+              {
+                "param_name": "+tricycle",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "三轮车数量"
+              },
+              {
+                "param_name": "+carplate",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "车牌的数量，小汽车、卡车、巴士才能检测到车牌"
+              },
+              {
+                "param_name": "vehicle_info",
+                "is_requirement": "是",
+                "type": "object[]",
+                "description": "每个框的具体信息"
+              },
+              {
+                "param_name": "+location",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "检测到的目标坐标位置"
+              },
+              {
+                "param_name": "++left",
+                "is_requirement": "是",
+                "type": "int32",
+                "description": "目标检测框左坐标"
+              },
+              {
+                "param_name": "++top",
+                "is_requirement": "是",
+                "type": "int32",
+                "description": "目标检测框顶坐标"
+              },
+              {
+                "param_name": "++width",
+                "is_requirement": "是",
+                "type": "int32",
+                "description": "目标检测框宽度"
+              },
+              {
+                "param_name": "++height",
+                "is_requirement": "是",
+                "type": "int32",
+                "description": "目标检测框高度"
+              },
+              {
+                "param_name": "+type",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "目标物体type，car、truck、bus、motorbike、tricycle、carplate"
+              },
+              {
+                "param_name": "+probability",
+                "is_requirement": "是",
+                "type": "float",
+                "description": "置信度分数，取值0-1之间，越接近1description识别准确的概率越大"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "车辆外观损伤识别",
+            "api_description": "针对常见的小汽车车型，识别车辆外观受损部件及损伤type，支持32种车辆部件、5大类外观损伤。同时可输出损伤的数值化结果（长宽、面积、部件占比），支持单图多种损伤的识别。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v1/vehicle_damage",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "取值范围": "0-255彩色图像（base64编码）",
+                "description": "图像数据，Base64编码字符串，不超过4M。最短边至少50px，最长边最多4096px。支持图片格式：jpg，bmp，png。 注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "取值范围": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少50px，最长边最大4096px，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint32",
+                "description": "请求标识码，随机数，唯一；用于排查问题"
+              },
+              {
+                "param_name": "result",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "识别结果"
+              },
+              {
+                "param_name": "+description",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "检验图片效果是否满足识别要求，包含车辆检测、图片内容过滤两部分  1、图片符合要求时，返回very good，返回示例：\"Very good【车辆局部特写图】【1.000000】\" 2、图片不符合要求时，显示检验不通过的描述信息： 1）没检测到车辆，返回示例：\"No car detected !\" 2）检测到了车辆，但图片内容未通过校验，返回描述信息【前端过滤类别】【概率值】，返回示例：\"Failed【散落部件】【0.303969】\""
+              },
+              {
+                "param_name": "+damage_info",
+                "is_requirement": "否",
+                "type": "object[]",
+                "description": "部件损伤信息"
+              },
+              {
+                "param_name": "++parts",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "汽车零部件名称，共计支持32种零部件"
+              },
+              {
+                "param_name": "++type",
+                "is_requirement": "否",
+                "type": "unit32",
+                "description": "损伤类别，共计支持5类外观损伤；无损伤则返回“正常”\t。注：如果全图无损伤，则整个返回结果为空；某个部件的type为“正常”仅表示该部件无损伤。"
+              },
+              {
+                "param_name": "++probability",
+                "is_requirement": "否",
+                "type": "float",
+                "description": "概率打分"
+              },
+              {
+                "param_name": "++numeric_info",
+                "is_requirement": "否",
+                "type": "object[]",
+                "description": "损伤的数值化输出结果，如果有多处损伤，则有多个object；损伤的部件需拍摄完整，才能输出数值化结果，否则只返回部件名称和损伤类别，不输出数值化信息"
+              },
+              {
+                "param_name": "+++length",
+                "is_requirement": "否",
+                "type": "float",
+                "description": "损伤区域的长，单位厘米"
+              },
+              {
+                "param_name": "+++width",
+                "is_requirement": "否",
+                "type": "float",
+                "description": "损伤区域的宽，单位厘米"
+              },
+              {
+                "param_name": "+++area",
+                "is_requirement": "否",
+                "type": "float",
+                "description": "损伤区域的面积，为实际面积，不是单纯的长*宽"
+              },
+              {
+                "param_name": "+++ratio",
+                "is_requirement": "否",
+                "type": "float",
+                "description": "损伤区域面积相对于部件面积的占比，= 损伤区域面积 / 部件区域面积，均为实际面积，不是单纯的长*宽"
+              }
+            ],
+            "return_example": null
+          },
+          {
+            "api_name": "车辆属性识别",
+            "api_description": "传入单帧图像，检测图片中所有车辆，返回每辆车的type和坐标位置，可识别小汽车、卡车、巴士、三轮车、两轮车、车牌，并针对车辆识别24种外观属性，包括：是否有车窗雨眉、是否有车顶架、副驾驶是否有人、车身颜色、特种车type、渣土车满载等。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/image-classify/v2/vehicle_attr",
+            "header": "Content-Type:application/json",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "取值范围": "0-255彩色图像（base64编码）",
+                "description": "图像数据，Base64编码字符串，不超过4M。最短边至少50px，最长边最多4096px。支持图片格式：jpg/bmp/png。 注意：图片的base64编码是不包含图片头的，如（data:image/jpg;base64,）"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "取值范围": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少50px，最长边最大4096px，支持jpg/png/bmp格式，当imageparam_name存在时urlparam_name失效。"
+              },
+              {
+                "param_name": "type",
+                "is_requirement": "否",
+                "type": "string",
+                "取值范围": "",
+                "description": "是否选定某些属性输出对应的信息，可从24种输出属性中任选若干，用英文逗号分隔（例如top_holder,skylight,window_rain_eyebrow）。默认输出全部属性"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "vehicle_info",
+                "is_requirement": "是",
+                "type": "object数组",
+                "description": "每个框的具体信息"
+              },
+              {
+                "param_name": "vehicle_num",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "检测到的车辆框数目"
+              },
+              {
+                "param_name": "+location",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "检测到的车辆框位置"
+              },
+              {
+                "param_name": "++left",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "检测框左坐标"
+              },
+              {
+                "param_name": "++top",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "检测框顶坐标"
+              },
+              {
+                "param_name": "++width",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "检测框宽度"
+              },
+              {
+                "param_name": "++height",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "检测框高度"
+              },
+              {
+                "param_name": "++cls",
+                "is_requirement": "是",
+                "type": "int",
+                "description": "检测主体type，返回inttype的id，id对应内容如下：1:小汽车(car)；2:卡车(truck)；3:巴士(bus)；4:二轮车-主要为摩托车，含自行车(motorbike)；5:三轮车(tricycle)；6:车牌(carplate)；-1:图片中未检测到车辆(无检测结果)"
+              },
+              {
+                "param_name": "++score",
+                "is_requirement": "是",
+                "type": "float",
+                "description": "车辆置信度"
+              },
+              {
+                "param_name": "+attributes",
+                "is_requirement": "是",
+                "type": "object数组",
+                "description": "车辆属性内容（这里仅列举其中一个进行description，全部24个属性见属性param_namedescription）"
+              },
+              {
+                "param_name": "++top_holder",
+                "is_requirement": "否",
+                "type": "object",
+                "description": "车顶架"
+              },
+              {
+                "param_name": "++++name",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "无车顶架、有车顶架"
+              },
+              {
+                "param_name": "++++score",
+                "is_requirement": "否",
+                "type": "float",
+                "description": "对应概率分数"
+              }
+            ],
+            "return_example": null
+          }
+        ]
+      }
+    ]
+  }
+]

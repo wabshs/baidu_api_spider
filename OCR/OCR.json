@@ -16,70 +16,70 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过10M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "language_type",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "auto_detect CHN_ENGENGJAPKORFRESPAPORGERITARUSDANDUTMALSWEINDPOLROMTURGREHUNTHAVIEARAHIN",
                 "description": "识别语言类型，默认为CHN_ENG可选值包括：- auto_detect：自动检测语言，并识别- CHN_ENG：中英文混合- ENG：英文- JAP：日语- KOR：韩语- FRE：法语- SPA：西班牙语- POR：葡萄牙语- GER：德语- ITA：意大利语- RUS：俄语- DAN：丹麦语- DUT：荷兰语- MAL：马来语- SWE：瑞典语- IND：印尼语- POL：波兰语- ROM：罗马尼亚语- TUR：土耳其语- GRE：希腊语- HUN：匈牙利语- THA：泰语- VIE：越南语- ARA：阿拉伯语- HIN：印地语"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。可选值包括:- true：检测朝向；- false：不检测朝向"
               },
               {
                 "param_name": "paragraph",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否输出段落信息"
               },
               {
                 "param_name": "probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回识别结果中每一行的置信度"
@@ -88,67 +88,67 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "图像方向，当 detect_direction=true 时返回该字段。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
               },
               {
                 "param_name": "words_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示words_result的元素个数"
               },
               {
                 "param_name": "words_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "识别结果数组"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "识别结果字符串"
               },
               {
                 "param_name": "+ probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "识别结果中每一行的置信度值，包含average：行置信度平均值，variance：行置信度方差，min：行置信度最小值，当 probability=true 时返回该字段"
               },
               {
                 "param_name": "paragraphs_result",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "段落检测结果，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "+ words_result_idx",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "一个段落包含的行序号，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "paragraphs_result_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "识别结果数，表示 paragraphs_result的元素个数，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "pdf_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
               },
               {
                 "param_name": "ofd_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入OFD文件的总页数，当 ofd_file 参数有效时返回该字段"
               }
@@ -176,91 +176,91 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过10M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "language_type",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "auto_detectCHN_ENGENGJAPKORFRESPAPORGERITARUSDANDUTMALSWEINDPOLROMTURGREHUNTHAVIEARAHIN",
                 "description": "识别语言类型，默认为CHN_ENG可选值包括：- auto_detect：自动检测语言，并识别- CHN_ENG：中英文混合- ENG：英文- JAP：日语- KOR：韩语- FRE：法语- SPA：西班牙语- POR：葡萄牙语- GER：德语- ITA：意大利语- RUS：俄语- DAN：丹麦语- DUT：荷兰语- MAL：马来语- SWE：瑞典语- IND：印尼语- POL：波兰语- ROM：罗马尼亚语- TUR：土耳其语- GRE：希腊语- HUN：匈牙利语- THA：泰语- VIE：越南语- ARA：阿拉伯语- HIN：印地语"
               },
               {
                 "param_name": "eng_granularity",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "word/letter",
                 "description": "表示识别语言类型为「中英文（CHN_ENG）」的情况下，英文的单字符结果是按照单词（word）维度输出还是字母（letter）维度输出，当 recognize_granularity=small 时生效"
               },
               {
                 "param_name": "recognize_granularity",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "big/small",
                 "description": "是否定位单字符位置，big：不定位单字符位置，默认值；small：定位单字符位置"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。可选值包括:- true：检测朝向- false：不检测朝向输入非正向图片时，若想要达到较好识别效果，建议将此参数设置为“true”"
               },
               {
                 "param_name": "vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回文字外接多边形顶点位置，不支持单字位置。默认为false"
               },
               {
                 "param_name": "paragraph",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否输出段落信息"
               },
               {
                 "param_name": "probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回识别结果中每一行的置信度"
@@ -269,229 +269,229 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "图像方向，当 detect_direction=true 时返回该字段。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
               },
               {
                 "param_name": "words_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示words_result的元素个数"
               },
               {
                 "param_name": "words_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "识别结果数组"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "识别结果字符串"
               },
               {
                 "param_name": "+ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "++ left",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "++ top",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "++ width",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的宽度"
               },
               {
                 "param_name": "++ height",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的高度"
               },
               {
                 "param_name": "+ chars",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "单字符结果，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "++ char",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "单字符识别结果，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "++ location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "位置数组（坐标0点为左上角），当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "+++ left",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "+++ top",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "+++ width",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位定位位置的长方形的宽度，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "+++ height",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的高度，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "+ probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "识别结果中每一行的置信度值，包含average：行置信度平均值，variance：行置信度方差，min：行置信度最小值，当 probability=true 时返回该字段"
               },
               {
                 "param_name": "+ vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "识别结果中每一行的外包四边形点坐标，当 vertexes_location=true 时返回该字段"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "+ finegrained_vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "识别结果中每一行的多边形轮廓点坐标，当 vertexes_location=true  时返回该字段"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "+ min_finegrained_vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "表示 finegrained_poly_location对应的最小外包矩形点坐标，当 vertexes_location=true  时返回该字段"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "paragraphs_result_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "识别结果数，表示 paragraphs_result的元素个数，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "paragraphs_result",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "段落检测结果，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "+ words_result_idx",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "一个段落包含的行序号，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "+ finegrained_vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "识别结果中每一行的多边形轮廓点坐标，当 paragraph=true && vertexes_location=true 时返回该字段"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "+ min_finegrained_vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "识别结果中每一行的多边形轮廓点坐标，当 paragraph=true && vertexes_location=true 时返回该字段"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "pdf_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
               },
               {
                 "param_name": "ofd_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入OFD文件的总页数，当 ofd_file 参数有效时返回该字段"
               }
@@ -531,77 +531,77 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "language_type",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "CHN_ENGENGJAPKORFRESPAPORGERITARUS",
                 "description": "识别语言类型，默认为CHN_ENG可选值包括：- CHN_ENG：中英文混合- ENG：英文- JAP：日语- KOR：韩语- FRE：法语- SPA：西班牙语- POR：葡萄牙语- GER：德语- ITA：意大利语- RUS：俄语"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。可选值包括:- true：检测朝向；- false：不检测朝向。"
               },
               {
                 "param_name": "detect_language",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测语言，默认不检测，即：false。当前支持中文、英语、日语、韩语"
               },
               {
                 "param_name": "paragraph",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否输出段落信息"
               },
               {
                 "param_name": "probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回识别结果中每一行的置信度"
@@ -610,73 +610,73 @@
             "response_parameters": [
               {
                 "param_name": "direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "图像方向，当 detect_direction=true 时返回该字段。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
               },
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "words_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示words_result的元素个数"
               },
               {
                 "param_name": "words_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "识别结果数组"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "识别结果字符串"
               },
               {
                 "param_name": "+ probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "识别结果中每一行的置信度值，包含average：行置信度平均值，variance：行置信度方差，min：行置信度最小值，当 probability=true 时返回该字段"
               },
               {
                 "param_name": "paragraphs_result",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "段落检测结果，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "+ words_result_idx",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "一个段落包含的行序号，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "paragraphs_result_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "识别结果数，表示 paragraphs_result的元素个数，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "language",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "语种类型，当 detect_language=true 时返回该字段。- - 1：未定义，- 0：英文，- 1：日文，- 2：韩文，- 3：中文"
               },
               {
                 "param_name": "pdf_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
               },
               {
                 "param_name": "ofd_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入OFD文件的总页数，当 ofd_file 参数有效时返回该字段"
               }
@@ -704,91 +704,91 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "recognize_granularity",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "big/small",
                 "description": "是否定位单字符位置，big：不定位单字符位置，默认值；small：定位单字符位置"
               },
               {
                 "param_name": "language_type",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "CHN_ENGENGJAPKORFRESPAPORGERITARUS",
                 "description": "识别语言类型，默认为CHN_ENG可选值包括：- CHN_ENG：中英文混合- ENG：英文- JAP：日语- KOR：韩语- FRE：法语- SPA：西班牙语- POR：葡萄牙语- GER：德语- ITA：意大利语- RUS：俄语"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。可选值包括:- true：检测朝向- false：不检测朝向输入非正向图片时，若想要达到较好识别效果，建议将此参数设置为“true”"
               },
               {
                 "param_name": "detect_language",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测语言，默认不检测，即：false。当前支持中文、英语、日语、韩语"
               },
               {
                 "param_name": "paragraph",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否输出段落信息"
               },
               {
                 "param_name": "vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回文字外接多边形顶点位置，不支持单字位置。默认为false"
               },
               {
                 "param_name": "probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回识别结果中每一行的置信度"
@@ -797,235 +797,235 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "图像方向，当 detect_direction=true 时返回该字段。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
               },
               {
                 "param_name": "language",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "语种类型，当 detect_language=true 时返回该字段。- - 1：未定义，- 0：英文，- 1：日文，- 2：韩文，- 3：中文"
               },
               {
                 "param_name": "words_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示words_result的元素个数"
               },
               {
                 "param_name": "words_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "识别结果数组"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "识别结果字符串"
               },
               {
                 "param_name": "+ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "++ left",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "++ top",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "++ width",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的宽度"
               },
               {
                 "param_name": "++ height",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的高度"
               },
               {
                 "param_name": "+ chars",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "单字符结果，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "++ char",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "单字符识别结果，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "++ location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "位置数组（坐标0点为左上角），当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "+++ left",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "+++ top",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "+++ width",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位定位位置的长方形的宽度，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "+++ height",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示位置的长方形的高度，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "+ probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "表示识别结果中每一行的置信度值，包含average：行置信度平均值，variance：行置信度方差，min：行置信度最小值，当 probability=true 时返回该字段"
               },
               {
                 "param_name": "+ vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "识别结果中每一行的外包四边形点坐标，当 vertexes_location=true 时返回该字段"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "+ finegrained_vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "识别结果中每一行的多边形轮廓点坐标，当 vertexes_location=true 时返回该字段"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "+ min_finegrained_vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "表示 finegrained_poly_location对应的最小外包矩形点坐标，当 vertexes_location=true 时返回该字段"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "paragraphs_result",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "段落检测结果，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "+ words_result_idx",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "一个段落包含的行序号，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "+ finegrained_vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "识别结果中每一行的多边形轮廓点坐标，当 paragraph=true && vertexes_location=true 时返回该字段"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "+ min_finegrained_vertexes_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "表示 finegrained_poly_location对应的最小外包矩形点坐标，当 paragraph=true && vertexes_location=true 时返回该字段"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "paragraphs_result_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "识别结果数，表示 paragraphs_result 的元素个数，当 paragraph=true 时返回该字段"
               },
               {
                 "param_name": "pdf_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
               },
               {
                 "param_name": "ofd_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入OFD文件的总页数，当 ofd_file 参数有效时返回该字段"
               }
@@ -1065,119 +1065,119 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过10M，最短边至少15px，最长边最大8192px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过10M，最短边至少15px，最长边最大8192px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "language_type",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "CHN_ENG/ ENG",
                 "description": "识别语言类型，默认为CHN_ENG可选值包括：-CHN_ENG：中英文-ENG：英文"
               },
               {
                 "param_name": "result_type",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "big/small",
                 "description": "返回识别结果是按单行结果返回，还是按单字结果返回，默认为big。-big：返回行识别结果-small：返回行识别结果之上还会返回单字结果"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。其中，-0 ：正向  -1：逆时针旋转90度  -2：逆时针旋转180度  -3：逆时针旋转270度"
               },
               {
                 "param_name": "line_probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回每行识别结果的置信度。默认为false"
               },
               {
                 "param_name": "disp_line_poly",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回每行的四角点坐标。默认为false"
               },
               {
                 "param_name": "words_type",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "handwring_only/ handprint_mix",
                 "description": "文字类型。默认：手写印刷混排识别- handwring_only：手写文字识别- handprint_mix： 手写印刷混排识别"
               },
               {
                 "param_name": "layout_analysis",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否分析文档版面：包括layout（图、表、标题、段落、目录、印章）；attribute（栏、页眉、页脚、页码、脚注）的分析输出。默认为false"
               },
               {
                 "param_name": "erase_seal",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否先擦除水印、印章后再识别文档。默认为false"
               },
               {
                 "param_name": "recg_tables",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否识别并输出表格相关信息，包括单元格内容。默认为false"
               },
               {
                 "param_name": "recog_seal",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否识别并输出印章相关信息。默认为false"
               },
               {
                 "param_name": "disp_underline_analysis",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否识别下划线，默认false"
@@ -1186,523 +1186,523 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "img_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "detect_direction=true 时返回该字段。检测到的图像朝向，0 ：正向； 1：逆时针旋转90度；2：逆时针旋转180度；3：逆时针旋转270度"
               },
               {
                 "param_name": "results_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示results的元素个数"
               },
               {
                 "param_name": "results",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "识别结果数组"
               },
               {
                 "param_name": "+ words_type",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "文字属性（手写、印刷），handwriting 手写，print 印刷"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "整行的识别结果数组"
               },
               {
                 "param_name": "++ line_probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "line_probability=true时返回。识别结果中每一行的置信度值，包含average：行置信度平均值，min：行置信度最小值"
               },
               {
                 "param_name": "+++ average",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "float",
                 "description": "行置信度"
               },
               {
                 "param_name": "+++ min",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "float",
                 "description": "整行中单字的最低置信度"
               },
               {
                 "param_name": "++ word",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "float",
                 "description": "整行的识别结果"
               },
               {
                 "param_name": "++ poly_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "是否返回每行的四角点坐标，disp_line_poly=true时返回"
               },
               {
                 "param_name": "++ words_location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "整行的矩形框坐标。位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "+++ left",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "+++ top",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "+++ width",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位定位位置的长方形的宽度"
               },
               {
                 "param_name": "+++ height",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示位置的长方形的高度"
               },
               {
                 "param_name": "+ chars",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "result_type=small时返回。单字符结果数组"
               },
               {
                 "param_name": "++ char",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "result_type=small时返回。每个单字的内容"
               },
               {
                 "param_name": "++ chars_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "每个单字的矩形框坐标。位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "+++ left",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "+++ top",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "+++ width",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位定位位置的长方形的宽度"
               },
               {
                 "param_name": "+++ height",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示位置的长方形的高度"
               },
               {
                 "param_name": "underline",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "识别到的下划线识别结果，当disp_underline_analysis=true时返回"
               },
               {
                 "param_name": "+points",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "下划线坐标信息"
               },
               {
                 "param_name": "++end_x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "下划线终点x坐标"
               },
               {
                 "param_name": "++end_y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "下划线终点y坐标"
               },
               {
                 "param_name": "++start_x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "下划线起点x坐标"
               },
               {
                 "param_name": "++start_y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "下划线起点y坐标"
               },
               {
                 "param_name": "+prob",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "下划线置信度，取值范围在[0，1]之间"
               },
               {
                 "param_name": "layouts_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "版面分析结果数，表示layout的元素个数。layout_analysis=true时返回"
               },
               {
                 "param_name": "layouts",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "每个「栏：section」里面的文档版面模块数组，包含表格、图、段落文本、段落标题、表标题、图标题、文档标题、目录、印章等9个模块；每个模块的坐标位置；段落文本和表格内文本内容对应的行序号id。layout_analysis=true时返回"
               },
               {
                 "param_name": "+ layout",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "版面分析的标签结果。表格:table， 图:figure，文本:text，段落标题:title ，目录:contents，印章:seal，表标题: table_title，图标题: figure_title，文档标题：doc_title"
               },
               {
                 "param_name": "+layout_prob",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "当前版式检测框的概率大小"
               },
               {
                 "param_name": "+ layout_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "文档版面信息标签的位置，四个顶点: 左上，右上，右下，左下"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "+ layout_idx",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "文档版面信息中的文本在results结果中的位置：版面文本标签对应的行序号ID为n，则此标签中的文本在results结果中第n+1条展示）"
               },
               {
                 "param_name": "sec_rows",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "将所有的版面中的「栏:section」内容表示成 M x N 的网格，sec_rows = M。layout_analysis=true时返回"
               },
               {
                 "param_name": "sec_cols",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "将所有的版面中的「分栏」内容表示成 M x N 的网格，sec_cols = N。layout_analysis=true时返回"
               },
               {
                 "param_name": "sections",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "一张图片中包含的5大版面属性，包含：栏，页眉，页脚，页码，脚注，该数组里有属性的标签、属性的位置、属性所包含文本内容的id序号。 其中，栏（section）里面包含9个模块内容，有：表格、图、段落文本、段落标题、表标题、图标题、文档标题、目录、印章（在返回参数layouts里输出）。layout_analysis=true时返回"
               },
               {
                 "param_name": "+ attribute",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "版面分析的属性标签结果，栏:section, 页眉:header, 页脚:footer, 页码:number，脚注:footnote。"
               },
               {
                 "param_name": "+sections_prob",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "当前版面检测框的概率大小"
               },
               {
                 "param_name": "+ attri_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "版面分析的属性所在位置，四个顶点: 左上，右上，右下，左下"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "+ sec_idx",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "sections返回参数中的5个版面属性里，包含的内容序号标识数组"
               },
               {
                 "param_name": "++ idx",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "sections返回参数中的5个版面属性里，每个属性下包含的文本行id序号"
               },
               {
                 "param_name": "++ para_idx",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "当且仅当attribute=section时才会返回。表示，返回参数中的「栏：section」里面，所包含的表格、图、段落文本、段落标题、表标题、图标题、文档标题、目录、印章等9个模块返回的顺序号id（即layouts返回结果中，每个模块的返回顺序号）"
               },
               {
                 "param_name": "++ row_idx",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "当且仅当attribute=section时才会返回。表示，将所有栏表示成 M xN 的网格，所属网格的行的id。"
               },
               {
                 "param_name": "++ col_idx",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "当且仅当attribute=section时才会返回。表示，将所有栏表示成 M xN 的网格，所属网格的列的id。"
               },
               {
                 "param_name": "table_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "int",
                 "description": "检测到的表格数量，当recg_tables=true时返回"
               },
               {
                 "param_name": "tables_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "每个表格的内容数组，当recg_tables=true时返回"
               },
               {
                 "param_name": "+table_location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单个表格位置，四角点的x,y 坐标"
               },
               {
                 "param_name": "+header",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "表头信息"
               },
               {
                 "param_name": "++ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "表头位置，四角点的x,y 坐标"
               },
               {
                 "param_name": "++words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "表头信息，按行拆分"
               },
               {
                 "param_name": "+body",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格信息"
               },
               {
                 "param_name": "++cell_location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格四角点的x,y 坐标"
               },
               {
                 "param_name": "++row_start",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格行起始编号，横线编号从0开始"
               },
               {
                 "param_name": "++ row_end",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格行终止编号"
               },
               {
                 "param_name": "++ col_start",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格列起始编号，竖线编号从0开始"
               },
               {
                 "param_name": "++ col_end",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格列终止编号"
               },
               {
                 "param_name": "++ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "单元格文字内容"
               },
               {
                 "param_name": "++contents",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "单元格里的文本信息，分行展示"
               },
               {
                 "param_name": "+++poly_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "单元格每行文本位置信息"
               },
               {
                 "param_name": "+++ word",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "单元格每行文本内容"
               },
               {
                 "param_name": "+footer",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "表尾信息"
               },
               {
                 "param_name": "++ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "表尾位置，四角点的x,y 坐标"
               },
               {
                 "param_name": "++ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "表尾信息，按行拆分"
               },
               {
                 "param_name": "seal_recog_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "识别到的印章结果数，当recog_seal=true时返回"
               },
               {
                 "param_name": "seal_recog_results",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "印章内容数组，当recog_seal=true时返回"
               },
               {
                 "param_name": "+location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object{}",
                 "description": "印章位置信息（坐标0点为左上角）"
               },
               {
                 "param_name": "++left",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "++top",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "++width",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的宽度"
               },
               {
                 "param_name": "++height",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的高度"
               },
               {
                 "param_name": "+probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "float",
                 "description": "每一个印章的置信度值"
               },
               {
                 "param_name": "+type",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "印章的类别，共有circle（圆章），ellipse（椭圆章），rectangle（方章）三种"
               },
               {
                 "param_name": "+major",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object{}",
                 "description": "印章内主字段信息"
               },
               {
                 "param_name": "++words",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "主字段识别内容，即章内上环弯曲文字结果"
               },
               {
                 "param_name": "++probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "float",
                 "description": "主字段识别内容的置信度"
               },
               {
                 "param_name": "+minor",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "印章内其他字段信息，即除主字段外的识别内容均放置于该参数中返回，若章内不存在其他字段则该参数为空"
               },
               {
                 "param_name": "++words",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "其他字段识别内容"
               },
               {
                 "param_name": "++probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "float",
                 "description": "其他字段识别内容的置信度"
               },
               {
                 "param_name": "pdf_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
               },
               {
                 "param_name": "ofd_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入OFD文件的总页数，当 ofd_file 参数有效时返回该字段"
               }
@@ -1784,56 +1784,56 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。可选值包括:- true：检测朝向；- false：不检测朝向。"
               },
               {
                 "param_name": "detect_language",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测语言，默认不检测。当前支持（中文、英语、日语、韩语）"
@@ -1842,43 +1842,43 @@
             "response_parameters": [
               {
                 "param_name": "direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "图像方向，当 detect_direction=true 时返回该字段。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
               },
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "words_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "定位和识别结果数组"
               },
               {
                 "param_name": "words_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示words_result的元素个数"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "识别结果字符串"
               },
               {
                 "param_name": "probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "识别结果中每一行的置信度值，包含average：行置信度平均值，variance：行置信度方差，min：行置信度最小值"
               },
               {
                 "param_name": "pdf_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
               }
@@ -1909,70 +1909,70 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。可选值包括:- true：检测朝向；  - false：不检测朝向"
               },
               {
                 "param_name": "probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回每行识别结果的置信度。默认为false"
               },
               {
                 "param_name": "poly_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回文字所在区域的外接四边形的4个点坐标信息。默认为false"
               },
               {
                 "param_name": "recognize_granularity",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "big/small",
                 "description": "是否定位单字符位置，big：不定位单字符位置，默认值；small：定位单字符位置"
@@ -1981,133 +1981,133 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "图像方向，当 detect_direction=true 时返回该字段。检测到的图像朝向：- - 1：未定义；- 0 ：正向； - 1：逆时针旋转90度；- 2：逆时针旋转180度；- 3：逆时针旋转270度"
               },
               {
                 "param_name": "words_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "识别结果数组"
               },
               {
                 "param_name": "words_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示words_result的元素个数"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "整行的识别结果"
               },
               {
                 "param_name": "+ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "object",
                 "description": "整行的矩形框坐标。位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "++ left",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "++ top",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "++ width",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的宽度"
               },
               {
                 "param_name": "++ height",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的高度"
               },
               {
                 "param_name": "+ probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "当 probability=true 时返回该字段。识别结果中每一行的置信度值，包含average：行置信度平均值，variance：行置信度方差，min：行置信度最小值"
               },
               {
                 "param_name": "+ poly_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "当 probability=true 时返回该字段。文字所在区域的外接矩形的4个点坐标信息"
               },
               {
                 "param_name": "++ x",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "水平坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "++ y",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "垂直坐标（坐标0点为左上角）"
               },
               {
                 "param_name": "+ chars",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "单字符结果，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "++ char",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "单字符识别结果"
               },
               {
                 "param_name": "++ location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "每个单字的矩形框坐标。位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "+++ left",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "+++ top",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "+++ width",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位定位位置的长方形的宽度"
               },
               {
                 "param_name": "+++ height",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位定位位置的长方形的高度"
               },
               {
                 "param_name": "pdf_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
               }
@@ -2156,63 +2156,63 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "recognize_granularity",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "big/small",
                 "description": "是否定位单字符位置，big：不定位单字符位置，默认值；small：定位单字符位置"
               },
               {
                 "param_name": "probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否返回识别结果中每一行的置信度，默认为false，不返回置信度"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。可选值包括:true：检测朝向；false：不检测朝向"
@@ -2221,133 +2221,133 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "words_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示words_result的元素个数"
               },
               {
                 "param_name": "words_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "定位和识别结果数组"
               },
               {
                 "param_name": "+ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "object",
                 "description": "位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "++ left",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "++ top",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "++ width",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的宽度"
               },
               {
                 "param_name": "++ height",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的高度"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "识别结果字符串"
               },
               {
                 "param_name": "+ chars",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "单字符结果，当 recognize_granularity=small 时存返回该字段"
               },
               {
                 "param_name": "++ char",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "单字符识别结果"
               },
               {
                 "param_name": "++ candidates",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "单字符识别结果的候选词内容"
               },
               {
                 "param_name": "+++ word",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "单字符识别结果的候选词文字"
               },
               {
                 "param_name": "+++ prob",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "单字符识别结果的候选词置信度"
               },
               {
                 "param_name": "++ location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "+++ left",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "+++ top",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "+++ width",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位定位位置的长方形的宽度"
               },
               {
                 "param_name": "+++ height",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示位置的长方形的高度"
               },
               {
                 "param_name": "probability",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "当 probability=true 时返回该字段，表示识别结果中每一行的置信度值，包含：- average： 行置信度平均值- variance：行置信度方差- min：行置信度最小值"
               },
               {
                 "param_name": "direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "图像方向，当 detect_direction=true 时返回该字段。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
               },
               {
                 "param_name": "pdf_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
               }
@@ -2378,56 +2378,56 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "return_excel",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否输出excel文件，默认不输出，即：false。可选值包括：- true：输出excel，base64编码后输出 - false：不输出excel"
               },
               {
                 "param_name": "cell_contents",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否输出单元格文字位置信息，可选值包括： - false： 默认值，仅输出单元格行列信息及四角点坐标，不输出单元格内文字位置信息 - true： 输出单元格内文字的外接四边形四角点坐标，若文字折行，则分行分别输出"
@@ -2436,133 +2436,133 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "日志id，用于问题定位"
               },
               {
                 "param_name": "table_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "int",
                 "description": "检测到的表格数量"
               },
               {
                 "param_name": "tables_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "表格内容"
               },
               {
                 "param_name": "+ table_location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单个表格的四角点x,y坐标"
               },
               {
                 "param_name": "+ header",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "表头信息"
               },
               {
                 "param_name": "++ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "表头位置，四角点 x,y 坐标"
               },
               {
                 "param_name": "++ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "表头文字内容，按行拆分"
               },
               {
                 "param_name": "+ body",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格信息"
               },
               {
                 "param_name": "++ cell_location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格四角点x,y坐标"
               },
               {
                 "param_name": "++ row_start",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格行起始编号，横线编号从0开始"
               },
               {
                 "param_name": "++ row_end",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格行终止编号"
               },
               {
                 "param_name": "++ col_start",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格列起始编号，竖线编号从0开始"
               },
               {
                 "param_name": "++ col_end",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "单元格列终止编号"
               },
               {
                 "param_name": "++ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "单元格文字内容"
               },
               {
                 "param_name": "++ contents",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "单元格内文字内容，分行显示，当请求参数 cell_contents = true 时返回"
               },
               {
                 "param_name": "+++ poly_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "单元格内文字各行的四角点x,y坐标"
               },
               {
                 "param_name": "+++ word",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "单元格内分行文字内容"
               },
               {
                 "param_name": "+ footer",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "表尾信息"
               },
               {
                 "param_name": "++ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "表尾位置，四角点 x,y 坐标"
               },
               {
                 "param_name": "++ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "表尾信息，按行拆分"
               },
               {
                 "param_name": "pdf_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
               },
               {
                 "param_name": "excel_file",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "图像内表格转换为excel文件的base64编码，当 return_excel 参数为true时返回该字段"
               }
@@ -2726,42 +2726,42 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
@@ -2770,103 +2770,103 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示results的元素个数"
               },
               {
                 "param_name": "result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "定位结果数组"
               },
               {
                 "param_name": "+ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "object",
                 "description": "位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "++ left",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "++ top",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "++ width",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的宽度"
               },
               {
                 "param_name": "++ height",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的高度"
               },
               {
                 "param_name": "+ probability",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "float",
                 "description": "每一个识别结果的置信度值"
               },
               {
                 "param_name": "+ type",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "印章的类别，共有circle（圆章），ellipse（椭圆章），rectangle（方章）三种"
               },
               {
                 "param_name": "+ major",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "object",
                 "description": "主字段内容"
               },
               {
                 "param_name": "++ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "主字段识别内容，即章内上环弯曲文字结果"
               },
               {
                 "param_name": "++ probability",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "float",
                 "description": "主字段识别内容的置信度"
               },
               {
                 "param_name": "+ minor",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "其他字段内容，即除主字段外的文字识别内容均放置于该参数中返回，若章内不存在其他字段文字，则该参数为空"
               },
               {
                 "param_name": "++ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "其他字段识别内容"
               },
               {
                 "param_name": "++ probability",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "float",
                 "description": "其他字段识别内容的置信度"
               },
               {
                 "param_name": "pdf_file_size",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
               }
@@ -2908,56 +2908,56 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "recognize_granularity",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "big/small",
                 "description": "是否定位单字符位置，big：不定位单字符位置，默认值；small：定位单字符位置"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。 可选值包括- true：检测朝向；- false：不检测朝向"
@@ -2966,97 +2966,97 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "words_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示words_result的元素个数"
               },
               {
                 "param_name": "words_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "定位和识别结果数组"
               },
               {
                 "param_name": "+ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "object",
                 "description": "位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "++ left",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "++ top",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "++ width",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的宽度"
               },
               {
                 "param_name": "++ height",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的高度"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "识别结果字符串"
               },
               {
                 "param_name": "+ chars",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "array[]",
                 "description": "单字符结果，当 recognize_granularity=small 时返回该字段"
               },
               {
                 "param_name": "++ char",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "单字符识别结果"
               },
               {
                 "param_name": "++ location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "+++ left",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "+++ top",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "+++ width",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示定位定位位置的长方形的宽度"
               },
               {
                 "param_name": "+++ height",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "uint32",
                 "description": "表示位置的长方形的高度"
               }
@@ -3087,49 +3087,49 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 url/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file > ofd_file ，当image字段存在时，url、pdf_file、ofd_file 字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file/ofd_file 四选一",
+                "is_requirement": "和 image/pdf_file/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过8M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file > ofd_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url/ofd_file 四选一",
+                "is_requirement": "和 image/url/ofd_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "ofd_file",
-                "is_requirment": "和 image/url/pdf_file 四选一",
+                "is_requirement": "和 image/url/pdf_file 四选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "OFD文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过8M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file > ofd_file，当image、url、pdf_file字段存在时，ofd_file字段失效"
               },
               {
                 "param_name": "ofd_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "-",
                 "description": "需要识别的OFD文件的对应页码，当 ofd_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
               },
               {
                 "param_name": "location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否输出二维码/条形码位置信息 - false：默认值，不返回位置信息； - true：返回图中二维码/条形码的位置信息，包括上边距、左边距、宽度、高度"
@@ -3138,61 +3138,61 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "codes_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示codes_result的元素个数"
               },
               {
                 "param_name": "codes_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "定位和识别结果数组"
               },
               {
                 "param_name": "+ type",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "识别码类型条码类型包括：9种条形码（UPC_A、UPC_E、EAN_13、EAN_8、CODE_39、CODE_93、CODE_128、ITF、CODABAR），4种二维码（QR_CODE、DATA_MATRIX、AZTEC、PDF_417）"
               },
               {
                 "param_name": "+ text",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "条形码/二维码识别内容,目前仅支持输出中英文结果"
               },
               {
                 "param_name": "+location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object{}",
                 "description": "条形码/二维码位置信息，包括上边距、左边距、宽度、高度，当请求参数 location = true 时返回"
               },
               {
                 "param_name": "++ top",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "unit32",
                 "description": "条形码/二维码的上边距"
               },
               {
                 "param_name": "++ left",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "unit32",
                 "description": "条形码/二维码的左边距"
               },
               {
                 "param_name": "++ width",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "unit32",
                 "description": "条形码/二维码的宽度"
               },
               {
                 "param_name": "++ height",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "unit32",
                 "description": "条形码/二维码的高度"
               }
@@ -3294,25 +3294,25 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和 url/pdf_file 三选一",
+                "is_requirement": "和 url/pdf_file 三选一",
                 "type": "string",
                 "optional_range": "图像数据，base64编码后进行urlencode，需去掉编码头（data:image/jpeg;base64, ）要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式优先级： image > url > pdf_file，当image字段存在时，url、pdf_file字段失效"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和 image/pdf_file 三选一",
+                "is_requirement": "和 image/pdf_file 三选一",
                 "type": "string",
                 "optional_range": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式优先级： image > url > pdf_file，当image字段存在时url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "pdf_file",
-                "is_requirment": "和 image/url 三选一",
+                "is_requirement": "和 image/url 三选一",
                 "type": "string",
                 "optional_range": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不不超过10M优先级： image > url > pdf_file，当image、url字段存在时，pdf_file字段失效"
               },
               {
                 "param_name": "pdf_file_num",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容；若不传入，默认识别文件所有页，页码从1开始"
               }
@@ -3320,32 +3320,32 @@
             "response_parameters": [
               {
                 "param_name": "success",
-                "is_requirment": "bool",
+                "is_requirement": "bool",
                 "type": "当前请求状态； true 表示请求成功，false表示请求异常"
               },
               {
                 "param_name": "log_id",
-                "is_requirment": "uint64",
+                "is_requirement": "uint64",
                 "type": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "result",
-                "is_requirment": "dict",
+                "is_requirement": "dict",
                 "type": "返回的结果列表"
               },
               {
                 "param_name": "+ task_id",
-                "is_requirment": "string",
+                "is_requirement": "string",
                 "type": "该请求生成的task_id，后续使用该task_id获取识别结果"
               },
               {
                 "param_name": "code",
-                "is_requirment": "int",
+                "is_requirement": "int",
                 "type": "成功状态码"
               },
               {
                 "param_name": "message",
-                "is_requirment": "string",
+                "is_requirement": "string",
                 "type": "详情"
               }
             ],
@@ -3388,56 +3388,56 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和url二选一",
+                "is_requirement": "和url二选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和image二选一",
+                "is_requirement": "和image二选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "id_card_side",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "optional_range": "front/back",
                 "description": "-front：身份证含照片的一面-back：身份证带国徽的一面自动检测身份证正反面，如果传参指定方向与图片相反，支持正常识别，返回参数image_status字段为\"reversed_side\""
               },
               {
                 "param_name": "detect_risk",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否开启身份证风险类型(身份证复印件、临时身份证、身份证翻拍、修改过的身份证)检测功能，默认不开启，即：false。- true：开启，请查看返回参数risk_type；- false：不开启"
               },
               {
                 "param_name": "detect_quality",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否开启身份证质量类型(边框/四角不完整、头像或关键字段被遮挡/马赛克)检测功能，默认不开启，即：false。- true：开启，请查看返回参数card_quality；- false：不开启"
               },
               {
                 "param_name": "detect_photo",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测头像内容，默认不检测。可选值：true-检测头像并返回头像的 base64 编码及位置信息"
               },
               {
                 "param_name": "detect_card",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测身份证进行裁剪，默认不检测。可选值：true-检测身份证并返回证照的 base64 编码及位置信息"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测上传的身份证图片方向，默认不检测。可选值：-true：检测 - false：不检测"
@@ -3446,115 +3446,115 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "words_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "定位和识别结果数组"
               },
               {
                 "param_name": "words_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示words_result的元素个数"
               },
               {
                 "param_name": "direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "图像方向，输入参数 detect_direction= true 时返回。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
               },
               {
                 "param_name": "image_status",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "normal-识别正常reversed_side-身份证正反面颠倒non_idcard-上传的图片中不包含身份证blurred-身份证模糊other_type_card-其他类型证照over_exposure-身份证关键字段反光或过曝over_dark-身份证欠曝（亮度过低）unknown-未知状态"
               },
               {
                 "param_name": "risk_type",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "输入参数 detect_risk = true 时，则返回该字段识别身份证风险类型: normal-正常身份证；copy-复印件；temporary-临时身份证；screen-翻拍；unknown-其他未知情况"
               },
               {
                 "param_name": "edit_tool",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "如果参数 detect_risk = true 时，则返回此字段。如果检测身份证被编辑过，该字段指定编辑软件名称，如:Adobe Photoshop CC 2014 (Macintosh),如果没有被编辑过则返回值无此参数"
               },
               {
                 "param_name": "card_quality",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "输入参数 detect_quality = true 时，则返回该字段识别身份证质量类型: IsClear - 是否清晰；IsComplete - 是否边框/四角完整；IsNoCover - 是否头像、关键字段无遮挡/马赛克。及对应的概率：IsComplete_propobility、IsClear_propobility、IsNoCover_propobility，值在0-1之间，值越大表示图像质量越好。默认阈值（仅为推荐值，建议按照实际业务场景，基于图片返回的具体概率值，自定义设置判断阈值）：当 IsClear_propobility、IsComplete_propobility 超过0.5时，对应IsClear、IsComplete 返回1，低于0.5，则返回0；当 IsNoCover_propobility 超过0.3时，对应IsNoCover 返回1，低于0.3，则返回0"
               },
               {
                 "param_name": "photo",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "当请求参数 detect_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）"
               },
               {
                 "param_name": "photo_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "当请求参数 detect_photo = true时返回，头像的位置信息（坐标0点为左上角）"
               },
               {
                 "param_name": "card_image",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "当请求参数 detect_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）"
               },
               {
                 "param_name": "card_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "当请求参数 detect_card = true时返回，身份证裁剪切图的位置信息（坐标0点为左上角）"
               },
               {
                 "param_name": "idcard_number_type",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "int",
                 "description": "用于校验身份证号码、性别、出生是否一致，输出结果及其对应关系如下：- 1： 身份证正面所有字段全为空0： 身份证证号不合法，此情况下不返回身份证证号1： 身份证证号和性别、出生信息一致2： 身份证证号和性别、出生信息都不一致3： 身份证证号和出生信息不一致4： 身份证证号和性别信息不一致"
               },
               {
                 "param_name": "+ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "++ left",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "++ top",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "++ width",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的宽度"
               },
               {
                 "param_name": "++ height",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的高度"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "识别结果字符串"
               }
@@ -3579,56 +3579,56 @@
             "request_parameters": [
               {
                 "param_name": "image",
-                "is_requirment": "和url二选一",
+                "is_requirement": "和url二选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式"
               },
               {
                 "param_name": "url",
-                "is_requirment": "和image二选一",
+                "is_requirement": "和image二选一",
                 "type": "string",
                 "optional_range": "-",
                 "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
               },
               {
                 "param_name": "id_card_side",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "optional_range": "front/back",
                 "description": "-front：身份证含照片的一面-back：身份证带国徽的一面自动检测身份证正反面，如果传参指定方向与图片相反，支持正常识别，返回参数image_status字段为\"reversed_side\""
               },
               {
                 "param_name": "detect_risk",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否开启身份证风险类型(身份证复印件、临时身份证、身份证翻拍、修改过的身份证)检测功能，默认不开启，即：false。- true：开启，请查看返回参数risk_type；- false：不开启"
               },
               {
                 "param_name": "detect_quality",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否开启身份证质量类型(边框/四角不完整、头像或关键字段被遮挡/马赛克)检测功能，默认不开启，即：false。- true：开启，请查看返回参数card_quality；- false：不开启"
               },
               {
                 "param_name": "detect_photo",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测头像内容，默认不检测。可选值：true-检测头像并返回头像的 base64 编码及位置信息"
               },
               {
                 "param_name": "detect_card",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测身份证进行裁剪，默认不检测。可选值：true-检测身份证并返回证照的 base64 编码及位置信息"
               },
               {
                 "param_name": "detect_direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "optional_range": "true/false",
                 "description": "是否检测上传的身份证图片方向，默认不检测。可选值：-true：检测 - false：不检测"
@@ -3637,115 +3637,115 @@
             "response_parameters": [
               {
                 "param_name": "log_id",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint64",
                 "description": "唯一的log id，用于问题定位"
               },
               {
                 "param_name": "words_result",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "定位和识别结果数组"
               },
               {
                 "param_name": "words_result_num",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "识别结果数，表示words_result的元素个数"
               },
               {
                 "param_name": "direction",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "int32",
                 "description": "图像方向，输入参数 detect_direction= true 时返回。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
               },
               {
                 "param_name": "image_status",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "string",
                 "description": "normal-识别正常reversed_side-身份证正反面颠倒non_idcard-上传的图片中不包含身份证blurred-身份证模糊other_type_card-其他类型证照over_exposure-身份证关键字段反光或过曝over_dark-身份证欠曝（亮度过低）unknown-未知状态"
               },
               {
                 "param_name": "risk_type",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "输入参数 detect_risk = true 时，则返回该字段识别身份证风险类型: normal-正常身份证；copy-复印件；temporary-临时身份证；screen-翻拍；unknown-其他未知情况"
               },
               {
                 "param_name": "edit_tool",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "如果参数 detect_risk = true 时，则返回此字段。如果检测身份证被编辑过，该字段指定编辑软件名称，如:Adobe Photoshop CC 2014 (Macintosh),如果没有被编辑过则返回值无此参数"
               },
               {
                 "param_name": "card_quality",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "输入参数 detect_quality = true 时，则返回该字段识别身份证质量类型: IsClear - 是否清晰；IsComplete - 是否边框/四角完整；IsNoCover - 是否头像、关键字段无遮挡/马赛克。及对应的概率：IsComplete_propobility、IsClear_propobility、IsNoCover_propobility，值在0-1之间，值越大表示图像质量越好。默认阈值（仅为推荐值，建议按照实际业务场景，基于图片返回的具体概率值，自定义设置判断阈值）：当 IsClear_propobility、IsComplete_propobility 超过0.5时，对应IsClear、IsComplete 返回1，低于0.5，则返回0；当 IsNoCover_propobility 超过0.3时，对应IsNoCover 返回1，低于0.3，则返回0"
               },
               {
                 "param_name": "photo",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "当请求参数 detect_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）"
               },
               {
                 "param_name": "photo_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "当请求参数 detect_photo = true时返回，头像的位置信息（坐标0点为左上角）"
               },
               {
                 "param_name": "card_image",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "当请求参数 detect_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）"
               },
               {
                 "param_name": "card_location",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "object",
                 "description": "当请求参数 detect_card = true时返回，身份证裁剪切图的位置信息（坐标0点为左上角）"
               },
               {
                 "param_name": "idcard_number_type",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "int",
                 "description": "用于校验身份证号码、性别、出生是否一致，输出结果及其对应关系如下：- 1： 身份证正面所有字段全为空0： 身份证证号不合法，此情况下不返回身份证证号1： 身份证证号和性别、出生信息一致2： 身份证证号和性别、出生信息都不一致3： 身份证证号和出生信息不一致4： 身份证证号和性别信息不一致"
               },
               {
                 "param_name": "+ location",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "array[]",
                 "description": "位置数组（坐标0点为左上角）"
               },
               {
                 "param_name": "++ left",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的水平坐标"
               },
               {
                 "param_name": "++ top",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形左上顶点的垂直坐标"
               },
               {
                 "param_name": "++ width",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的宽度"
               },
               {
                 "param_name": "++ height",
-                "is_requirment": "是",
+                "is_requirement": "是",
                 "type": "uint32",
                 "description": "表示定位位置的长方形的高度"
               },
               {
                 "param_name": "+ words",
-                "is_requirment": "否",
+                "is_requirement": "否",
                 "type": "string",
                 "description": "识别结果字符串"
               }
@@ -3754,6 +3754,451 @@
               "log_id": "2648325511",
               "result": "密文"
             }
+          },
+          {
+            "api_name": "身份证混贴识别",
+            "api_description": "身份证混贴识别支持自动检测与识别身份证正反面在同一张图片上的场景，一次识别图片中身份证正反面所有字段。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/multi_idcard",
+            "header": "Content-Type:application/x-www-form-urlencoded",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "image",
+                "is_requirement": "和url二选一",
+                "type": "string",
+                "optional_range": "-",
+                "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式"
+              },
+              {
+                "param_name": "url",
+                "is_requirement": "和image二选一",
+                "type": "string",
+                "optional_range": "-",
+                "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+              },
+              {
+                "param_name": "detect_risk",
+                "is_requirement": "否",
+                "type": "string",
+                "optional_range": "true/false",
+                "description": "是否开启身份证风险类型(身份证复印件、临时身份证、身份证翻拍、修改过的身份证)功能，默认不开启，即：false。- true：开启，请查看返回参数risk_type；- false：不开启"
+              },
+              {
+                "param_name": "detect_quality",
+                "is_requirement": "否",
+                "type": "string",
+                "optional_range": "true/false",
+                "description": "是否开启身份证质量类型(边框/四角不完整、头像或关键字段被遮挡/马赛克)检测功能，默认不开启，即：false。- true：开启，请查看返回参数card_quality；- false：不开启"
+              },
+              {
+                "param_name": "detect_photo",
+                "is_requirement": "否",
+                "type": "string",
+                "optional_range": "true/false",
+                "description": "是否检测头像内容，默认不检测，即：false。- true：检测头像并返回头像的 base64 编码及位置信息；- false：不检测"
+              },
+              {
+                "param_name": "detect_card",
+                "is_requirement": "否",
+                "type": "string",
+                "optional_range": "true/false",
+                "description": "是否检测身份证进行裁剪，默认不检测，默认不检测，即：false。- true：检测身份证并返回证照的 base64 编码及位置信息；- false：不检测"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "words_result",
+                "is_requirement": "是",
+                "type": "array[]",
+                "description": "定位和识别结果数组"
+              },
+              {
+                "param_name": "+ card_info",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "识别结果信息，包含身份证的位置信息、风险检测信息、质量检测信息、正反面信息、方向信息"
+              },
+              {
+                "param_name": "++ card_location",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "身份证的位置信息（坐标0点为左上角）"
+              },
+              {
+                "param_name": "++ card_type",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "- idcard_front：身份证正面（头像面） - idcard_back：身份证反面（国徽面）"
+              },
+              {
+                "param_name": "direction",
+                "is_requirement": "是",
+                "type": "int32",
+                "description": "图像方向。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
+              },
+              {
+                "param_name": "++ image_status",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "normal-识别正常non_idcard-上传的图片中不包含身份证blurred-身份证模糊other_type_card-其他类型证照over_exposure-身份证关键字段反光或过曝over_dark-身份证欠曝（亮度过低）unknown-未知状态"
+              },
+              {
+                "param_name": "++ risk_type",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "输入参数 detect_risk = true 时，则返回该字段识别身份证类型: normal-正常身份证；copy-复印件；temporary-临时身份证；screen-翻拍；unknown-其他未知情况"
+              },
+              {
+                "param_name": "++ edit_tool",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "如果参数 detect_risk = true 时，则返回此字段。如果检测身份证被编辑过，该字段指定编辑软件名称，如:Adobe Photoshop CC 2014 (Macintosh),如果没有被编辑过则返回值无此参数"
+              },
+              {
+                "param_name": "card_quality",
+                "is_requirement": "否",
+                "type": "object",
+                "description": "输入参数 detect_quality = true 时，则返回该字段识别身份证质量类型: IsClear - 是否清晰；IsComplete - 是否边框/四角完整；IsNoCover - 是否头像、关键字段无遮挡/马赛克。及对应的概率：IsComplete_propobility、IsClear_propobility、IsNoCover_propobility，值在0-1之间，值越大表示图像质量越好。默认阈值（仅为推荐值，建议按照实际业务场景，基于图片返回的具体概率值，自定义设置判断阈值）：当 IsClear_propobility、IsComplete_propobility 超过0.5时，对应IsClear、IsComplete 返回1，低于0.5，则返回0；当 IsNoCover_propobility 超过0.3时，对应IsNoCover 返回1，低于0.3，则返回0"
+              },
+              {
+                "param_name": "++ photo",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "当请求参数 detect_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）"
+              },
+              {
+                "param_name": "++ photo_location",
+                "is_requirement": "否",
+                "type": "array[]",
+                "description": "当请求参数 detect_photo = true时返回，头像的位置信息（坐标0点为左上角）"
+              },
+              {
+                "param_name": "++ card_image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "当请求参数 detect_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）"
+              },
+              {
+                "param_name": "++ idcard_number_type",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "用于校验身份证号码、性别、出生是否一致，输出结果及其对应关系如下：- 1： 身份证正面所有字段全为空0： 身份证证号不合法，此情况下不返回身份证证号1： 身份证证号和性别、出生信息一致2： 身份证证号和性别、出生信息都不一致3： 身份证证号和出生信息不一致4： 身份证证号和性别信息不一致"
+              },
+              {
+                "param_name": "+ card_result",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "识别结果"
+              },
+              {
+                "param_name": "++ words",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "识别结果字符串"
+              },
+              {
+                "param_name": "++ location",
+                "is_requirement": "否",
+                "type": "object",
+                "description": "位置数组（坐标0点为左上角）"
+              },
+              {
+                "param_name": "+++ left",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形左上顶点的水平坐标"
+              },
+              {
+                "param_name": "+++ top",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形左上顶点的垂直坐标"
+              },
+              {
+                "param_name": "+++ width",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形的宽度"
+              },
+              {
+                "param_name": "+++ height",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形的高度"
+              }
+            ],
+            "return_example": {
+              "words_result": [
+                {
+                  "card_info": {
+                    "card_location": {
+                      "top": 121,
+                      "left": 687,
+                      "width": 501,
+                      "height": 323
+                    },
+                    "risk_type": "normal",
+                    "idcard_number_type": 1,
+                    "edit_tool": "",
+                    "image_status": "normal",
+                    "card_type": "idcard_front",
+                    "direction": 0
+                  },
+                  "card_result": {
+                    "姓名": {
+                      "words": "王媛",
+                      "location": {
+                        "top": 158,
+                        "left": 788,
+                        "width": 67,
+                        "height": 26
+                      }
+                    },
+                    "民族": {
+                      "words": "汉",
+                      "location": {
+                        "top": 204,
+                        "left": 884,
+                        "width": 19,
+                        "height": 21
+                      }
+                    },
+                    "住址": {
+                      "words": "北京市海淀区西北旺东路10号院",
+                      "location": {
+                        "top": 282,
+                        "left": 782,
+                        "width": 205,
+                        "height": 51
+                      }
+                    },
+                    "公民身份号码": {
+                      "words": "410433199510104518",
+                      "location": {
+                        "top": 385,
+                        "left": 863,
+                        "width": 266,
+                        "height": 29
+                      }
+                    },
+                    "出生": {
+                      "words": "19951010",
+                      "location": {
+                        "top": 240,
+                        "left": 784,
+                        "width": 163,
+                        "height": 25
+                      }
+                    },
+                    "性别": {
+                      "words": "女",
+                      "location": {
+                        "top": 202,
+                        "left": 789,
+                        "width": 19,
+                        "height": 22
+                      }
+                    }
+                  }
+                },
+                {
+                  "card_info": {
+                    "card_location": {
+                      "top": 526,
+                      "left": 66,
+                      "width": 524,
+                      "height": 323
+                    },
+                    "risk_type": "normal",
+                    "edit_tool": "",
+                    "image_status": "normal",
+                    "card_type": "idcard_back",
+                    "direction": 0
+                  },
+                  "card_result": {
+                    "失效日期": {
+                      "words": "20350413",
+                      "location": {
+                        "top": 801,
+                        "left": 394,
+                        "width": 95,
+                        "height": 19
+                      }
+                    },
+                    "签发机关": {
+                      "words": "北京市公安局海淀分局",
+                      "location": {
+                        "top": 760,
+                        "left": 290,
+                        "width": 180,
+                        "height": 19
+                      }
+                    },
+                    "签发日期": {
+                      "words": "20150413",
+                      "location": {
+                        "top": 801,
+                        "left": 289,
+                        "width": 89,
+                        "height": 19
+                      }
+                    }
+                  }
+                }
+              ],
+              "direction": 0,
+              "log_id": 1397109704106180608
+            }
+          },
+          {
+            "api_name": "身份证混贴识别",
+            "api_description": "身份证混贴识别支持自动检测与识别身份证正反面在同一张图片上的场景，一次识别图片中身份证正反面所有字段。",
+            "method": "POST",
+            "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/multi_idcard",
+            "header": "Content-Type:application/x-www-form-urlencoded",
+            "url_param": "access_token",
+            "request_parameters": [
+              {
+                "param_name": "Content-Type",
+                "is_requirement": "application/x-www-form-urlencoded"
+              }
+            ],
+            "response_parameters": [
+              {
+                "param_name": "log_id",
+                "is_requirement": "是",
+                "type": "uint64",
+                "description": "唯一的log id，用于问题定位"
+              },
+              {
+                "param_name": "words_result",
+                "is_requirement": "是",
+                "type": "array[]",
+                "description": "定位和识别结果数组"
+              },
+              {
+                "param_name": "+ card_info",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "识别结果信息，包含身份证的位置信息、风险检测信息、质量检测信息、正反面信息、方向信息"
+              },
+              {
+                "param_name": "++ card_location",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "身份证的位置信息（坐标0点为左上角）"
+              },
+              {
+                "param_name": "++ card_type",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "- idcard_front：身份证正面（头像面） - idcard_back：身份证反面（国徽面）"
+              },
+              {
+                "param_name": "direction",
+                "is_requirement": "是",
+                "type": "int32",
+                "description": "图像方向。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
+              },
+              {
+                "param_name": "++ image_status",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "normal-识别正常non_idcard-上传的图片中不包含身份证blurred-身份证模糊other_type_card-其他类型证照over_exposure-身份证关键字段反光或过曝over_dark-身份证欠曝（亮度过低）unknown-未知状态"
+              },
+              {
+                "param_name": "++ risk_type",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "输入参数 detect_risk = true 时，则返回该字段识别身份证类型: normal-正常身份证；copy-复印件；temporary-临时身份证；screen-翻拍；unknown-其他未知情况"
+              },
+              {
+                "param_name": "++ edit_tool",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "如果参数 detect_risk = true 时，则返回此字段。如果检测身份证被编辑过，该字段指定编辑软件名称，如:Adobe Photoshop CC 2014 (Macintosh),如果没有被编辑过则返回值无此参数"
+              },
+              {
+                "param_name": "card_quality",
+                "is_requirement": "否",
+                "type": "object",
+                "description": "输入参数 detect_quality = true 时，则返回该字段识别身份证质量类型: IsClear - 是否清晰；IsComplete - 是否边框/四角完整；IsNoCover - 是否头像、关键字段无遮挡/马赛克。及对应的概率：IsComplete_propobility、IsClear_propobility、IsNoCover_propobility，值在0-1之间，值越大表示图像质量越好。默认阈值（仅为推荐值，建议按照实际业务场景，基于图片返回的具体概率值，自定义设置判断阈值）：当 IsClear_propobility、IsComplete_propobility 超过0.5时，对应IsClear、IsComplete 返回1，低于0.5，则返回0；当 IsNoCover_propobility 超过0.3时，对应IsNoCover 返回1，低于0.3，则返回0"
+              },
+              {
+                "param_name": "++ photo",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "当请求参数 detect_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）"
+              },
+              {
+                "param_name": "++ photo_location",
+                "is_requirement": "否",
+                "type": "array[]",
+                "description": "当请求参数 detect_photo = true时返回，头像的位置信息（坐标0点为左上角）"
+              },
+              {
+                "param_name": "++ card_image",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "当请求参数 detect_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）"
+              },
+              {
+                "param_name": "++ idcard_number_type",
+                "is_requirement": "是",
+                "type": "string",
+                "description": "用于校验身份证号码、性别、出生是否一致，输出结果及其对应关系如下：- 1： 身份证正面所有字段全为空0： 身份证证号不合法，此情况下不返回身份证证号1： 身份证证号和性别、出生信息一致2： 身份证证号和性别、出生信息都不一致3： 身份证证号和出生信息不一致4： 身份证证号和性别信息不一致"
+              },
+              {
+                "param_name": "+ card_result",
+                "is_requirement": "是",
+                "type": "object",
+                "description": "识别结果"
+              },
+              {
+                "param_name": "++ words",
+                "is_requirement": "否",
+                "type": "string",
+                "description": "识别结果字符串"
+              },
+              {
+                "param_name": "++ location",
+                "is_requirement": "否",
+                "type": "object",
+                "description": "位置数组（坐标0点为左上角）"
+              },
+              {
+                "param_name": "+++ left",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形左上顶点的水平坐标"
+              },
+              {
+                "param_name": "+++ top",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形左上顶点的垂直坐标"
+              },
+              {
+                "param_name": "+++ width",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形的宽度"
+              },
+              {
+                "param_name": "+++ height",
+                "is_requirement": "否",
+                "type": "uint32",
+                "description": "表示定位位置的长方形的高度"
+              }
+            ],
+            "return_example": ""
           }
         ]
       }

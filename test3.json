@@ -1,0 +1,945 @@
+[
+  {
+    "api_name": "试卷分析与识别",
+    "api_description": "可对文档版面进行分析，输出图、表、标题、文本的位置，并输出分版块内容的OCR识别结果，支持中、英两种语言，手写、印刷体混排多种场景，支持公式识别。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/doc_analysis",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file 三选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file，当image字段存在时，url、pdf_file字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file 三选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url 三选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "language_type",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "CHN_ENG/ ENG",
+        "description": "识别语言类型，默认为CHN_ENG可选值包括：= CHN_ENG：中英文= ENG：英文"
+      },
+      {
+        "param_name": "result_type",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "big/small",
+        "description": "返回识别结果是按单行结果返回，还是按单字结果返回，默认为big。= big：返回行识别结果= small：返回行识别结果之上还会返回单字结果"
+      },
+      {
+        "param_name": "detect_direction",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。其中，0 ：正向  1：逆时针旋转90度  2：逆时针旋转180度  3：逆时针旋转270度"
+      },
+      {
+        "param_name": "line_probability",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回每行识别结果的置信度。默认为false"
+      },
+      {
+        "param_name": "disp_line_poly",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回每行的四角点坐标。默认为false"
+      },
+      {
+        "param_name": "words_type",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "handwring_only/ handprint_mix",
+        "description": "文字类型。默认：印刷文字识别= handwring_only：手写文字识别= handprint_mix： 手写印刷混排识别"
+      },
+      {
+        "param_name": "layout_analysis",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否分析文档版面：包括layout（图、表、标题、段落、目录）；attribute（栏、页眉、页脚、页码、脚注）的分析输出"
+      },
+      {
+        "param_name": "recg_formula",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否检测并识别公式，默认为false，公式以 Latex 格式文本返回。=true：检测并识别公式=false：不检测识别公式"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "img_direction",
+        "is_requirement": "否",
+        "type": "int32",
+        "description": "detect_direction=true 时返回。检测到的图像朝向，0 ：正向； 1：逆时针旋转90度；2：逆时针旋转180度；3：逆时针旋转270度"
+      },
+      {
+        "param_name": "results_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示results的元素个数"
+      },
+      {
+        "param_name": "results",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "识别结果数组"
+      },
+      {
+        "param_name": "+ words_type",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "文字属性（手写、印刷），handwriting 手写，print 印刷"
+      },
+      {
+        "param_name": "+ words",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "整行的识别结果数组。"
+      },
+      {
+        "param_name": "++ line_probability",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "line_probability=true 时返回。识别结果中每一行的置信度值，包含average：行置信度平均值，min：行置信度最小值"
+      },
+      {
+        "param_name": "+++ average",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "行置信度"
+      },
+      {
+        "param_name": "+++ min",
+        "is_requirement": "否",
+        "type": "float",
+        "description": "整行中单字的最低置信度"
+      },
+      {
+        "param_name": "++ word",
+        "is_requirement": "是",
+        "type": "float",
+        "description": "整行的识别结果"
+      },
+      {
+        "param_name": "++ poly_location",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "是否返回每行的四角点坐标，disp_line_poly=true时返回"
+      },
+      {
+        "param_name": "++ words_location",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "整行的矩形框坐标。位置数组（坐标0点为左上角）"
+      },
+      {
+        "param_name": "+++ left",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的水平坐标"
+      },
+      {
+        "param_name": "+++ top",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的垂直坐标"
+      },
+      {
+        "param_name": "+++ width",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位定位位置的长方形的宽度"
+      },
+      {
+        "param_name": "+++ height",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示位置的长方形的高度"
+      },
+      {
+        "param_name": "+ chars",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "result_type=small 时返回。单字符结果数组"
+      },
+      {
+        "param_name": "++ char",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "result_type=small 时返回。每个单字的内容"
+      },
+      {
+        "param_name": "++ chars_location",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "每个单字的矩形框坐标。位置数组（坐标0点为左上角）"
+      },
+      {
+        "param_name": "+++ left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的水平坐标"
+      },
+      {
+        "param_name": "+++ top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的垂直坐标"
+      },
+      {
+        "param_name": "+++ width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示定位定位位置的长方形的宽度"
+      },
+      {
+        "param_name": "+++ height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示位置的长方形的高度"
+      },
+      {
+        "param_name": "formula_result",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "识别结果中的公式数组，包括公式位置和公式内容，recg_formula=true时返回"
+      },
+      {
+        "param_name": "+ form_location",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "识别结果中公式的矩形框坐标数组（坐标0点为左上角）"
+      },
+      {
+        "param_name": "+ form_words",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "识别结果中公式的内容"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "将普通文字和公式融合后的识别结果数组，recg_formula=true时返回"
+      },
+      {
+        "param_name": "+ location",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "识别结果中整行的矩形框坐标数组（坐标0点为左上角）"
+      },
+      {
+        "param_name": "+ words",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "识别结果中整行的内容"
+      },
+      {
+        "param_name": "+ chars",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "单字符结果数组，公式整体作为一个单字，result_type=small 时返回"
+      },
+      {
+        "param_name": "++ char",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "每个单字的内容"
+      },
+      {
+        "param_name": "++ chars_location",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "每个单字的矩形框坐标数组（坐标0点为左上角）"
+      },
+      {
+        "param_name": "layouts_num",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "版面分析结果数，表示layout的元素个数"
+      },
+      {
+        "param_name": "layouts",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "每个「栏：section」里面的文档版面模块数组，包含表格、图、段落文本、标题、目录等5个模块；每个模块的坐标位置；段落文本和表格内文本内容对应的行序号id。"
+      },
+      {
+        "param_name": "+ layout",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "版面分析的标签结果。表格:table, 图:figure, 文本:text, 标题:title ，目录:contents"
+      },
+      {
+        "param_name": "+ layout_location",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "文档版面信息标签的位置，四个顶点: 左上，右上，右下，左下"
+      },
+      {
+        "param_name": "++ x",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "水平坐标（坐标0点为左上角）"
+      },
+      {
+        "param_name": "++ y",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "水平坐标（坐标0点为左上角）"
+      },
+      {
+        "param_name": "+ layout_idx",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "文档版面信息中的文本在results结果中的位置：版面文本标签对应的行序号ID为n，则此标签中的文本在results结果中第n+1条展示）"
+      },
+      {
+        "param_name": "sec_rows",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "将所有的版面中的「栏:section」内容表示成 M x N 的网格，sec_rows = M"
+      },
+      {
+        "param_name": "sec_cols",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "将所有的版面中的「分栏」内容表示成 M x N 的网格，sec_cols = N"
+      },
+      {
+        "param_name": "sections",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "一张图片中包含的5大版面属性，包含：栏，页眉，页脚，页码，脚注，该数组里有属性的标签、属性的位置、属性所包含文本内容的id序号。 其中，栏（section）里面包含5个模块内容，有：表格、图、段落文本、标题、目录（在返回参数layouts里输出）。"
+      },
+      {
+        "param_name": "+ attribute",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "版面分析的属性标签结果，栏:section, 页眉:header, 页脚:footer, 页码:number，脚注:footnote。"
+      },
+      {
+        "param_name": "+ attri_location",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "版面分析的属性所在位置，四个顶点: 左上，右上，右下，左下"
+      },
+      {
+        "param_name": "++ x",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "水平坐标（坐标0点为左上角）"
+      },
+      {
+        "param_name": "++ y",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "水平坐标（坐标0点为左上角）"
+      },
+      {
+        "param_name": "+ sec_idx",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "sections返回参数中的5个版面属性里，包含的内容序号标识"
+      },
+      {
+        "param_name": "++ idx",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "sections返回参数中的5个版面属性里，每个属性下包含的文本行id序号"
+      },
+      {
+        "param_name": "++ para_idx",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "当且仅当attribute=section时才会返回。表示，返回参数中的「栏：section」里面，所包含的表格、图、段落文本、标题、目录等5个模块返回的顺序号id（即layouts返回结果中，每个模块的返回顺序号）"
+      },
+      {
+        "param_name": "++ row_idx",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "当且仅当attribute=section时才会返回。表示，将所有栏表示成 M xN 的网格，所属网格的行的id。"
+      },
+      {
+        "param_name": "++ col_idx",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "当且仅当attribute=section时才会返回。表示，将所有栏表示成 M xN 的网格，所属网格的列的id。"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      }
+    ],
+    "return_example": {
+      "results_num": 6,
+      "log_id": "4488766695474114139",
+      "img_direction": 0,
+      "layouts_num": 0,
+      "results": [
+        {
+          "words_type": "print",
+          "words": {
+            "words_location": {
+              "top": 124,
+              "left": 136,
+              "width": 418,
+              "height": 65
+            },
+            "word": "五默写(4分)"
+          }
+        },
+        {
+          "words_type": "print",
+          "words": {
+            "words_location": {
+              "top": 246,
+              "left": 136,
+              "width": 37,
+              "height": 45
+            },
+            "word": "1"
+          }
+        },
+        {
+          "words_type": "handwriting",
+          "words": {
+            "words_location": {
+              "top": 195,
+              "left": 237,
+              "width": 469,
+              "height": 104
+            },
+            "word": "采菊东篱下"
+          }
+        },
+        {
+          "words_type": "print",
+          "words": {
+            "words_location": {
+              "top": 241,
+              "left": 889,
+              "width": 287,
+              "height": 52
+            },
+            "word": "悠然见南山?"
+          }
+        },
+        {
+          "words_type": "print",
+          "words": {
+            "words_location": {
+              "top": 415,
+              "left": 134,
+              "width": 472,
+              "height": 52
+            },
+            "word": "2.商女不知亡国恨"
+          }
+        },
+        {
+          "words_type": "handwriting",
+          "words": {
+            "words_location": {
+              "top": 377,
+              "left": 607,
+              "width": 556,
+              "height": 93
+            },
+            "word": "隔江犹唱后庭花。"
+          }
+        }
+      ],
+      "formula_result": [
+        {
+          "form_location": {
+            "top": 0,
+            "left": 97,
+            "width": 151,
+            "height": 77
+          },
+          "form_words": " x = \frac { 1 } { n - 1 } - 1 1 \frac { \frac { 5 } { 2 } } { 5 }"
+        },
+        {
+          "form_location": {
+            "top": 119,
+            "left": 118,
+            "width": 115,
+            "height": 80
+          },
+          "form_words": " = sqrt { \frac { x } { 2 } ( x - 1 ) ^ { 2 } }"
+        },
+        {
+          "form_location": {
+            "top": 196,
+            "left": 78,
+            "width": 17,
+            "height": 24
+          },
+          "form_words": " x ^ { 2 }"
+        },
+        {
+          "form_location": {
+            "top": 244,
+            "left": 79,
+            "width": 103,
+            "height": 70
+          },
+          "form_words": " s = \frac { sum _ { i = 0 } { m } cdot i v } { - 1 }"
+        }
+      ],
+      "words_result": [
+        {
+          "location": {
+            "top": 164,
+            "left": 255,
+            "width": 111,
+            "height": 16
+          },
+          "words": "其中m表示考生"
+        },
+        {
+          "location": {
+            "top": 198,
+            "left": 24,
+            "width": 341,
+            "height": 18
+          },
+          "words": "的人数  x ^ { 2 } 表示的是滴个考上的第i题等分，"
+        }
+      ]
+    }
+  },
+  {
+    "api_name": "公式识别",
+    "api_description": "支持对试卷中的数学公式及题目内容进行识别，可提取公式部分进行单独识别，也可对题目和公式进行混合识别，并返回Latex格式公式内容及位置信息，便于进行后续处理。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/formula",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和url二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，需去掉编码头（data:image/jpeg;base64, ）要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和image二选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整URL，URL长度不超过1024字节，URL对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/jpeg/png/bmp格式，当image字段存在时url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "recognize_granularity",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "big/small",
+        "description": "是否定位单字符位置，big：不定位单字符位置；small：定位单字符位置。默认值为big"
+      },
+      {
+        "param_name": "detect_direction",
+        "is_requirement": "否",
+        "type": "bool",
+        "range": "true/false",
+        "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。可选值包括:- true：检测朝向；- false：不检测朝向。"
+      },
+      {
+        "param_name": "disp_formula",
+        "is_requirement": "否",
+        "type": "bool",
+        "range": "true/false",
+        "description": "是否分离输出公式识别结果，在words_result外单独输出公式结果，展示在“formula_result”中"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "direction",
+        "is_requirement": "否",
+        "type": "int32",
+        "description": "图像方向，当detect_direction=true时存在。- - 1：未定义，- 0：正向，- 1： 逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
+      },
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "formula_result",
+        "is_requirement": "否",
+        "type": "bool",
+        "description": "是否返回单独公式识别结果，默认false"
+      },
+      {
+        "param_name": "formula_result_num",
+        "is_requirement": "否",
+        "type": "bool",
+        "description": "识别结果中的公式个数，表示formula_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "识别结果数组"
+      },
+      {
+        "param_name": "+ location",
+        "is_requirement": "是",
+        "type": "object{}",
+        "description": "位置数组（坐标0点为左上角）"
+      },
+      {
+        "param_name": "++ left",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的水平坐标"
+      },
+      {
+        "param_name": "++ top",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的垂直坐标"
+      },
+      {
+        "param_name": "++ width",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形的宽度"
+      },
+      {
+        "param_name": "++ height",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形的高度"
+      },
+      {
+        "param_name": "+ words",
+        "is_requirement": "是",
+        "type": "string",
+        "description": "识别结果字符串"
+      }
+    ],
+    "return_example": {
+      "log_id": 2671713289176456793,
+      "direction": 0,
+      "formula_result_num": 3,
+      "formula_result": [
+        {
+          "location": {
+            "width": 258,
+            "top": 265,
+            "left": 450,
+            "height": 204
+          },
+          "words": "\left\{ \begin{aligned} & x = - 1 1 \\ & y = 2 \\ \end{aligned} \right. "
+        },
+        {
+          "location": {
+            "width": 429,
+            "top": 546,
+            "left": 310,
+            "height": 203
+          },
+          "words": "\left\{ \begin{aligned} & 3 x + 2 y = m \\ & n x - y = 2 \\ \end{aligned} \right. "
+        },
+        {
+          "location": {
+            "width": 142,
+            "top": 613,
+            "left": 1029,
+            "height": 71
+          },
+          "words": "m - \left[ 1 0 0 , - \infty \right) "
+        }
+      ],
+      "words_result_num": 5,
+      "words_result": [
+        {
+          "location": {
+            "width": 168,
+            "top": 313,
+            "left": 292,
+            "height": 110
+          },
+          "words": "已知"
+        },
+        {
+          "location": {
+            "width": 258,
+            "top": 265,
+            "left": 450,
+            "height": 204
+          },
+          "words": "\left\{ \begin{aligned} & x = - 1 1 \\ & y = 2 \\ \end{aligned} \right. "
+        },
+        {
+          "location": {
+            "width": 582,
+            "top": 319,
+            "left": 728,
+            "height": 84
+          },
+          "words": "是二元一次方程组"
+        },
+        {
+          "location": {
+            "width": 429,
+            "top": 546,
+            "left": 310,
+            "height": 203
+          },
+          "words": "\left\{ \begin{aligned} & 3 x + 2 y = m \\ & n x - y = 2 \\ \end{aligned} \right."
+        },
+        {
+          "location": {
+            "width": 780,
+            "top": 597,
+            "left": 745,
+            "height": 88
+          },
+          "words": "的解,则 m - \left[ 1 0 0 , - \infty \right) 的值是()"
+        }
+      ]
+    }
+  },
+  {
+    "api_name": "词典笔文字识别",
+    "api_description": "面向词典笔应用场景，是词典笔的基本功能之一，主要用于扫描文字并识别，为字词查询和翻译提供文本信息支撑。支持中英文识别、印刷手写混排识别，满足多种复杂背景下的文字扫描识别。",
+    "method": "POST",
+    "base_url": "https://aip.baidubce.com/rest/2.0/ocr/v1/pen",
+    "header": "Content-Type:application/json",
+    "url_param": "access_token",
+    "request_parameters": [
+      {
+        "param_name": "image",
+        "is_requirement": "和 url/pdf_file 三选一",
+        "type": "string",
+        "range": "-",
+        "description": "图像数据，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式 优先级：image > url > pdf_file，当image字段存在时，url、pdf_file字段失效"
+      },
+      {
+        "param_name": "url",
+        "is_requirement": "和 image/pdf_file 三选一",
+        "type": "string",
+        "range": "-",
+        "description": "图片完整url，url长度不超过1024字节，url对应的图片base64编码后大小不超过4M，最短边至少15px，最长边最大4096px，支持jpg/jpeg/png/bmp格式优先级：image > url > pdf_file，当image字段存在时，url字段失效请注意关闭URL防盗链"
+      },
+      {
+        "param_name": "pdf_file",
+        "is_requirement": "和 image/url 三选一",
+        "type": "string",
+        "range": "-",
+        "description": "PDF文件，base64编码后进行urlencode，要求base64编码和urlencode后大小不超过4M，最短边至少15px，最长边最大4096px优先级：image > url > pdf_file，当image、url字段存在时，pdf_file字段失效"
+      },
+      {
+        "param_name": "pdf_file_num",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "-",
+        "description": "需要识别的PDF文件的对应页码，当 pdf_file 参数有效时，识别传入页码的对应页面内容，若不传入，则默认识别第 1 页"
+      },
+      {
+        "param_name": "recognize_granularity",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "big/small",
+        "description": "是否定位单字符位置，big：不定位单字符位置，默认值；small：定位单字符位置"
+      },
+      {
+        "param_name": "detect_direction",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否检测图像朝向，默认不检测，即：false。朝向是指输入图像是正常方向、逆时针旋转90/180/270度。可选值包括:- true：检测朝向；- false：不检测朝向。"
+      },
+      {
+        "param_name": "probability",
+        "is_requirement": "否",
+        "type": "string",
+        "range": "true/false",
+        "description": "是否返回识别结果中每一行的置信度"
+      }
+    ],
+    "response_parameters": [
+      {
+        "param_name": "log_id",
+        "is_requirement": "是",
+        "type": "uint64",
+        "description": "唯一的log id，用于问题定位"
+      },
+      {
+        "param_name": "direction",
+        "is_requirement": "否",
+        "type": "int32",
+        "description": "图像方向，当 detect_direction=true 时返回该字段。- - 1：未定义，- 0：正向，- 1：逆时针90度，- 2：逆时针180度，- 3：逆时针270度"
+      },
+      {
+        "param_name": "words_result_num",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "识别结果数，表示words_result的元素个数"
+      },
+      {
+        "param_name": "words_result",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "识别结果数组"
+      },
+      {
+        "param_name": "+ words",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "识别结果字符串"
+      },
+      {
+        "param_name": "+ location",
+        "is_requirement": "是",
+        "type": "array[]",
+        "description": "位置数组（坐标0点为左上角）"
+      },
+      {
+        "param_name": "++ left",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的水平坐标"
+      },
+      {
+        "param_name": "++ top",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的垂直坐标"
+      },
+      {
+        "param_name": "++ width",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形的宽度"
+      },
+      {
+        "param_name": "++ height",
+        "is_requirement": "是",
+        "type": "uint32",
+        "description": "表示定位位置的长方形的高度"
+      },
+      {
+        "param_name": "+ chars",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "单字符结果，当 recognize_granularity=small 时返回该字段"
+      },
+      {
+        "param_name": "++ char",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "单字符识别结果，当 recognize_granularity=small 时返回该字段"
+      },
+      {
+        "param_name": "++ location",
+        "is_requirement": "否",
+        "type": "array[]",
+        "description": "位置数组（坐标0点为左上角），当 recognize_granularity=small 时返回该字段"
+      },
+      {
+        "param_name": "+++ left",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的水平坐标，当 recognize_granularity=small 时返回该字段"
+      },
+      {
+        "param_name": "+++ top",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示定位位置的长方形左上顶点的垂直坐标，当 recognize_granularity=small 时返回该字段"
+      },
+      {
+        "param_name": "+++ width",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示定位位置的长方形的宽度，当 recognize_granularity=small 时返回该字段"
+      },
+      {
+        "param_name": "+++ height",
+        "is_requirement": "否",
+        "type": "uint32",
+        "description": "表示定位位置的长方形的高度，当 recognize_granularity=small 时返回该字段"
+      },
+      {
+        "param_name": "+ probability",
+        "is_requirement": "否",
+        "type": "object",
+        "description": "识别结果中每一行的置信度值，包含average：行置信度平均值，variance：行置信度方差，min：行置信度最小值，当 probability=true 时返回该字段"
+      },
+      {
+        "param_name": "pdf_file_size",
+        "is_requirement": "否",
+        "type": "string",
+        "description": "传入PDF文件的总页数，当 pdf_file 参数有效时返回该字段"
+      }
+    ],
+    "return_example": {
+      "words_result_num": 1,
+      "words_result": [
+        {
+          "probability": {
+            "average": 0.9977043867,
+            "min": 0.974070549,
+            "variance": 0.00003904080586
+          },
+          "words": "了文献研究法和调查问卷法。广泛收集和查阅国内外相关文",
+          "location": {
+            "top": 848,
+            "left": 98,
+            "width": 1087,
+            "height": 47
+          }
+        }
+      ],
+      "direction": 0,
+      "log_id": 1663011878006764485
+    }
+  }
+]
